@@ -1,4 +1,5 @@
 <title>Volge × Nestwork — Coworking Management Platform Proposal</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB2aWV3Qm94PSIwIDAgMzAwIDMwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48cmVjdCB3aWR0aD0iMzAwIiBoZWlnaHQ9IjMwMCIgcng9IjQ4IiBmaWxsPSIjMWMxYzFjIi8+PHRleHQgeD0iMTUwIiB5PSIyMDUiIHRleHQtYW5jaG9yPSJtaWRkbGUiIGZvbnQtZmFtaWx5PSJBcmlhbCxIZWx2ZXRpY2Esc2Fucy1zZXJpZiIgZm9udC13ZWlnaHQ9IjcwMCIgZm9udC1zaXplPSIxNzAiIGxldHRlci1zcGFjaW5nPSItNiI+PHRzcGFuIGZpbGw9IiNmZmZmZmYiPm48L3RzcGFuPjx0c3BhbiBmaWxsPSIjN2JjN2NmIj52PC90c3Bhbj48L3RleHQ+PC9zdmc+">
 
 <style>
 /* ============================================================
@@ -688,6 +689,65 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 .ticker-item .tk{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:#fff;flex:none}
 .ticker-item .tk svg{width:13px;height:13px}
 
+/* PAYMENTS (member app) */
+.rentbanner{border:1px solid var(--accent-line);background:linear-gradient(135deg,var(--accent-soft),transparent);border-radius:16px;padding:15px;margin-bottom:14px;display:flex;align-items:center;gap:13px}
+.rentbanner .rb-ic{width:42px;height:42px;border-radius:11px;background:var(--accent);color:#fff;display:grid;place-items:center;flex:none}
+.rentbanner .rb-ic svg{width:20px;height:20px}
+.rentbanner .rb-t{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.rentbanner .rb-v{font-family:var(--f-display);font-weight:750;color:var(--ink);font-size:19px;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px}
+.rentbanner .rb-d{font-size:11.5px;color:var(--body);margin-top:3px}
+.rentbanner .rb-btn{margin-left:auto;background:var(--accent);color:#fff;border:none;border-radius:30px;padding:10px 15px;font-family:var(--f-mono);font-size:12px;cursor:pointer;white-space:nowrap;transition:.2s}
+.rentbanner .rb-btn:active{transform:scale(.95)}
+.rentbanner.paid{border-color:rgba(15,122,83,.4);background:linear-gradient(135deg,rgba(15,122,83,.1),transparent)}
+.rentbanner.paid .rb-ic{background:var(--good)}
+.balhead{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:14px}
+.balhead .bl{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.balhead .bv{font-family:var(--f-display);font-weight:770;color:var(--ink);font-size:26px;font-variant-numeric:tabular-nums}
+.invcard{border:1px solid var(--border);border-radius:14px;padding:15px;margin-bottom:12px;transition:.25s}
+.invcard .ic-h{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.invcard .ic-n{color:var(--ink);font-weight:650;font-size:14.5px}
+.invcard .ic-s{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:4px;line-height:1.4}
+.invcard .ic-amt{font-family:var(--f-display);font-weight:700;color:var(--ink);font-size:17px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.invcard .ic-pay{width:100%;margin-top:13px;background:var(--accent);color:#fff;border:none;border-radius:11px;padding:12px;font-family:var(--f-mono);font-size:13px;letter-spacing:.03em;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:9px;transition:.2s}
+.invcard .ic-pay:active{transform:scale(.98)}
+.invcard .ic-pay[disabled]{opacity:.75;cursor:default}
+.invcard.paid{border-color:rgba(15,122,83,.35);background:rgba(15,122,83,.05)}
+.invcard .paidtag{font-family:var(--f-mono);font-size:11px;color:var(--good);display:flex;align-items:center;gap:6px;white-space:nowrap}
+.invcard .paidtag svg{width:14px;height:14px}
+.invcard .recpt{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:9px}
+.spin{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.paymethod{border:1px solid var(--border);border-radius:12px;padding:12px;margin:16px 0 6px;display:flex;align-items:center;gap:12px;background:var(--panel)}
+.paymethod .pm-ic{width:40px;height:27px;border-radius:5px;background:linear-gradient(135deg,#1a1f71,#3b6fd4);display:grid;place-items:center;color:#fff;font-family:var(--f-display);font-weight:750;font-size:10px;flex:none}
+.paymethod .pm-n{color:var(--ink);font-weight:600;font-size:13.5px}
+.paymethod .pm-s{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:2px}
+.paymethod .pm-ch{margin-left:auto;font-family:var(--f-mono);font-size:11px;color:var(--accent);cursor:pointer}
+.paynote{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);text-align:center;margin-top:14px;display:flex;align-items:center;justify-content:center;gap:6px;line-height:1.5}
+.paynote svg{width:13px;height:13px;color:var(--good);flex:none}
+.notifpay{margin-top:9px;background:var(--accent);color:#fff;border:none;border-radius:20px;padding:7px 15px;font-family:var(--f-mono);font-size:11px;cursor:pointer;transition:.2s}
+.notifpay:active{transform:scale(.96)}
+/* ONBOARDING / REGISTRATION (member app) */
+.onboard{border:1px solid var(--border);border-radius:16px;padding:14px;margin-bottom:14px;display:flex;align-items:center;gap:12px;background:var(--ground);cursor:pointer;transition:.25s}
+.onboard:hover{border-color:var(--accent)}
+.onboard .ob-ic{width:42px;height:42px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.onboard .ob-ic svg{width:20px;height:20px}
+.onboard .ob-t{color:var(--ink);font-weight:650;font-size:14px}
+.onboard .ob-d{font-size:12px;color:var(--muted);margin-top:2px}
+.onboard .ob-ar{margin-left:auto;color:var(--accent)}
+.onboard .ob-ar svg{width:18px;height:18px}
+.onboard.done{cursor:default}
+.onboard.done .ob-ic{background:rgba(15,122,83,.12);color:var(--good)}
+.regintro{border:1px solid var(--border);border-radius:12px;padding:13px;background:var(--panel);margin-bottom:14px;font-size:12.5px;color:var(--body);line-height:1.5}
+.reg-sec{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin:20px 0 12px;display:flex;align-items:center;gap:9px}
+.reg-sec::after{content:"";flex:1;height:1px;background:var(--border)}
+.sigpad{border:1.5px dashed var(--accent-line);border-radius:12px;background:var(--panel);position:relative;touch-action:none;overflow:hidden}
+.sigpad canvas{display:block;width:100%;height:150px}
+.sigpad .sig-ph{position:absolute;inset:0;display:grid;place-items:center;color:var(--muted);font-size:13px;pointer-events:none;font-family:var(--f-mono)}
+.sigpad.drawn .sig-ph{display:none}
+.sig-clear{background:none;border:none;color:var(--accent);font-family:var(--f-mono);font-size:11px;cursor:pointer;margin-top:8px;padding:0}
+.reg-check{display:flex;gap:10px;align-items:flex-start;margin:18px 0 4px;font-size:12.5px;color:var(--body);cursor:pointer;line-height:1.45}
+.reg-check input{margin-top:1px;accent-color:var(--accent);width:17px;height:17px;flex:none}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .reveal,.stag>*{opacity:1!important;transform:none!important}
@@ -1008,6 +1068,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
               <div class="ascreen on" id="s-home">
                 <div class="sc-title">Good morning, Layla</div>
                 <div class="sc-sub">Design Republic LLC · West Bay</div>
+                <div id="homeRent"></div>
                 <div class="ent-widget">
                   <svg class="ring" id="entRing" viewBox="0 0 42 42"></svg>
                   <div>
@@ -1020,6 +1081,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                   <button class="qbtn" data-goto="rooms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><b>Book a room</b></button>
                   <button class="qbtn" data-goto="tickets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b>New ticket</b></button>
                 </div>
+                <div id="homeOnboard"></div>
                 <div class="sec-h">Announcements <a data-goto="ann">See all</a></div>
                 <div id="homeAnn"></div>
                 <div class="sec-h">Upcoming bookings</div>
@@ -1070,12 +1132,18 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
               <div class="ascreen" id="s-newticket">
                 <div class="sc-title">New ticket</div>
                 <div class="sc-sub">SLA timer starts the moment you submit</div>
-                <div class="afield"><label>Category</label>
+                <div class="afield"><label>What's the issue about?</label>
                   <div class="chips" id="tCat">
-                    <span class="chip on" data-v="Facilities">Facilities</span>
-                    <span class="chip" data-v="IT / Wi-Fi">IT / Wi-Fi</span>
+                    <span class="chip on" data-v="My office">My office</span>
+                    <span class="chip" data-v="Wi-Fi / Internet">Wi-Fi / Internet</span>
+                    <span class="chip" data-v="Printer / Scanner">Printer / Scanner</span>
+                    <span class="chip" data-v="Air conditioning">Air conditioning</span>
+                    <span class="chip" data-v="Electricity">Electricity</span>
                     <span class="chip" data-v="Cleaning">Cleaning</span>
-                    <span class="chip" data-v="Access">Access</span>
+                    <span class="chip" data-v="Furniture">Furniture</span>
+                    <span class="chip" data-v="Access card">Access card</span>
+                    <span class="chip" data-v="Meeting room">Meeting room</span>
+                    <span class="chip" data-v="IT support">IT support</span>
                   </div>
                 </div>
                 <div class="afield"><label>Priority</label>
@@ -1085,7 +1153,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                     <span class="chip p-high" data-v="High">High</span>
                   </div>
                 </div>
-                <div class="afield"><label>Describe the issue</label><textarea id="tDesc" placeholder="e.g. Meeting room AC not cooling in Pearl Boardroom"></textarea></div>
+                <div class="afield"><label>Describe the issue</label><textarea id="tDesc" placeholder="e.g. The printer on our floor is jammed · the AC in Office 12 isn't cooling · Wi-Fi keeps dropping"></textarea></div>
                 <div class="afield"><label>Attachment</label>
                   <button class="btn btn-ghost appbtn" id="tAttach" style="justify-content:flex-start;text-transform:none;letter-spacing:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.5L12.5 21a5 5 0 0 1-7-7l8.5-8.5a3.5 3.5 0 1 1 5 5L10.5 18"/></svg> <span id="tAttachL">Add a photo</span></button>
                 </div>
@@ -1114,6 +1182,42 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                 <div class="sc-sub">Everything you need to work here</div>
                 <div id="guideList"></div>
               </div>
+
+              <!-- REGISTRATION / ONBOARDING SCREEN -->
+              <div class="ascreen" id="s-register">
+                <div class="sc-title">Office registration</div>
+                <div class="sc-sub">Onboarding form · takes about 2 minutes</div>
+                <div class="regintro">Nestwork uses these details to activate your office and access cards. Your office is registered under your company name. Fields marked * are required.</div>
+
+                <div class="reg-sec">Company &amp; office</div>
+                <div class="afield"><label>Company name *</label><input id="rgCompany" placeholder="e.g. Design Republic LLC"></div>
+                <div class="afield two"><div><label>Office no. *</label><select id="rgOffice"></select></div><div><label>Location *</label><select id="rgLoc"></select></div></div>
+                <div class="afield"><label>Membership type</label>
+                  <div class="chips" id="rgType"><span class="chip on" data-v="Private office">Private office</span><span class="chip" data-v="Serviced office">Serviced office</span><span class="chip" data-v="Suite">Suite</span><span class="chip" data-v="Enterprise floor">Enterprise floor</span></div>
+                </div>
+                <div class="afield two"><div><label>No. of members</label><input id="rgMembers" inputmode="numeric" placeholder="e.g. 6"></div><div><label>CR number</label><input id="rgCR" placeholder="Commercial reg."></div></div>
+
+                <div class="reg-sec">Authorised signatory</div>
+                <div class="afield"><label>Full name *</label><input id="rgName" placeholder="As printed on QID"></div>
+                <div class="afield two"><div><label>QID number *</label><input id="rgQID" inputmode="numeric" placeholder="11 digits"></div><div><label>Nationality</label><input id="rgNat" placeholder="e.g. Qatari"></div></div>
+                <div class="afield two"><div><label>Phone *</label><input id="rgPhone" inputmode="tel" placeholder="+974 …"></div><div><label>Email *</label><input id="rgEmail" inputmode="email" placeholder="name@company.com"></div></div>
+
+                <div class="reg-sec">Signature</div>
+                <div class="sigpad" id="sigPad"><canvas id="sigCanvas"></canvas><div class="sig-ph">✍  Sign here with your finger or mouse</div></div>
+                <button class="sig-clear" id="sigClear">Clear signature</button>
+
+                <label class="reg-check"><input type="checkbox" id="rgConsent"> I confirm the information above is accurate, and I agree to Nestwork's membership terms &amp; privacy policy.</label>
+
+                <button class="btn btn-primary appbtn" id="rgSubmit" style="margin-top:16px">Submit registration</button>
+                <button class="btn btn-ghost appbtn" id="rgBack" style="margin-top:10px">Back</button>
+              </div>
+
+              <!-- PAYMENTS SCREEN -->
+              <div class="ascreen" id="s-pay">
+                <div class="sc-title">Rent &amp; invoices</div>
+                <div class="sc-sub">Billing · pay securely from the app</div>
+                <div id="invoiceArea"></div>
+              </div>
             </div>
 
             <!-- notifications sheet -->
@@ -1132,6 +1236,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
               <button data-tab="tickets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="tl">Tickets</span></button>
               <button data-tab="directory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17.5" cy="8.5" r="2.5"/><path d="M21 19c0-2-1.5-3.5-3.5-4"/></svg><span class="tl">Directory</span></button>
               <button data-tab="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h7M8 11h7"/></svg><span class="tl">Guide</span></button>
+              <button data-tab="pay"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg><span class="tl">Pay</span></button>
             </div>
           </div>
         </div>
@@ -1540,24 +1645,28 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   /* ============================ MEMBER APP ============================ */
   var LOCS=[
     {id:"westbay",name:"West Bay · Burj Al Gassar",short:"West Bay",rate:145,rooms:[
-      {n:"Pearl Boardroom",cap:12,x:1,avail:true},{n:"Onaiza Meeting Room",cap:6,x:.75,avail:true},{n:"Focus Room",cap:4,x:.6,avail:false}]},
+      {n:"Room A",cap:12,x:1,avail:true},{n:"Room B",cap:6,x:.7,avail:true}]},
     {id:"souq",name:"Souq Waqif · Alfardan Centre",short:"Souq Waqif",rate:130,rooms:[
-      {n:"Grand Hamad Suite",cap:12,x:1,avail:true},{n:"Heritage Room",cap:8,x:.8,avail:true},{n:"Majlis Room",cap:4,x:.6,avail:true}]},
+      {n:"Room A",cap:10,x:1,avail:true},{n:"Room B",cap:6,x:.7,avail:true}]},
     {id:"lusail",name:"Lusail · Burj Alfardan",short:"Lusail",rate:150,rooms:[
-      {n:"Marina Boardroom",cap:16,x:1,avail:true},{n:"Crescent Room",cap:8,x:.8,avail:true},{n:"Quiet Room",cap:2,x:.5,avail:true}]},
+      {n:"Room A",cap:14,x:1,avail:true},{n:"Room B",cap:8,x:.7,avail:true}]},
     {id:"msheireb",name:"Msheireb · M7",short:"Msheireb",rate:135,rooms:[
-      {n:"Innovation Suite",cap:14,x:1,avail:true},{n:"Collaboration Room",cap:8,x:.8,avail:true},{n:"Huddle Room",cap:4,x:.6,avail:true}]}
+      {n:"Room A",cap:12,x:1,avail:true},{n:"Room B",cap:6,x:.7,avail:true}]}
   ];
   var VAT=0.00; // Qatar: no standard VAT; engine supports any rate per FIN spec
   var ENT=10;
-  var app={remain:ENT,used:0,billed:0,loc:0,room:0,dur:2,date:0,start:2,bookings:[],notifs:[],notifSeen:false,seq:1042,tseq:5051};
+  var app={remain:ENT,used:0,billed:0,loc:0,room:0,dur:2,date:0,start:2,bookings:[],notifs:[],notifSeen:false,seq:1042,tseq:5051,
+    rent:{id:"INV-1043",label:"Monthly rent · West Bay",sub:"1–31 July 2026 · Design Republic LLC",amount:6000,due:"15 Jul 2026",paid:false},
+    overagePaid:false};
   app.notifs=[
-    {i:"cal",h:"Booking confirmed — Doha Meeting Room",d:"Tomorrow 10:00, 2h · free hours applied",t:"2h"},
-    {i:"mega",h:"Chiller maintenance · Level 7",d:"Sat 08:00–12:00, some AC zones affected",t:"1d"}
+    {i:"invoice",h:"Rent invoice ready — INV-1043",d:"QAR 6,000 · due 15 Jul · pay from the app",t:"now",pay:true},
+    {i:"cal",h:"Booking confirmed — Room A · West Bay",d:"Tomorrow 10:00, 2h · free hours applied",t:"2h"},
+    {i:"mega",h:"Chiller maintenance · West Bay",d:"Sat 08:00–12:00, some AC zones affected",t:"1d"}
   ];
   var tickets=[
-    {id:5049,n:"Wi-Fi drops in Pearl Boardroom",cat:"IT / Wi-Fi",prio:"High",st:"progress",sla:0.35,due:"2h 10m"},
-    {id:5044,n:"Extra chairs for Studio",cat:"Facilities",prio:"Normal",st:"resolved",sla:1,due:"Resolved"}
+    {id:5049,n:"Wi-Fi keeps dropping in our office",cat:"Wi-Fi / Internet",prio:"High",st:"progress",sla:0.35,due:"2h 10m"},
+    {id:5047,n:"Printer on Level 7 is out of toner",cat:"Printer / Scanner",prio:"Normal",st:"open",sla:0.7,due:"5h 40m"},
+    {id:5044,n:"AC in Office 12 not cooling",cat:"Air conditioning",prio:"Normal",st:"resolved",sla:1,due:"Resolved"}
   ];
   var announcements=[
     {tag:"Event",unread:true,h:"Founders' Breakfast · Thursday 8:30",d:"Networking over coffee in the Level 7 lounge. All members welcome."},
@@ -1580,9 +1689,12 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   ];
 
   /* --- app tabs / screens --- */
-  var screens=["home","rooms","book","tickets","newticket","ann","directory","guide"];
+  var screens=["home","rooms","book","tickets","newticket","ann","directory","guide","pay","register"];
   function show(scr){ screens.forEach(function(s){var el=$("#s-"+s);if(el)el.classList.toggle("on",s===scr)});
     $$("#tabbar button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-tab")===scr)});
+    if(scr==="pay"||scr==="home")renderPayments();
+    if(scr==="home")renderOnboard();
+    if(scr==="register")requestAnimationFrame(initSig);
     var sc=$("#appScroll"); if(sc)sc.scrollTop=0;
   }
   $$("#tabbar button").forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-tab"))})});
@@ -1702,20 +1814,124 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     }).join("");
     $$("#guideList .guide").forEach(function(el){el.addEventListener("click",function(){el.classList.toggle("open")})});
   }
+  /* payments / rent */
+  function outstanding(){ var t=app.rent.paid?0:app.rent.amount; if(app.billed>0&&!app.overagePaid)t+=app.billed; return t; }
+  function invoiceCard(kind,id,label,sub,amount,due,paid){
+    if(paid){
+      return '<div class="invcard paid"><div class="ic-h"><div><div class="ic-n">'+label+'</div><div class="ic-s">'+id+' · '+sub+'</div></div>'+
+        '<div class="paidtag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg> Paid</div></div>'+
+        '<div class="recpt">QAR '+fmt(amount)+' · receipt emailed · reconciled to Microsoft Dynamics ✓</div></div>';
+    }
+    return '<div class="invcard"><div class="ic-h"><div><div class="ic-n">'+label+'</div><div class="ic-s">'+id+' · '+sub+' · due '+due+'</div></div>'+
+      '<div class="ic-amt">QAR '+fmt(amount)+'</div></div>'+
+      '<button class="ic-pay" data-k="'+kind+'">Pay QAR '+fmt(amount)+'</button></div>';
+  }
+  function renderPayments(){
+    var hr=$("#homeRent");
+    if(hr){
+      if(!app.rent.paid){
+        hr.innerHTML='<div class="rentbanner"><div class="rb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg></div>'+
+          '<div><div class="rb-t">Rent due</div><div class="rb-v">QAR '+fmt(app.rent.amount)+'</div><div class="rb-d">West Bay · due '+app.rent.due+'</div></div>'+
+          '<button class="rb-btn" id="homeRentBtn">Pay now</button></div>';
+        var b=$("#homeRentBtn"); if(b)b.addEventListener("click",function(){show("pay")});
+      } else {
+        hr.innerHTML='<div class="rentbanner paid"><div class="rb-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>'+
+          '<div><div class="rb-t">Rent paid</div><div class="rb-v">QAR '+fmt(app.rent.amount)+'</div><div class="rb-d">Receipt emailed · '+app.rent.due+'</div></div></div>';
+      }
+    }
+    var area=$("#invoiceArea"); if(!area)return;
+    var bal=outstanding();
+    var html='<div class="balhead"><span class="bl">Outstanding balance</span><span class="bv">QAR '+fmt(bal)+'</span></div>';
+    html+=invoiceCard("rent",app.rent.id,app.rent.label,app.rent.sub,app.rent.amount,app.rent.due,app.rent.paid);
+    if(app.billed>0)html+=invoiceCard("overage","INV-1042","Meeting-room overage · West Bay","Bookings this month",app.billed,"15 Jul 2026",app.overagePaid);
+    html+='<div class="paymethod"><div class="pm-ic">VISA</div><div><div class="pm-n">Visa •••• 4242</div><div class="pm-s">Corporate card · expires 08/28</div></div><span class="pm-ch">Change</span></div>';
+    html+='<div class="paynote"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> PCI-compliant gateway · payment reconciled to Microsoft Dynamics</div>';
+    area.innerHTML=html;
+    $$(".ic-pay",area).forEach(function(btn){btn.addEventListener("click",function(){payInvoice(btn.getAttribute("data-k"),btn)})});
+  }
+  function payInvoice(kind,btn){
+    if(btn){btn.disabled=true;btn.innerHTML='<span class="spin"></span> Processing…'}
+    var amt=kind==="rent"?app.rent.amount:app.billed;
+    setTimeout(function(){
+      if(kind==="rent")app.rent.paid=true; else app.overagePaid=true;
+      app.notifs.unshift({i:"invoice",h:"Payment received — "+(kind==="rent"?app.rent.id:"INV-1042"),d:"QAR "+fmt(amt)+" paid · receipt sent to your email",t:"now"});
+      app.notifSeen=false; updateBell();
+      renderPayments();
+      toast("Payment successful","QAR "+fmt(amt)+" · receipt emailed · reconciled to Dynamics");
+    },reduce?200:1250);
+  }
+
+  /* onboarding / office registration */
+  app.onboarded=false; app.sigDrawn=false;
+  (function(){
+    var off=$("#rgOffice"),loc=$("#rgLoc");
+    if(off){var i;for(i=1;i<=20;i++){var o=document.createElement("option");o.value=i;o.textContent="Office "+i;off.appendChild(o)}}
+    if(loc){LOCS.forEach(function(l){var o=document.createElement("option");o.value=l.short;o.textContent=l.short;loc.appendChild(o)})}
+    $$("#rgType .chip").forEach(function(c){c.addEventListener("click",function(){$$("#rgType .chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on")})});
+  })();
+  function renderOnboard(){
+    var el=$("#homeOnboard"); if(!el)return;
+    if(!app.onboarded){
+      el.innerHTML='<div class="onboard" id="obCard"><div class="ob-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5"/><path d="M6 3h9l5 5v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M9 13h6M9 16h4"/></svg></div>'+
+        '<div><div class="ob-t">Complete your office registration</div><div class="ob-d">Company details, QID &amp; signature</div></div>'+
+        '<div class="ob-ar"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></div></div>';
+      var b=$("#obCard"); if(b)b.addEventListener("click",function(){show("register")});
+    } else {
+      el.innerHTML='<div class="onboard done"><div class="ob-ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M20 6L9 17l-5-5"/></svg></div>'+
+        '<div><div class="ob-t">Registration submitted ✓</div><div class="ob-d">Pending approval by Nestwork</div></div></div>';
+    }
+  }
+  /* signature pad */
+  var sigCtx=null,sigDrawing=false,sigBound=false;
+  function initSig(){
+    var c=$("#sigCanvas"); if(!c)return;
+    var r=c.getBoundingClientRect(); if(!r.width)return;
+    var dpr=window.devicePixelRatio||1,w=Math.round(r.width),h=Math.round(r.height);
+    if(c.width!==w*dpr||c.height!==h*dpr){c.width=w*dpr;c.height=h*dpr;app.sigDrawn=false;$("#sigPad").classList.remove("drawn")}
+    sigCtx=c.getContext("2d"); sigCtx.setTransform(dpr,0,0,dpr,0,0);
+    sigCtx.lineWidth=2.2; sigCtx.lineCap="round"; sigCtx.lineJoin="round";
+    sigCtx.strokeStyle=(getComputedStyle(root).getPropertyValue("--ink").trim()||"#111");
+    if(sigBound)return; sigBound=true;
+    var last=null;
+    function pos(e){var rr=c.getBoundingClientRect();return {x:e.clientX-rr.left,y:e.clientY-rr.top}}
+    c.addEventListener("pointerdown",function(e){sigDrawing=true;last=pos(e);app.sigDrawn=true;$("#sigPad").classList.add("drawn");try{c.setPointerCapture(e.pointerId)}catch(x){}});
+    c.addEventListener("pointermove",function(e){if(!sigDrawing||!sigCtx)return;var p=pos(e);sigCtx.beginPath();sigCtx.moveTo(last.x,last.y);sigCtx.lineTo(p.x,p.y);sigCtx.stroke();last=p});
+    c.addEventListener("pointerup",function(){sigDrawing=false});
+    c.addEventListener("pointercancel",function(){sigDrawing=false});
+  }
+  $("#sigClear").addEventListener("click",function(){var c=$("#sigCanvas");if(sigCtx&&c)sigCtx.clearRect(0,0,c.width,c.height);app.sigDrawn=false;$("#sigPad").classList.remove("drawn")});
+  $("#rgBack").addEventListener("click",function(){show("home")});
+  function rgVal(id){var el=$("#"+id);return el?(el.value||"").trim():""}
+  $("#rgSubmit").addEventListener("click",function(){
+    var req=[["rgCompany","company name"],["rgName","full name"],["rgQID","QID number"],["rgPhone","phone number"],["rgEmail","email"]];
+    var miss=req.filter(function(x){return !rgVal(x[0])});
+    if(miss.length){toast("Please complete the form","Missing: "+miss[0][1]);return}
+    if(!$("#rgConsent").checked){toast("Confirmation needed","Please tick the consent box");return}
+    if(!app.sigDrawn){toast("Signature required","Please sign in the box");return}
+    app.onboarded=true;
+    var comp=rgVal("rgCompany"),offv=$("#rgOffice").value,locv=$("#rgLoc").value;
+    app.notifs.unshift({i:"reg",h:"Registration received — "+comp,d:"Office "+offv+" · "+locv+" · pending approval",t:"now"});
+    app.notifSeen=false; updateBell(); renderOnboard();
+    toast("Registration submitted","Office "+offv+" · "+locv+" · Nestwork will confirm shortly");
+    show("home");
+  });
+
   /* notifications */
   var bellBadge=$("#bellBadge"),notifSheet=$("#notifSheet");
   function updateBell(){var n=app.notifs.length;bellBadge.textContent=n;bellBadge.style.display=(app.notifSeen||n===0)?"none":"grid"}
   function renderNotifs(){
-    var ic={cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mega:'<path d="M3 11l14-7v16L3 13z"/><path d="M3 11v2"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'};
+    var ic={cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mega:'<path d="M3 11l14-7v16L3 13z"/><path d="M3 11v2"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',invoice:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',reg:'<path d="M14 3v5h5"/><path d="M6 3h9l5 5v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>'};
     $("#notifList").innerHTML=app.notifs.map(function(n){
-      return '<div class="notif"><div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+(ic[n.i]||ic.mega)+'</svg></div><div><div class="nh">'+n.h+'</div><div class="nd">'+n.d+'</div></div><div class="nt">'+n.t+'</div></div>';
+      var pay=(n.pay&&!app.rent.paid)?'<button class="notifpay" data-notifpay="1">Pay now</button>':'';
+      return '<div class="notif"><div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+(ic[n.i]||ic.mega)+'</svg></div><div><div class="nh">'+n.h+'</div><div class="nd">'+n.d+'</div>'+pay+'</div><div class="nt">'+n.t+'</div></div>';
     }).join("");
+    $$("#notifList [data-notifpay]").forEach(function(b){b.addEventListener("click",function(){notifSheet.classList.remove("open");show("pay")})});
   }
   $("#bellBtn").addEventListener("click",function(){app.notifSeen=true;updateBell();renderNotifs();notifSheet.classList.add("open")});
   notifSheet.addEventListener("click",function(e){if(e.target===notifSheet)notifSheet.classList.remove("open")});
 
   /* init app */
-  ring();renderHome();renderRooms();renderTickets();renderAnn();renderDir("");renderGuide();updateBell();show("home");
+  ring();renderHome();renderRooms();renderTickets();renderAnn();renderDir("");renderGuide();renderPayments();renderOnboard();updateBell();show("home");
 
   /* toast */
   var toastEl=$("#toast"),toastTO;
