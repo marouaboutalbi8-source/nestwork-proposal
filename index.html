@@ -1,0 +1,2064 @@
+<title>Volge × Nestwork — Coworking Management Platform Proposal</title>
+
+<style>
+/* ============================================================
+   VOLGE × NESTWORK — Multi-page interactive proposal
+   architectural monochrome + one live orange
+   ============================================================ */
+:root{
+  --white:#FFFFFF;--black:#000000;
+  --ground:#FFFFFF;--panel:#F6F6F6;--ink:#111111;--body:#666666;--muted:#8A8A8A;
+  --border:#E8E8E8;--charcoal:#231F20;--accent:#FF5A1F;
+  --accent-soft:rgba(255,90,31,.12);--accent-line:rgba(255,90,31,.35);
+  --good:#0f9d63;--info:#1f6feb;
+  --inv-ground:#161311;--inv-ink:#F7F5F3;--inv-body:#B6AFA9;--inv-border:rgba(255,255,255,.13);--inv-panel:#211D1A;
+  --nav-h:70px;--maxw:1240px;--gut:clamp(20px,5vw,64px);
+  --f-display:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --f-body:-apple-system,BlinkMacSystemFont,"Segoe UI",system-ui,"Helvetica Neue",Arial,sans-serif;
+  --f-mono:ui-monospace,"SF Mono","JetBrains Mono","Menlo","Consolas",monospace;
+  --ease:cubic-bezier(.22,1,.36,1);
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 12px 34px -14px rgba(17,17,17,.16);
+  --shadow-lg:0 2px 6px rgba(17,17,17,.05),0 40px 80px -32px rgba(17,17,17,.32);
+}
+@media (prefers-color-scheme:dark){:root{
+  --ground:#100E0D;--panel:#181513;--ink:#F7F5F3;--body:#A69E98;--muted:#7C736D;
+  --border:rgba(255,255,255,.11);--charcoal:#0B0A09;--accent-soft:rgba(255,90,31,.16);--accent-line:rgba(255,90,31,.42);
+  --good:#3ddc9a;--info:#6ea8ff;
+  --inv-ground:#000000;--inv-panel:#141210;--inv-ink:#F7F5F3;--inv-body:#A69E98;--inv-border:rgba(255,255,255,.1);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -16px rgba(0,0,0,.7);
+  --shadow-lg:0 2px 8px rgba(0,0,0,.5),0 44px 90px -34px rgba(0,0,0,.85);
+}}
+:root[data-theme="dark"]{
+  --ground:#100E0D;--panel:#181513;--ink:#F7F5F3;--body:#A69E98;--muted:#7C736D;
+  --border:rgba(255,255,255,.11);--charcoal:#0B0A09;--accent-soft:rgba(255,90,31,.16);--accent-line:rgba(255,90,31,.42);
+  --good:#3ddc9a;--info:#6ea8ff;
+  --inv-ground:#000000;--inv-panel:#141210;--inv-ink:#F7F5F3;--inv-body:#A69E98;--inv-border:rgba(255,255,255,.1);
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 14px 40px -16px rgba(0,0,0,.7);
+  --shadow-lg:0 2px 8px rgba(0,0,0,.5),0 44px 90px -34px rgba(0,0,0,.85);
+}
+:root[data-theme="light"]{
+  --ground:#FFFFFF;--panel:#F6F6F6;--ink:#111111;--body:#666666;--muted:#8A8A8A;
+  --border:#E8E8E8;--charcoal:#231F20;--accent-soft:rgba(255,90,31,.12);--accent-line:rgba(255,90,31,.35);
+  --good:#0f9d63;--info:#1f6feb;
+  --inv-ground:#161311;--inv-panel:#211D1A;--inv-ink:#F7F5F3;--inv-body:#B6AFA9;--inv-border:rgba(255,255,255,.13);
+  --shadow:0 1px 2px rgba(17,17,17,.04),0 12px 34px -14px rgba(17,17,17,.16);
+  --shadow-lg:0 2px 6px rgba(17,17,17,.05),0 40px 80px -32px rgba(17,17,17,.32);
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--ground);color:var(--body);font-family:var(--f-body);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+h1,h2,h3,h4{color:var(--ink);font-family:var(--f-display);margin:0;line-height:1.03;text-wrap:balance;letter-spacing:-.02em;font-weight:700}
+p{margin:0}a{color:inherit;text-decoration:none}img{max-width:100%}
+::selection{background:var(--accent);color:#fff}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:2px}
+button{font-family:inherit}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding-left:var(--gut);padding-right:var(--gut)}
+.band{padding:clamp(56px,8vh,104px) 0}
+.eyebrow{font-family:var(--f-mono);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:12px}
+.eyebrow .n{color:var(--accent);font-weight:600}
+.eyebrow::before{content:"";width:26px;height:1px;background:var(--accent);display:inline-block}
+h2.title{font-size:clamp(28px,4.6vw,54px);font-weight:750;margin-top:20px;max-width:17ch}
+.lead{font-size:clamp(16px,2vw,20px);max-width:62ch;margin-top:20px;color:var(--body)}
+.kicker{color:var(--ink);font-weight:600}
+
+.reveal{opacity:0;transform:translateY(24px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+.stag>*{opacity:0;transform:translateY(20px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+.stag.in>*{opacity:1;transform:none}
+.stag.in>*:nth-child(2){transition-delay:.06s}.stag.in>*:nth-child(3){transition-delay:.12s}
+.stag.in>*:nth-child(4){transition-delay:.18s}.stag.in>*:nth-child(5){transition-delay:.24s}
+.stag.in>*:nth-child(6){transition-delay:.3s}.stag.in>*:nth-child(7){transition-delay:.36s}
+
+/* PRELOADER */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--charcoal);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:26px;transition:opacity .6s ease,visibility .6s}
+#loader.done{opacity:0;visibility:hidden}
+.load-lock{font-family:var(--f-display);color:#F7F5F3;font-weight:750;letter-spacing:-.03em;font-size:clamp(28px,6vw,54px);display:flex;align-items:center;gap:.35em;overflow:hidden}
+.load-lock span{display:inline-block;transform:translateY(110%);animation:lockUp .9s var(--ease) forwards}
+.load-lock .x{color:var(--accent);animation-delay:.12s}.load-lock .b{animation-delay:.22s}
+@keyframes lockUp{to{transform:none}}
+.load-bar{width:min(240px,50vw);height:2px;background:rgba(255,255,255,.14);overflow:hidden;border-radius:2px}
+.load-bar i{display:block;height:100%;width:0;background:var(--accent);animation:loadFill 1.15s .2s var(--ease) forwards}
+@keyframes loadFill{to{width:100%}}
+.load-meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
+
+/* CURSOR */
+#cursor,#cursorDot{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;mix-blend-mode:difference;will-change:transform}
+#cursor{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid #fff;border-radius:50%;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),background .25s}
+#cursorDot{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;background:#fff;border-radius:50%}
+#cursor.hov{width:56px;height:56px;margin:-28px 0 0 -28px;background:rgba(255,255,255,.12)}
+@media (hover:none),(pointer:coarse){#cursor,#cursorDot{display:none}}
+
+/* ROUTE TRANSITION overlay */
+#wipe{position:fixed;inset:0;z-index:1300;background:var(--accent);transform:scaleY(0);transform-origin:bottom;pointer-events:none}
+#wipe.in{transform:scaleY(1);transform-origin:bottom;transition:transform .5s var(--ease)}
+#wipe.out{transform:scaleY(0);transform-origin:top;transition:transform .5s var(--ease)}
+#wipe .wl{position:absolute;inset:0;display:grid;place-items:center;color:#fff;font-family:var(--f-display);font-weight:750;font-size:clamp(22px,4vw,40px);letter-spacing:-.02em;opacity:0}
+#wipe.in .wl{opacity:1;transition:opacity .3s .15s}
+
+/* PROGRESS + NAV */
+#progress{position:fixed;top:0;left:0;height:2px;width:0;background:var(--accent);z-index:1200}
+nav{position:fixed;top:0;left:0;right:0;height:var(--nav-h);z-index:1100;display:flex;align-items:center;background:color-mix(in srgb,var(--ground) 80%,transparent);backdrop-filter:blur(14px) saturate(1.4);-webkit-backdrop-filter:blur(14px) saturate(1.4);border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;width:100%}
+.brand{display:flex;align-items:center;gap:11px;font-family:var(--f-display);font-weight:750;color:var(--ink);letter-spacing:-.02em;font-size:19px;cursor:pointer}
+.brand .dot{width:9px;height:9px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 var(--accent-line);animation:pulse 2.6s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 var(--accent-line)}70%{box-shadow:0 0 0 9px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.brand .sep{color:var(--muted);font-weight:400;margin:0 2px}.brand .cli{color:var(--body);font-weight:500;font-size:15px}
+.nav-links{display:flex;align-items:center;gap:22px;font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.nav-links a{color:var(--muted);transition:color .25s;position:relative;cursor:pointer}
+.nav-links a:hover,.nav-links a.active{color:var(--ink)}
+.nav-links a.active::after{content:"";position:absolute;left:0;right:0;bottom:-6px;height:2px;background:var(--accent)}
+.nav-right{display:flex;align-items:center;gap:12px}
+#themeBtn{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:transparent;color:var(--ink);cursor:pointer;display:grid;place-items:center;transition:border-color .25s,transform .25s}
+#themeBtn:hover{border-color:var(--accent);transform:rotate(-18deg)}#themeBtn svg{width:17px;height:17px}
+.nav-cta{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;border:1px solid var(--ink);color:var(--ink);padding:9px 16px;border-radius:40px;transition:.25s;white-space:nowrap;cursor:pointer}
+.nav-cta:hover{background:var(--ink);color:var(--ground)}
+.menu-btn{display:none;width:40px;height:40px;border:1px solid var(--border);border-radius:10px;background:transparent;cursor:pointer;flex-direction:column;gap:4px;align-items:center;justify-content:center}
+.menu-btn i{width:17px;height:1.6px;background:var(--ink);display:block;transition:.3s}
+@media(max-width:1040px){.nav-links{display:none}.menu-btn{display:flex}.nav-cta{display:none}}
+#mobileMenu{position:fixed;inset:var(--nav-h) 0 0;z-index:1090;background:var(--ground);transform:translateY(-102%);transition:transform .5s var(--ease);display:flex;flex-direction:column;padding:24px var(--gut);gap:2px;overflow:auto}
+#mobileMenu.open{transform:none}
+#mobileMenu a{font-family:var(--f-display);font-size:23px;font-weight:700;color:var(--ink);padding:13px 0;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;cursor:pointer}
+#mobileMenu a .mi{font-family:var(--f-mono);font-size:12px;color:var(--accent)}
+
+/* PAGE SYSTEM */
+main#app{padding-top:var(--nav-h)}
+.page{display:none}
+.page.active{display:block;animation:pageIn .6s var(--ease)}
+@keyframes pageIn{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.page-head{padding:clamp(38px,6vh,72px) 0 6px}
+.page-head .idx{font-family:var(--f-mono);font-size:13px;color:var(--accent);letter-spacing:.1em}
+.pager{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--border);margin-top:20px;padding:34px 0 60px}
+.pager a{flex:1;cursor:pointer;padding:22px;border:1px solid var(--border);border-radius:14px;transition:.3s}
+.pager a:hover{border-color:var(--ink);background:var(--panel)}
+.pager a.next{text-align:right}
+.pager .pl{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.pager .pt{color:var(--ink);font-weight:650;font-size:19px;margin-top:8px;display:flex;align-items:center;gap:10px}
+.pager a.next .pt{justify-content:flex-end}
+.pager .pt svg{width:18px;height:18px;color:var(--accent)}
+@media(max-width:640px){.pager a.prev{display:none}}
+
+/* generic */
+.grid{display:grid;gap:22px}
+.g2{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:940px){.g4{grid-template-columns:repeat(2,1fr)}.g3{grid-template-columns:1fr 1fr}}
+@media(max-width:640px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.card{background:var(--ground);border:1px solid var(--border);border-radius:16px;padding:26px;transition:border-color .35s,transform .35s,box-shadow .35s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--ink);box-shadow:var(--shadow)}
+.tag-pill{display:inline-flex;align-items:center;gap:7px;font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:5px 11px;border-radius:30px;border:1px solid var(--border);color:var(--body)}
+.tag-native{color:var(--good);border-color:rgba(15,122,83,.4);background:rgba(15,122,83,.08)}
+.tag-integ{color:var(--info);border-color:rgba(31,111,235,.4);background:rgba(31,111,235,.08)}
+.tag-custom{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.ico{width:46px;height:46px;border-radius:12px;border:1px solid var(--border);display:grid;place-items:center;color:var(--accent);margin-bottom:18px;background:var(--panel)}
+.ico svg{width:23px;height:23px}
+.card h3{font-size:20px;font-weight:700;margin-bottom:9px}.card p{font-size:14.5px;line-height:1.55}
+.tilt{transform-style:preserve-3d;will-change:transform}.tilt .tilt-in{transform:translateZ(28px)}
+.btn{font-family:var(--f-mono);font-size:13px;letter-spacing:.05em;text-transform:uppercase;padding:14px 24px;border-radius:44px;display:inline-flex;align-items:center;gap:10px;cursor:pointer;border:1px solid transparent;transition:.3s var(--ease);font-weight:500}
+.btn-primary{background:var(--accent);color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 30px -12px var(--accent)}
+.btn-ghost{border-color:var(--border);color:var(--ink)}
+.btn-ghost:hover{border-color:var(--ink);background:var(--panel)}
+.btn svg{width:15px;height:15px}
+
+/* HERO (home) */
+#hero{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;background:var(--inv-ground);color:var(--inv-body);position:relative;overflow:hidden;margin-top:calc(-1*var(--nav-h));padding-top:var(--nav-h)}
+#hero .wrap{position:relative;z-index:3;width:100%}
+.hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;background-image:linear-gradient(var(--inv-border) 1px,transparent 1px),linear-gradient(90deg,var(--inv-border) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(120% 90% at 72% 18%,#000 30%,transparent 78%);mask-image:radial-gradient(120% 90% at 72% 18%,#000 30%,transparent 78%)}
+.blob{position:absolute;border-radius:50%;filter:blur(60px);z-index:1;opacity:.5}
+.blob.a{width:520px;height:520px;background:radial-gradient(circle,var(--accent),transparent 65%);top:-120px;right:-80px;animation:float1 16s var(--ease) infinite alternate}
+.blob.b{width:360px;height:360px;background:radial-gradient(circle,#3a2f2a,transparent 65%);bottom:-100px;left:-60px;animation:float2 20s var(--ease) infinite alternate}
+@keyframes float1{to{transform:translate(-50px,60px) scale(1.1)}}@keyframes float2{to{transform:translate(60px,-40px) scale(1.15)}}
+.hero-tag{font-family:var(--f-mono);font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:var(--inv-body);display:inline-flex;align-items:center;gap:12px;border:1px solid var(--inv-border);padding:8px 15px;border-radius:40px;margin-bottom:30px}
+.hero-tag b{color:var(--accent);font-weight:600}
+h1.hero-h{color:var(--inv-ink);font-size:clamp(38px,8vw,108px);font-weight:800;letter-spacing:-.04em;line-height:.94}
+.hero-h .line{display:block;overflow:hidden}
+.hero-h .line span{display:inline-block;transform:translateY(115%);animation:heroUp 1s var(--ease) forwards}
+.hero-h .l2 span{animation-delay:.12s}.hero-h .l3 span{animation-delay:.24s}
+.hero-h em{font-style:normal;color:var(--accent)}
+@keyframes heroUp{to{transform:none}}
+.hero-sub{max-width:52ch;font-size:clamp(16px,1.9vw,20px);margin-top:28px;color:var(--inv-body);opacity:0;animation:fadeUp 1s .5s var(--ease) forwards}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+.hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;opacity:0;animation:fadeUp 1s .66s var(--ease) forwards}
+.btn-hero-ghost{border-color:var(--inv-border);color:var(--inv-ink)}.btn-hero-ghost:hover{border-color:var(--inv-ink);background:rgba(255,255,255,.05)}
+.hero-meta{display:flex;flex-wrap:wrap;gap:30px;margin-top:52px;padding-top:28px;border-top:1px solid var(--inv-border);opacity:0;animation:fadeUp 1s .82s var(--ease) forwards}
+.hero-meta .m .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.hero-meta .m .v{color:var(--inv-ink);font-weight:600;font-size:15px;margin-top:5px}
+
+/* stats */
+.statrow{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:46px}
+@media(max-width:840px){.statrow{grid-template-columns:1fr 1fr}}
+.stat .big{font-family:var(--f-display);font-size:clamp(34px,5.5vw,58px);font-weight:780;color:var(--ink);letter-spacing:-.03em;line-height:1;font-variant-numeric:tabular-nums}
+.stat .big .u{color:var(--accent)}
+.stat .lb{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-top:12px;max-width:22ch}
+
+/* before/after split */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:0;border:1px solid var(--border);border-radius:18px;overflow:hidden;margin-top:40px}
+@media(max-width:760px){.split{grid-template-columns:1fr}}
+.split .side{padding:32px}.split .before{background:var(--panel)}
+.split .after{background:var(--inv-ground);color:var(--inv-body);border-left:1px solid var(--border)}
+.split .after h3{color:var(--inv-ink)}
+.split .lab{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;margin-bottom:16px;display:flex;align-items:center;gap:9px}
+.split .before .lab{color:var(--muted)}.split .after .lab{color:var(--accent)}
+.frag{display:flex;flex-direction:column;gap:9px;margin-top:18px}
+.frag .row{display:flex;align-items:center;gap:11px;font-size:14px;padding:11px 13px;border-radius:10px;border:1px dashed var(--border);background:var(--ground);color:var(--body)}
+.frag .row svg{width:16px;height:16px;color:var(--muted);flex:none}
+.after .frag .row{border:1px solid var(--inv-border);background:rgba(255,255,255,.03);color:var(--inv-body)}
+.after .frag .row svg{color:var(--accent)}
+.after .one{border-color:var(--accent-line)!important;background:var(--accent-soft)!important}
+
+/* ARCHITECTURE */
+.arch{position:relative;margin-top:44px;border:1px solid var(--border);border-radius:20px;background:var(--panel);padding:clamp(20px,3vw,40px)}
+.dataverse-bar{border:1px solid var(--accent-line);background:var(--accent-soft);border-radius:13px;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;margin-bottom:22px}
+.dataverse-bar .dl{color:var(--ink);font-weight:650;font-size:15px;display:flex;align-items:center;gap:11px}
+.dataverse-bar .dl svg{width:20px;height:20px;color:var(--accent)}
+.dataverse-bar .dr{font-family:var(--f-mono);font-size:12px;color:var(--body)}
+.arch-layer{margin-bottom:24px}.arch-layer:last-child{margin-bottom:0}
+.layer-h{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent);margin-bottom:13px;display:flex;align-items:center;gap:10px}
+.layer-h::after{content:"";flex:1;height:1px;background:var(--border)}
+.arch-flow{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px}
+.node{background:var(--ground);border:1px solid var(--border);border-radius:13px;padding:16px;cursor:pointer;transition:.3s var(--ease)}
+.node:hover,.node.on{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow)}
+.node .nt{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.node .nn{color:var(--ink);font-weight:650;font-size:14px;margin-top:6px;line-height:1.2}
+.node .nd{font-size:12.5px;margin-top:0;color:var(--body);max-height:0;overflow:hidden;opacity:0;transition:.4s var(--ease)}
+.node.on .nd{max-height:140px;opacity:1;margin-top:10px}
+.dataflow-note{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-top:22px;text-align:center}
+
+/* ============================================================
+   MEMBER APP (device demo)
+   ============================================================ */
+.appstage{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center;margin-top:44px}
+@media(max-width:900px){.appstage{grid-template-columns:1fr;gap:30px}}
+.phone{width:390px;max-width:100%;margin:0 auto;background:var(--charcoal);border-radius:46px;padding:13px;box-shadow:var(--shadow-lg);position:relative;border:1px solid var(--inv-border)}
+.phone::before{content:"";position:absolute;top:20px;left:50%;transform:translateX(-50%);width:120px;height:26px;background:#000;border-radius:20px;z-index:20}
+.screen{background:var(--ground);border-radius:34px;overflow:hidden;height:760px;max-height:76vh;display:flex;flex-direction:column;position:relative}
+.statusbar{display:flex;justify-content:space-between;align-items:center;padding:14px 24px 8px;font-family:var(--f-mono);font-size:12px;color:var(--ink);font-weight:600}
+.statusbar .sr{display:flex;gap:6px;align-items:center}.statusbar .sr svg{width:15px;height:15px}
+.appbar{display:flex;align-items:center;justify-content:space-between;padding:6px 18px 14px;border-bottom:1px solid var(--border)}
+.appbar .ab-l{display:flex;align-items:center;gap:11px}
+.avatar{width:38px;height:38px;border-radius:50%;background:linear-gradient(135deg,var(--accent),#ff9a6b);display:grid;place-items:center;color:#fff;font-weight:700;font-size:15px;font-family:var(--f-display)}
+.appbar .hi{font-size:12px;color:var(--muted);font-family:var(--f-mono)}
+.appbar .nm{font-size:15px;color:var(--ink);font-weight:700;font-family:var(--f-display);line-height:1.1}
+.bell{width:38px;height:38px;border-radius:50%;border:1px solid var(--border);background:var(--ground);display:grid;place-items:center;color:var(--ink);cursor:pointer;position:relative}
+.bell svg{width:18px;height:18px}
+.bell .badge{position:absolute;top:-2px;right:-2px;min-width:18px;height:18px;padding:0 4px;border-radius:10px;background:var(--accent);color:#fff;font-size:10px;font-weight:700;display:grid;place-items:center;font-family:var(--f-mono)}
+.appscroll{flex:1;overflow-y:auto;overflow-x:hidden;padding:16px 18px 20px;-webkit-overflow-scrolling:touch}
+.appscroll::-webkit-scrollbar{width:0}
+.ascreen{display:none;animation:scIn .4s var(--ease)}
+.ascreen.on{display:block}
+@keyframes scIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.sc-title{font-size:22px;font-weight:750;color:var(--ink);margin-bottom:3px}
+.sc-sub{font-size:12.5px;color:var(--muted);margin-bottom:16px;font-family:var(--f-mono);letter-spacing:.02em}
+.acard{border:1px solid var(--border);border-radius:16px;padding:16px;margin-bottom:12px;background:var(--ground);transition:.25s}
+.acard.tap{cursor:pointer}.acard.tap:active{transform:scale(.98)}
+/* entitlement ring widget */
+.ent-widget{border:1px solid var(--accent-line);background:linear-gradient(135deg,var(--accent-soft),transparent);border-radius:18px;padding:18px;display:flex;align-items:center;gap:18px;margin-bottom:14px}
+.ring{width:78px;height:78px;flex:none}
+.ent-widget .ew-t{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.ent-widget .ew-v{font-family:var(--f-display);font-weight:770;color:var(--ink);font-size:26px;line-height:1;margin-top:5px;font-variant-numeric:tabular-nums}
+.ent-widget .ew-v small{font-size:14px;color:var(--body);font-weight:500}
+.ent-widget .ew-s{font-size:12px;color:var(--body);margin-top:6px}
+.qrow{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0}
+.qbtn{border:1px solid var(--border);border-radius:14px;padding:15px 12px;background:var(--panel);cursor:pointer;text-align:left;transition:.25s;display:flex;flex-direction:column;gap:9px}
+.qbtn:hover{border-color:var(--accent)}
+.qbtn svg{width:20px;height:20px;color:var(--accent)}
+.qbtn b{color:var(--ink);font-size:14px;font-weight:650}
+.sec-h{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:18px 0 10px;display:flex;justify-content:space-between;align-items:center}
+.sec-h a{color:var(--accent);cursor:pointer;text-transform:none;letter-spacing:0;font-size:12px}
+/* announcement */
+.ann{border-left:3px solid var(--accent);padding:12px 14px;background:var(--panel);border-radius:0 12px 12px 0;margin-bottom:10px;cursor:pointer}
+.ann .at{font-size:11px;font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:8px}
+.ann .ah{color:var(--ink);font-weight:650;font-size:14.5px;margin-top:6px}
+.ann .ad{font-size:12.5px;color:var(--body);margin-top:4px}
+.ann.unread .at::after{content:"";width:7px;height:7px;border-radius:50%;background:var(--accent)}
+/* room list */
+.room{display:flex;align-items:center;gap:14px;border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px;cursor:pointer;transition:.25s}
+.room:hover{border-color:var(--accent)}
+.room .rthumb{width:52px;height:52px;border-radius:11px;background:var(--panel);display:grid;place-items:center;color:var(--accent);flex:none}
+.room .rthumb svg{width:24px;height:24px}
+.room .rn{color:var(--ink);font-weight:650;font-size:14.5px}
+.room .rmeta{font-size:12px;color:var(--muted);font-family:var(--f-mono);margin-top:3px}
+.room .rstat{margin-left:auto;text-align:right}
+.room .avail{font-size:11px;font-family:var(--f-mono);color:var(--good);text-transform:uppercase;letter-spacing:.05em}
+.room .avail.busy{color:var(--muted)}
+.room .rrate{font-size:12px;color:var(--body);margin-top:3px;font-variant-numeric:tabular-nums}
+/* field controls in app */
+.afield{margin-bottom:14px}
+.afield label{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:8px}
+.afield select,.afield input,.afield textarea{width:100%;background:var(--panel);border:1px solid var(--border);color:var(--ink);border-radius:11px;padding:12px 13px;font-family:var(--f-body);font-size:14.5px;-webkit-appearance:none;appearance:none;transition:border-color .25s}
+.afield textarea{min-height:74px;resize:vertical}
+.afield select:focus,.afield input:focus,.afield textarea:focus{border-color:var(--accent);outline:none}
+.aseg{display:flex;gap:7px;flex-wrap:wrap}
+.aseg button{flex:1;min-width:44px;background:var(--panel);border:1px solid var(--border);color:var(--body);border-radius:10px;padding:10px 4px;font-family:var(--f-mono);font-size:14px;cursor:pointer;transition:.2s}
+.aseg button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.chips{display:flex;gap:7px;flex-wrap:wrap}
+.chip{padding:9px 13px;border:1px solid var(--border);border-radius:30px;font-size:13px;color:var(--body);cursor:pointer;background:var(--panel);transition:.2s}
+.chip.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.chip.p-high.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.appbtn{width:100%;justify-content:center;margin-top:6px}
+.est{border:1px dashed var(--border);border-radius:12px;padding:13px;margin:14px 0;background:var(--panel)}
+.est .er{display:flex;justify-content:space-between;font-size:13px;padding:4px 0}
+.est .er .lbl{color:var(--muted);font-family:var(--f-mono);font-size:12px}
+.est .er .val{color:var(--ink);font-weight:650;font-variant-numeric:tabular-nums}
+.est .er .val.free{color:var(--good)}.est .er .val.over{color:var(--accent)}
+.est .er.tot{border-top:1px solid var(--border);margin-top:5px;padding-top:9px}
+/* ticket */
+.ticket{border:1px solid var(--border);border-radius:14px;padding:14px;margin-bottom:10px}
+.ticket .th{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.ticket .tn{color:var(--ink);font-weight:650;font-size:14.5px}
+.ticket .tid{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:3px}
+.status{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;padding:4px 9px;border-radius:20px;white-space:nowrap}
+.status.open{color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line)}
+.status.progress{color:var(--info);background:rgba(31,111,235,.1);border:1px solid rgba(31,111,235,.3)}
+.status.resolved{color:var(--good);background:rgba(15,122,83,.1);border:1px solid rgba(15,122,83,.3)}
+.sla{margin-top:11px;height:5px;border-radius:5px;background:var(--panel);overflow:hidden}
+.sla i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#ff8a5c);border-radius:5px}
+.sla-l{font-family:var(--f-mono);font-size:10.5px;color:var(--muted);margin-top:6px;display:flex;justify-content:space-between}
+/* directory */
+.dsearch{display:flex;align-items:center;gap:9px;border:1px solid var(--border);border-radius:12px;padding:11px 14px;background:var(--panel);margin-bottom:14px}
+.dsearch svg{width:16px;height:16px;color:var(--muted)}
+.dsearch input{border:none;background:none;outline:none;width:100%;font-size:14px;color:var(--ink)}
+.company{display:flex;align-items:center;gap:13px;border:1px solid var(--border);border-radius:14px;padding:13px;margin-bottom:10px}
+.company .clogo{width:44px;height:44px;border-radius:11px;background:var(--panel);display:grid;place-items:center;font-family:var(--f-display);font-weight:750;color:var(--ink);flex:none}
+.company .cn{color:var(--ink);font-weight:650;font-size:14px}
+.company .cm{font-size:11.5px;color:var(--muted);font-family:var(--f-mono);margin-top:3px}
+.company .cbtn{margin-left:auto;border:1px solid var(--border);background:var(--ground);color:var(--ink);border-radius:30px;padding:7px 13px;font-size:12px;font-family:var(--f-mono);cursor:pointer;transition:.2s;white-space:nowrap}
+.company .cbtn:hover{border-color:var(--accent);color:var(--accent)}
+.company .cbtn.sent{color:var(--good);border-color:var(--good)}
+/* guide */
+.guide{border:1px solid var(--border);border-radius:14px;padding:15px;margin-bottom:10px;cursor:pointer}
+.guide .gh{display:flex;align-items:center;gap:11px}
+.guide .gi{width:36px;height:36px;border-radius:10px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.guide .gi svg{width:18px;height:18px}
+.guide .gt{color:var(--ink);font-weight:650;font-size:14.5px}
+.guide .gd{font-size:12.5px;color:var(--body);margin-top:9px;max-height:0;overflow:hidden;opacity:0;transition:.35s var(--ease)}
+.guide.open .gd{max-height:120px;opacity:1;margin-top:11px}
+.wifi-pass{font-family:var(--f-mono);background:var(--panel);border:1px dashed var(--accent-line);border-radius:8px;padding:8px 11px;color:var(--accent);margin-top:8px;display:inline-block;letter-spacing:.05em}
+/* tab bar */
+.tabbar{display:flex;border-top:1px solid var(--border);background:var(--ground);padding:8px 6px calc(8px + env(safe-area-inset-bottom,0px))}
+.tabbar button{flex:1;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:4px;padding:6px 2px;color:var(--muted);transition:color .2s}
+.tabbar button svg{width:22px;height:22px}
+.tabbar button .tl{font-size:9.5px;font-family:var(--f-mono);letter-spacing:.02em}
+.tabbar button.on{color:var(--accent)}
+/* notifications sheet */
+.sheet{position:absolute;inset:0;background:color-mix(in srgb,var(--charcoal) 55%,transparent);z-index:30;display:none;align-items:flex-end}
+.sheet.open{display:flex;animation:fade .3s}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+.sheet-in{background:var(--ground);width:100%;border-radius:26px 26px 34px 34px;padding:20px 18px 26px;max-height:80%;overflow:auto;animation:sheetUp .4s var(--ease)}
+@keyframes sheetUp{from{transform:translateY(100%)}to{transform:none}}
+.sheet-grab{width:38px;height:4px;border-radius:4px;background:var(--border);margin:0 auto 16px}
+.notif{display:flex;gap:12px;padding:12px 0;border-bottom:1px solid var(--border)}
+.notif .ni{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.notif .ni svg{width:17px;height:17px}
+.notif .nh{color:var(--ink);font-weight:600;font-size:13.5px}
+.notif .nd{font-size:12px;color:var(--muted);margin-top:2px}
+.notif .nt{font-family:var(--f-mono);font-size:10px;color:var(--muted);margin-left:auto;white-space:nowrap}
+/* app-side annotations */
+.appnotes .an{border-left:2px solid var(--border);padding:0 0 22px 20px;position:relative}
+.appnotes .an::before{content:"";position:absolute;left:-5px;top:2px;width:9px;height:9px;border-radius:50%;background:var(--accent)}
+.appnotes .an:last-child{padding-bottom:0}
+.appnotes .an .req{font-family:var(--f-mono);font-size:11px;color:var(--accent);letter-spacing:.06em}
+.appnotes .an h4{font-size:16px;margin:6px 0 6px}
+.appnotes .an p{font-size:13.5px;color:var(--body)}
+
+/* MATRIX */
+.matrix-tools{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:34px;margin-bottom:20px}
+.searchbox{flex:1;min-width:220px;display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:44px;padding:11px 18px;background:var(--ground)}
+.searchbox svg{width:16px;height:16px;color:var(--muted);flex:none}
+.searchbox input{border:none;background:none;outline:none;width:100%;font-family:var(--f-body);font-size:15px;color:var(--ink)}
+.filters{display:flex;gap:8px;flex-wrap:wrap}
+.filters button{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:9px 14px;border-radius:40px;border:1px solid var(--border);background:var(--ground);color:var(--body);cursor:pointer;transition:.25s}
+.filters button.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.mcount{font-family:var(--f-mono);font-size:12px;color:var(--muted);margin-bottom:14px}.mcount b{color:var(--accent)}
+.mtable{border:1px solid var(--border);border-radius:16px;overflow:hidden}
+.mgroup-h{background:var(--panel);padding:13px 20px;font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.mgroup-h .gc{color:var(--muted)}
+.mitem{display:grid;grid-template-columns:88px 84px 1fr 150px;gap:16px;align-items:center;padding:15px 20px;border-bottom:1px solid var(--border);transition:background .2s}
+.mitem:last-child{border-bottom:none}.mitem:hover{background:var(--panel)}
+.mitem .mid{font-family:var(--f-mono);font-size:13px;color:var(--ink);font-weight:600}
+.mprio{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:4px 8px;border-radius:20px;text-align:center;border:1px solid var(--border);color:var(--muted)}
+.mprio.must{color:var(--accent);border-color:var(--accent-line)}
+.mitem .mreq{font-size:14.5px;color:var(--body)}.mitem .mreq b{color:var(--ink);font-weight:600}
+@media(max-width:760px){.mitem{grid-template-columns:1fr auto;row-gap:9px}.mitem .mreq{grid-column:1/-1}.mitem .mmethod{grid-column:1/-1}}
+
+/* DASHBOARD */
+.dash{margin-top:40px;border:1px solid var(--border);border-radius:20px;overflow:hidden;background:var(--ground);box-shadow:var(--shadow)}
+.dash-top{display:flex;align-items:center;justify-content:space-between;padding:18px 24px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:14px}
+.dash-top .dt{font-weight:700;color:var(--ink);font-size:17px;display:flex;align-items:center;gap:11px}
+.dash-top .dt .ld{width:8px;height:8px;border-radius:50%;background:var(--good);box-shadow:0 0 0 4px rgba(61,220,154,.16)}
+.dash-toggle{display:flex;gap:6px;background:var(--panel);border:1px solid var(--border);border-radius:40px;padding:4px}
+.dash-toggle button{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:7px 13px;border-radius:30px;border:none;background:none;color:var(--body);cursor:pointer;transition:.25s}
+.dash-toggle button.on{background:var(--accent);color:#fff}
+.dash-kpis{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--border)}
+@media(max-width:760px){.dash-kpis{grid-template-columns:1fr 1fr}}
+.dk{padding:22px 24px;border-right:1px solid var(--border)}.dk:last-child{border-right:none}
+.dk .dkl{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.dk .dkv{font-family:var(--f-display);font-weight:770;color:var(--ink);font-size:clamp(24px,3.4vw,34px);margin-top:12px;font-variant-numeric:tabular-nums;letter-spacing:-.02em}
+.dk .dkc{font-family:var(--f-mono);font-size:11px;margin-top:8px;display:inline-flex;align-items:center;gap:5px}
+.dk .dkc.up{color:var(--good)}.dk .dkc.down{color:var(--accent)}
+.dash-charts{display:grid;grid-template-columns:1.5fr 1fr}
+@media(max-width:860px){.dash-charts{grid-template-columns:1fr}}
+.chart-box{padding:24px;border-right:1px solid var(--border)}.chart-box:last-child{border-right:none}
+.chart-box .cbh{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:20px}
+.chart-box .cbh .ct{font-weight:650;color:var(--ink);font-size:15px}
+.chart-box .cbh .cs{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.linechart{width:100%;height:180px;overflow:visible}
+.bars{display:flex;align-items:flex-end;gap:clamp(6px,1.6vw,16px);height:180px}
+.bar{flex:1;display:flex;flex-direction:column;align-items:center;gap:9px;height:100%;justify-content:flex-end}
+.bar .bfill{width:100%;max-width:44px;background:linear-gradient(var(--accent),#ff8a5c);border-radius:6px 6px 0 0;height:0;transition:height 1s var(--ease)}
+.bar .blab{font-family:var(--f-mono);font-size:10px;color:var(--muted);text-transform:uppercase}
+.bar .bval{font-family:var(--f-mono);font-size:10px;color:var(--ink);font-variant-numeric:tabular-nums}
+.donut-wrap{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.donut{width:150px;height:150px;flex:none}
+.legend{display:flex;flex-direction:column;gap:11px;font-size:13px}
+.legend .li{display:flex;align-items:center;gap:9px;color:var(--body)}
+.legend .li i{width:11px;height:11px;border-radius:3px;flex:none}
+.legend .li b{color:var(--ink);margin-left:auto;font-variant-numeric:tabular-nums;font-family:var(--f-mono);font-size:12px}
+
+/* MIGRATION + TIMELINE */
+.flow-track{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
+@media(max-width:860px){.flow-track{grid-template-columns:1fr}}
+.fstep{border:1px solid var(--border);border-radius:14px;padding:22px;background:var(--ground);transition:.3s}
+.fstep .fn{width:34px;height:34px;border-radius:9px;background:var(--panel);border:1px solid var(--border);color:var(--accent);font-family:var(--f-mono);font-weight:600;display:grid;place-items:center;font-size:14px;margin-bottom:15px}
+.fstep h4{font-size:16px;margin-bottom:8px}.fstep p{font-size:13px;line-height:1.5}
+.fstep.in .fn{background:var(--accent);color:#fff;border-color:var(--accent)}
+.timeline{margin-top:44px;border:1px solid var(--border);border-radius:18px;overflow:hidden}
+.trow{display:grid;grid-template-columns:210px 1fr 90px;align-items:center;border-bottom:1px solid var(--border)}
+.trow:last-child{border-bottom:none}.trow:hover{background:var(--panel)}
+.trow .tp{padding:18px 22px;border-right:1px solid var(--border)}
+.trow .tp .tpn{color:var(--ink);font-weight:650;font-size:15px}
+.trow .tp .tpd{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:4px}
+.trow .tbarwrap{padding:18px 16px;display:flex;align-items:center;height:100%}
+.trow .tbar{height:14px;border-radius:8px;background:linear-gradient(90deg,var(--accent),#ff8a5c);width:0;transition:width 1.1s var(--ease);min-width:6px}
+.trow .tbar.alt{background:linear-gradient(90deg,var(--ink),var(--muted))}
+.trow .tw{padding:18px 22px;border-left:1px solid var(--border);font-family:var(--f-mono);font-size:12px;color:var(--body);text-align:right;font-variant-numeric:tabular-nums}
+@media(max-width:680px){.trow{grid-template-columns:1fr auto}.trow .tbarwrap{grid-column:1/-1;border-top:1px solid var(--border)}}
+
+/* COMMERCIAL */
+.models{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:40px}
+@media(max-width:760px){.models{grid-template-columns:1fr}}
+.model{border:1px solid var(--border);border-radius:18px;padding:30px;background:var(--ground);transition:.3s}
+.model.feat{border-color:var(--accent-line);background:var(--panel)}
+.model .mtag{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-bottom:16px}
+.model h3{font-size:23px;margin-bottom:10px}.model .mdesc{font-size:14.5px;margin-bottom:20px}
+.model ul{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:12px}
+.model li{display:flex;gap:11px;font-size:14px;color:var(--body);align-items:flex-start}
+.model li svg{width:17px;height:17px;color:var(--accent);flex:none;margin-top:2px}
+.modules{margin-top:36px;border:1px solid var(--border);border-radius:18px;padding:clamp(22px,3vw,34px)}
+.modules .mh h3{font-size:20px}.modules .mh p{font-size:13.5px;margin-top:6px;max-width:56ch}
+.modlist{display:flex;flex-direction:column;margin-top:20px}
+.modrow{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;padding:16px 0;border-bottom:1px solid var(--border)}
+.modrow:last-child{border-bottom:none}.modrow.off{opacity:.42}
+.modrow .mm .mn{color:var(--ink);font-weight:600;font-size:15px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.modrow .mm .mreqs{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:6px}
+.modrow.off .mm .mn{text-decoration:line-through;text-decoration-color:var(--accent)}
+.sw{width:46px;height:26px;border-radius:20px;background:var(--accent);border:none;cursor:pointer;position:relative;transition:.3s;flex:none}
+.sw.off{background:var(--border)}
+.sw::after{content:"";position:absolute;top:3px;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;transition:.3s var(--ease);box-shadow:0 1px 3px rgba(0,0,0,.3)}
+.sw.off::after{left:23px}
+.modsummary{margin-top:24px;border-top:1px dashed var(--border);padding-top:22px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+.modsummary .ms-l{font-family:var(--f-mono);font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}
+.modsummary .ms-r{font-family:var(--f-display);font-weight:770;color:var(--ink);font-size:clamp(28px,4vw,40px);font-variant-numeric:tabular-nums}
+.modsummary .ms-r .idx{color:var(--accent)}
+.modwarn{font-family:var(--f-mono);font-size:11.5px;color:var(--accent);margin-top:10px;min-height:16px;width:100%;text-align:right}
+
+/* WHY / eval */
+.why-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;margin-top:40px}
+@media(max-width:760px){.why-grid{grid-template-columns:1fr}}
+.evalrow{display:grid;grid-template-columns:1fr 60px;gap:14px;align-items:center;padding:13px 0;border-bottom:1px solid var(--border)}
+.evalrow:last-child{border-bottom:none}
+.evalrow .en{color:var(--ink);font-size:14px;font-weight:550}
+.evalrow .ebarwrap{grid-column:1/-1;height:6px;background:var(--panel);border-radius:6px;overflow:hidden;margin-top:-4px}
+.evalrow .ebar{height:100%;background:linear-gradient(90deg,var(--accent),#ff8a5c);width:0;border-radius:6px;transition:width 1.1s var(--ease)}
+.evalrow .ew{font-family:var(--f-mono);font-size:13px;color:var(--accent);text-align:right;font-variant-numeric:tabular-nums;font-weight:600}
+
+/* CONTACT */
+#page-contact .cwrap{background:var(--inv-ground);color:var(--inv-body);border-radius:24px;padding:clamp(36px,6vw,72px);text-align:center;position:relative;overflow:hidden;margin-top:20px}
+#page-contact h2{color:var(--inv-ink);font-size:clamp(30px,6vw,72px);font-weight:800;letter-spacing:-.03em;max-width:16ch;margin:18px auto 0}
+#page-contact .lead{color:var(--inv-body);margin:20px auto 0}
+#page-contact .eyebrow{justify-content:center;color:var(--inv-body)}
+.contact-card{margin:44px auto 0;max-width:620px;border:1px solid var(--inv-border);border-radius:18px;padding:28px;background:rgba(255,255,255,.03);display:grid;grid-template-columns:1fr 1fr;gap:22px;text-align:left}
+@media(max-width:520px){.contact-card{grid-template-columns:1fr}}
+.contact-card .ccl{font-family:var(--f-mono);font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.contact-card .ccv{color:var(--inv-ink);font-weight:600;margin-top:7px;font-size:15px}
+.contact-card .ccv a:hover{color:var(--accent)}
+
+/* FOOTER */
+footer{background:var(--charcoal);color:rgba(255,255,255,.6);padding:40px 0}
+footer .fin{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+footer .brand{color:#fff}footer .brand .cli{color:rgba(255,255,255,.6)}
+footer .fmeta{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;color:rgba(255,255,255,.4);text-align:right;line-height:1.7}
+footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);margin-top:24px;text-align:center;opacity:.8}
+
+/* TOAST */
+#toast{position:fixed;bottom:26px;left:50%;transform:translateX(-50%) translateY(160%);z-index:2000;background:var(--charcoal);color:#fff;border:1px solid rgba(255,255,255,.14);border-radius:13px;padding:14px 20px;display:flex;align-items:center;gap:13px;box-shadow:var(--shadow-lg);transition:transform .5s var(--ease);max-width:90vw}
+#toast.show{transform:translateX(-50%) translateY(0)}
+#toast .ti{width:34px;height:34px;border-radius:9px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+#toast .ti svg{width:18px;height:18px}
+#toast .tt{font-weight:650;font-size:14px}
+#toast .ts{font-family:var(--f-mono);font-size:11px;color:rgba(255,255,255,.6);margin-top:2px}
+
+/* ============================================================
+   ENHANCEMENTS v3 — client, team, ERP sim, ecosystem, journey
+   ============================================================ */
+:root{
+  --ms-azure:#2b88d8;--ms-d365:#3b6fd4;--ms-power:#8a55c9;--ms-pbi:#e6a817;
+  --ms-flow:#2f9bd8;--ms-m365:#e0603a;--ms-data:#1aa39a;
+}
+/* CLIENT / ABOUT */
+.about-band{border:1px solid var(--border);border-radius:20px;overflow:hidden;margin-top:40px;background:var(--panel)}
+.about-top{display:grid;grid-template-columns:1.1fr 1fr;gap:0}
+@media(max-width:820px){.about-top{grid-template-columns:1fr}}
+.about-top .at-l{padding:clamp(24px,3vw,40px);border-right:1px solid var(--border)}
+.about-top .at-l .albadge{display:inline-flex;align-items:center;gap:9px;font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--body);border:1px solid var(--border);background:var(--ground);border-radius:30px;padding:7px 13px;margin-bottom:18px}
+.about-top .at-l .albadge b{color:var(--ink)}
+.about-top .at-l h3{font-size:clamp(20px,2.6vw,28px);margin-bottom:12px}
+.about-top .at-l p{font-size:14.5px}
+.about-top .at-r{padding:clamp(24px,3vw,40px);display:grid;grid-template-columns:1fr 1fr;gap:22px;align-content:center}
+.astat .av{font-family:var(--f-display);font-weight:780;color:var(--ink);font-size:clamp(28px,4vw,44px);line-height:1;font-variant-numeric:tabular-nums;letter-spacing:-.03em}
+.astat .av .u{color:var(--accent)}
+.astat .al{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-top:9px}
+/* pillars */
+.pillars{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;border-top:1px solid var(--border)}
+@media(max-width:720px){.pillars{grid-template-columns:1fr 1fr}}
+.pillar{padding:22px;border-right:1px solid var(--border);transition:.3s;cursor:default}
+.pillar:last-child{border-right:none}
+.pillar:hover{background:var(--ground)}
+.pillar .pi{width:40px;height:40px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:14px;transition:.3s}
+.pillar:hover .pi{transform:translateY(-4px) rotate(-6deg)}
+.pillar .pi svg{width:20px;height:20px}
+.pillar h4{font-size:16px;margin-bottom:6px}.pillar p{font-size:12.5px;line-height:1.5}
+/* LOCATIONS */
+.locgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:34px}
+@media(max-width:720px){.locgrid{grid-template-columns:1fr}}
+.loccard{border:1px solid var(--border);border-radius:16px;padding:22px;background:var(--ground);position:relative;overflow:hidden;transition:.35s var(--ease);cursor:pointer}
+.loccard:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow)}
+.loccard::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--accent-soft),transparent 60%);opacity:0;transition:.35s}
+.loccard:hover::before{opacity:1}
+.loccard .lcn{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);position:relative}
+.loccard h4{font-size:20px;margin:9px 0 4px;position:relative}
+.loccard .lcd{font-size:13.5px;color:var(--body);position:relative}
+.loccard .lcpin{position:absolute;top:20px;right:20px;color:var(--muted);transition:.3s}
+.loccard:hover .lcpin{color:var(--accent);transform:scale(1.15)}
+.loccard .lcpin svg{width:22px;height:22px}
+.loccard .lcmeta{display:flex;gap:16px;margin-top:16px;position:relative;flex-wrap:wrap}
+.loccard .lcmeta span{font-family:var(--f-mono);font-size:11px;color:var(--muted);display:flex;align-items:center;gap:6px}
+.loccard .lcmeta span b{color:var(--ink)}
+
+/* TEAM */
+.team-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:40px}
+@media(max-width:820px){.team-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.team-grid{grid-template-columns:1fr}}
+.tmember{border:1px solid var(--border);border-radius:18px;padding:26px;background:var(--ground);text-align:center;transition:.35s var(--ease);position:relative;overflow:hidden}
+.tmember:hover{border-color:var(--ink);transform:translateY(-5px);box-shadow:var(--shadow)}
+.tavatar{width:96px;height:96px;border-radius:50%;margin:0 auto 18px;position:relative;display:grid;place-items:center;font-family:var(--f-display);font-weight:750;color:#fff;font-size:32px;overflow:hidden}
+.tavatar svg{position:absolute;inset:0;width:100%;height:100%}
+.tavatar .tin{position:relative;z-index:2;mix-blend-mode:overlay;opacity:.9}
+.tmember h4{font-size:18px;margin-bottom:4px}
+.tmember .trole{font-family:var(--f-mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);margin-bottom:12px}
+.tmember .tbio{font-size:13px;line-height:1.5;color:var(--body)}
+.tmember .ttags{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-top:14px}
+.tmember .ttags span{font-family:var(--f-mono);font-size:10px;padding:4px 9px;border-radius:20px;border:1px solid var(--border);color:var(--muted)}
+.team-note{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:22px;text-align:center;letter-spacing:.02em}
+
+/* ERP SIMULATOR */
+.erp{margin-top:40px;border:1px solid var(--border);border-radius:22px;overflow:hidden;background:var(--ground);box-shadow:var(--shadow)}
+.erp-top{display:flex;align-items:center;justify-content:space-between;padding:16px 22px;border-bottom:1px solid var(--border);flex-wrap:wrap;gap:12px}
+.erp-top .et-l{display:flex;align-items:center;gap:11px;font-weight:700;color:var(--ink);font-size:16px}
+.erp-top .et-l .ld{width:8px;height:8px;border-radius:50%;background:var(--accent);animation:pulse2 1.6s infinite}
+@keyframes pulse2{0%,100%{opacity:1}50%{opacity:.3}}
+.erp-controls{display:flex;gap:8px;align-items:center}
+.erp-controls button{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;padding:9px 15px;border-radius:30px;border:1px solid var(--border);background:var(--ground);color:var(--ink);cursor:pointer;transition:.25s;display:inline-flex;align-items:center;gap:7px}
+.erp-controls button:hover{border-color:var(--accent);color:var(--accent)}
+.erp-controls button.play{background:var(--accent);border-color:var(--accent);color:#fff}
+.erp-controls button.play:hover{color:#fff;transform:translateY(-1px)}
+.erp-controls button svg{width:13px;height:13px}
+.erp-body{display:grid;grid-template-columns:1fr;gap:0}
+.erp-canvas{position:relative;padding:clamp(18px,3vw,34px);background:var(--panel);overflow:hidden}
+.erp-flow{display:flex;align-items:stretch;gap:0;position:relative;z-index:2;overflow-x:auto;padding-bottom:6px}
+.erp-stagebox{flex:1;min-width:118px;display:flex;flex-direction:column;align-items:center;text-align:center;position:relative;padding:0 6px}
+.erp-stagebox:not(:last-child)::after{content:"";position:absolute;top:34px;right:-2px;left:calc(50% + 34px);height:2px;background:var(--border);z-index:0}
+.erp-stagebox.done:not(:last-child)::after{background:var(--accent)}
+.erp-chip{width:68px;height:68px;border-radius:18px;display:grid;place-items:center;background:var(--ground);border:1.5px solid var(--border);color:var(--muted);transition:.4s var(--ease);position:relative;z-index:2}
+.erp-chip svg{width:30px;height:30px}
+.erp-stagebox.active .erp-chip{border-color:var(--accent);color:var(--accent);transform:scale(1.12);box-shadow:0 12px 26px -10px var(--accent)}
+.erp-stagebox.done .erp-chip{border-color:var(--accent);color:#fff;background:var(--accent)}
+.erp-stagebox .esn{font-family:var(--f-mono);font-size:10px;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);margin-top:12px;line-height:1.3}
+.erp-stagebox.active .esn,.erp-stagebox.done .esn{color:var(--ink);font-weight:600}
+.erp-stagebox .esp{font-family:var(--f-mono);font-size:9px;color:var(--accent);margin-top:4px;opacity:0;transition:.3s}
+.erp-stagebox.active .esp,.erp-stagebox.done .esp{opacity:1}
+.erp-detail{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--border)}
+@media(max-width:760px){.erp-detail{grid-template-columns:1fr}}
+.erp-detail .ed-l{padding:clamp(20px,3vw,30px);border-right:1px solid var(--border)}
+.erp-detail .ed-step{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent)}
+.erp-detail .ed-l h4{font-size:22px;margin:10px 0 12px}
+.erp-detail .ed-l p{font-size:14.5px}
+.erp-prods{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
+.erp-prod{font-family:var(--f-mono);font-size:11px;padding:6px 12px;border-radius:30px;display:inline-flex;align-items:center;gap:7px;border:1px solid var(--border);color:var(--ink)}
+.erp-prod i{width:9px;height:9px;border-radius:3px;display:block}
+.erp-detail .ed-r{padding:clamp(20px,3vw,30px);background:var(--panel)}
+.erp-screen{border:1px solid var(--border);border-radius:14px;background:var(--ground);overflow:hidden;min-height:200px}
+.erp-screen .es-bar{display:flex;align-items:center;gap:7px;padding:11px 15px;border-bottom:1px solid var(--border);font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.erp-screen .es-bar i{width:9px;height:9px;border-radius:50%;background:var(--border)}
+.erp-screen .es-bar i:first-child{background:var(--accent)}
+.erp-screen .es-body{padding:18px}
+.erp-line{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px dashed var(--border);font-size:13px;animation:erpLine .5s var(--ease)}
+.erp-line:last-child{border-bottom:none}
+@keyframes erpLine{from{opacity:0;transform:translateX(10px)}to{opacity:1;transform:none}}
+.erp-line .ell{color:var(--body);font-family:var(--f-mono);font-size:12px}
+.erp-line .elv{color:var(--ink);font-weight:650;font-variant-numeric:tabular-nums}
+.erp-line .elv.g{color:var(--good)}.erp-line .elv.o{color:var(--accent)}
+.erp-progress{height:3px;background:var(--border);position:relative;overflow:hidden}
+.erp-progress i{position:absolute;left:0;top:0;height:100%;background:var(--accent);width:0;transition:width .5s var(--ease)}
+
+/* ECOSYSTEM layers */
+.eco{margin-top:40px;display:flex;flex-direction:column;gap:14px}
+.eco-layer{border:1px solid var(--border);border-radius:16px;padding:20px 22px;background:var(--ground);position:relative;transition:.3s;overflow:hidden}
+.eco-layer:hover{border-color:var(--accent-line)}
+.eco-layer .elh{display:flex;align-items:center;gap:11px;margin-bottom:14px}
+.eco-layer .elh .eln{font-family:var(--f-mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.eco-layer .elh .elt{font-weight:700;color:var(--ink);font-size:16px}
+.eco-prods{display:flex;gap:10px;flex-wrap:wrap}
+.eco-item{display:flex;align-items:center;gap:10px;border:1px solid var(--border);border-radius:12px;padding:11px 15px;background:var(--panel);transition:.3s var(--ease);cursor:default}
+.eco-item:hover{transform:translateY(-3px);border-color:var(--accent);box-shadow:var(--shadow)}
+.eco-item .eci{width:32px;height:32px;border-radius:8px;display:grid;place-items:center;color:#fff;flex:none}
+.eco-item .eci svg{width:17px;height:17px}
+.eco-item .ecn{color:var(--ink);font-weight:600;font-size:13.5px;line-height:1.1}
+.eco-item .ecd{font-size:11px;color:var(--muted);font-family:var(--f-mono);margin-top:2px}
+.eco-arrow{text-align:center;color:var(--accent);font-size:18px;line-height:1;opacity:.6}
+
+/* AUTOMATION cards */
+.auto-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:34px}
+@media(max-width:860px){.auto-grid{grid-template-columns:1fr}}
+.autocard{border:1px solid var(--border);border-radius:16px;padding:22px;background:var(--ground);transition:.3s}
+.autocard:hover{border-color:var(--accent);box-shadow:var(--shadow)}
+.autocard .trigger,.autocard .action{display:flex;align-items:center;gap:10px;font-size:13.5px}
+.autocard .trigger .ti,.autocard .action .ai{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;flex:none}
+.autocard .trigger .ti{background:var(--accent-soft);color:var(--accent)}
+.autocard .action .ai{background:rgba(31,111,235,.1);color:var(--info)}
+.autocard .trigger .ti svg,.autocard .action .ai svg{width:16px;height:16px}
+.autocard .flowline{margin:12px 0 12px 14px;border-left:2px dashed var(--border);height:22px;position:relative}
+.autocard .flowline::after{content:"⌄";position:absolute;left:-7px;bottom:-6px;color:var(--accent)}
+.autocard .lbl{font-family:var(--f-mono);font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.autocard b{color:var(--ink)}
+
+/* SECURITY grid */
+.secgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:34px}
+@media(max-width:860px){.secgrid{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.secgrid{grid-template-columns:1fr}}
+.seccard{border:1px solid var(--border);border-radius:16px;padding:22px;background:var(--ground);transition:.3s}
+.seccard:hover{border-color:var(--accent);transform:translateY(-3px)}
+.seccard .si{width:42px;height:42px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:14px}
+.seccard .si svg{width:21px;height:21px}
+.seccard h4{font-size:15px;margin-bottom:7px}.seccard p{font-size:12.5px;line-height:1.5}
+
+/* JOURNEY */
+.journey-tabs{display:flex;gap:8px;margin-top:34px;margin-bottom:26px}
+.journey-tabs button{font-family:var(--f-mono);font-size:12px;letter-spacing:.05em;text-transform:uppercase;padding:10px 18px;border-radius:40px;border:1px solid var(--border);background:var(--ground);color:var(--body);cursor:pointer;transition:.25s}
+.journey-tabs button.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
+.journey{position:relative;padding-left:8px}
+.jline{position:relative;display:grid;grid-template-columns:44px 1fr;gap:18px;padding-bottom:26px}
+.jline:last-child{padding-bottom:0}
+.jline::before{content:"";position:absolute;left:21px;top:6px;bottom:-6px;width:2px;background:var(--border)}
+.jline:last-child::before{display:none}
+.jdot{width:44px;height:44px;border-radius:50%;border:1.5px solid var(--border);background:var(--ground);display:grid;place-items:center;color:var(--accent);position:relative;z-index:2;font-family:var(--f-mono);font-weight:600;font-size:14px;transition:.4s}
+.jline.in .jdot{border-color:var(--accent);background:var(--accent);color:#fff}
+.jcontent h4{font-size:17px;margin-bottom:5px}
+.jcontent p{font-size:13.5px}
+.jcontent .jprod{font-family:var(--f-mono);font-size:11px;color:var(--accent);margin-top:7px}
+
+/* feature strip (member app) */
+.featstrip{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:40px}
+@media(max-width:860px){.featstrip{grid-template-columns:1fr 1fr}}
+@media(max-width:480px){.featstrip{grid-template-columns:1fr}}
+.feat{border:1px solid var(--border);border-radius:16px;padding:22px;background:var(--ground);transition:.3s var(--ease)}
+.feat:hover{border-color:var(--accent);transform:translateY(-4px);box-shadow:var(--shadow)}
+.feat .fi{width:40px;height:40px;border-radius:11px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;margin-bottom:14px;transition:.3s}
+.feat:hover .fi{transform:scale(1.08) rotate(-5deg)}
+.feat .fi svg{width:20px;height:20px}
+.feat h4{font-size:15px;margin-bottom:6px}.feat p{font-size:12.5px;line-height:1.5}
+.feat .fr{font-family:var(--f-mono);font-size:10px;color:var(--muted);margin-top:10px}
+
+/* MS ticker */
+.ticker{overflow:hidden;border-top:1px solid var(--border);border-bottom:1px solid var(--border);margin-top:44px;padding:16px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent);mask-image:linear-gradient(90deg,transparent,#000 12%,#000 88%,transparent)}
+.ticker-track{display:flex;gap:44px;width:max-content;animation:tick 34s linear infinite}
+.ticker:hover .ticker-track{animation-play-state:paused}
+@keyframes tick{to{transform:translateX(-50%)}}
+.ticker-item{display:flex;align-items:center;gap:11px;font-family:var(--f-display);font-weight:650;color:var(--body);font-size:16px;white-space:nowrap}
+.ticker-item .tk{width:24px;height:24px;border-radius:6px;display:grid;place-items:center;color:#fff;flex:none}
+.ticker-item .tk svg{width:13px;height:13px}
+
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
+  .reveal,.stag>*{opacity:1!important;transform:none!important}
+  .hero-h .line span,.hero-sub,.hero-actions,.hero-meta{animation:none!important;opacity:1!important;transform:none!important}
+  #cursor,#cursorDot{display:none!important}
+  .ticker-track{animation:none!important}
+}
+</style>
+<!-- PRELOADER -->
+<div id="loader">
+  <div class="load-lock"><span class="a">VOLGE</span><span class="x">×</span><span class="b">NESTWORK</span></div>
+  <div class="load-bar"><i></i></div>
+  <div class="load-meta">Preparing the proposal experience</div>
+</div>
+
+<div id="cursor"></div><div id="cursorDot"></div>
+<div id="wipe"><div class="wl">VOLGE × NESTWORK</div></div>
+<div id="progress"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="wrap nav-in">
+    <div class="brand" data-route="home" data-magnetic aria-label="Volge for Nestwork">
+      <span class="dot"></span>VOLGE<span class="sep">×</span><span class="cli">Nestwork</span>
+    </div>
+    <div class="nav-links" id="navLinks">
+      <a data-route="architecture">Design</a>
+      <a data-route="howitworks">How it Works</a>
+      <a data-route="app">Member App</a>
+      <a data-route="platform">Platform</a>
+      <a data-route="analytics">Analytics</a>
+      <a data-route="commercials">Commercials</a>
+    </div>
+    <div class="nav-right">
+      <button id="themeBtn" data-magnetic aria-label="Toggle theme">
+        <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>
+      </button>
+      <div class="nav-cta" data-route="contact" data-magnetic>Let's talk →</div>
+      <button class="menu-btn" id="menuBtn" aria-label="Menu"><i></i><i></i><i></i></button>
+    </div>
+  </div>
+</nav>
+<div id="mobileMenu">
+  <a data-route="home"><span>Overview</span><span class="mi">00</span></a>
+  <a data-route="architecture"><span>Solution Design</span><span class="mi">01</span></a>
+  <a data-route="howitworks"><span>How the Solution Works</span><span class="mi">02</span></a>
+  <a data-route="app"><span>Member App · live demo</span><span class="mi">03</span></a>
+  <a data-route="platform"><span>Platform &amp; Compliance</span><span class="mi">04</span></a>
+  <a data-route="analytics"><span>Operations Analytics</span><span class="mi">05</span></a>
+  <a data-route="delivery"><span>Migration &amp; Delivery</span><span class="mi">06</span></a>
+  <a data-route="commercials"><span>Commercial Model</span><span class="mi">07</span></a>
+  <a data-route="contact"><span>Let's talk</span><span class="mi">→</span></a>
+</div>
+
+<main id="app">
+
+<!-- ============================ HOME ============================ -->
+<section class="page" id="page-home">
+  <div id="hero">
+    <div class="hero-grid"></div><div class="blob a"></div><div class="blob b"></div>
+    <div class="wrap">
+      <span class="hero-tag"><b>RFP RESPONSE</b> · Coworking Management Platform · v2.0</span>
+      <h1 class="hero-h">
+        <span class="line l1"><span>One platform for</span></span>
+        <span class="line l2"><span>every <em>coworking</em></span></span>
+        <span class="line l3"><span>operation.</span></span>
+      </h1>
+      <p class="hero-sub">Volge Middle East proposes a purpose-built coworking platform for Nestwork — on Microsoft Dynamics 365 and the Power Platform, with in-country data residency in the Microsoft Cloud Qatar Central region, extended by a coworking accelerator that does what generic CRM cannot.</p>
+      <div class="hero-actions">
+        <div class="btn btn-primary" data-route="app" data-magnetic>Open the Member App demo
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div>
+        <div class="btn btn-hero-ghost" data-route="architecture" data-magnetic>See the architecture</div>
+      </div>
+      <div class="hero-meta">
+        <div class="m"><div class="k">Prepared for</div><div class="v">Nestwork · Alfardan Properties</div></div>
+        <div class="m"><div class="k">Platform</div><div class="v">Dynamics 365 + Power Platform</div></div>
+        <div class="m"><div class="k">Data residency</div><div class="v">Microsoft Cloud Qatar Central</div></div>
+        <div class="m"><div class="k">Proposal date</div><div class="v">9 July 2026</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="band wrap">
+    <div class="reveal">
+      <span class="eyebrow"><span class="n">01</span> The mandate</span>
+      <h2 class="title">A coworking operating model — not another generic CRM.</h2>
+      <p class="lead">The current model is fragmented across tools and runs on Zoho CRM. Free-hours entitlements, consumption ledgers, multi-contract accounts and meeting-room overage rating are <span class="kicker">not native to any standard CRM product</span>. Volge consolidates the operation onto one governed Microsoft platform, with one data model.</p>
+    </div>
+    <div class="split reveal">
+      <div class="side before">
+        <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg> Today · fragmented</div>
+        <h3 style="font-size:19px;margin-bottom:6px">Multiple disconnected tools</h3>
+        <div class="frag">
+          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Zoho CRM — enquiries &amp; leasing</div>
+          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Spreadsheets — free-hours &amp; overage</div>
+          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Separate billing &amp; finance handoffs</div>
+          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Email/WhatsApp done manually</div>
+          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Data residency outside Qatar</div>
+        </div>
+      </div>
+      <div class="side after">
+        <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Proposed · one platform</div>
+        <h3 style="font-size:19px;margin-bottom:6px">A single Microsoft Dataverse model</h3>
+        <div class="frag">
+          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> CRM, leasing &amp; multi-contract accounts</div>
+          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Entitlement engine &amp; overage rating</div>
+          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Billing signals → corporate Dynamics</div>
+          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Email + WhatsApp + surveys, native</div>
+          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Data residency in Qatar Central</div>
+        </div>
+      </div>
+    </div>
+    <div class="statrow stag reveal">
+      <div class="stat"><div class="big"><span data-count="100" data-suffix="%">0</span></div><div class="lb">RFP requirement IDs mapped to a delivery method</div></div>
+      <div class="stat"><div class="big"><span data-count="1">0</span></div><div class="lb">Unified Dataverse data model &amp; identity provider</div></div>
+      <div class="stat"><div class="big"><span data-count="20">0</span><span class="u">–24</span></div><div class="lb">Weeks to go-live, confirmed at discovery</div></div>
+      <div class="stat"><div class="big"><span data-count="99">0</span><span class="u">.9%</span></div><div class="lb">Microsoft uptime SLA, with documented DR</div></div>
+    </div>
+
+    <div class="reveal" style="margin-top:70px">
+      <span class="eyebrow"><span class="n">02</span> About the client</span>
+      <h2 class="title">Built for Nestwork, across all four Doha locations.</h2>
+      <p class="lead">Nestwork is the flexible-workspace brand of <span class="kicker">Alfardan Group</span> — "empowering your business with flexible office solutions" across coworking, private offices, enterprise suites and event spaces. The platform is designed for its multi-location model from day one.</p>
+    </div>
+
+    <div class="about-band reveal">
+      <div class="about-top">
+        <div class="at-l">
+          <span class="albadge">An <b>Alfardan Group</b> company</span>
+          <h3>Where work meets play.</h3>
+          <p>Four premium destinations across Doha, one community philosophy, and a growing membership of companies that expect a seamless, branded experience — on mobile, on the web and at the front desk.</p>
+        </div>
+        <div class="at-r">
+          <div class="astat"><div class="av"><span data-count="4">0</span></div><div class="al">Doha locations</div></div>
+          <div class="astat"><div class="av"><span data-count="4">0</span></div><div class="al">Community pillars</div></div>
+          <div class="astat"><div class="av"><span data-count="1">0</span></div><div class="al">Unified platform</div></div>
+          <div class="astat"><div class="av"><span data-count="100" data-suffix="%">0</span></div><div class="al">Requirements met</div></div>
+        </div>
+      </div>
+      <div class="pillars stag reveal">
+        <div class="pillar"><div class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h7M8 11h5"/></svg></div><h4>Learn</h4><p>Close knowledge gaps and share best practice.</p></div>
+        <div class="pillar"><div class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v4M12 18v4M2 12h4M18 12h4"/><circle cx="12" cy="12" r="4"/></svg></div><h4>Create</h4><p>Fuel innovation and business development.</p></div>
+        <div class="pillar"><div class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21V9l9-6 9 6v12"/><path d="M9 21v-6h6v6"/></svg></div><h4>Grow</h4><p>Collaborate and expand your network.</p></div>
+        <div class="pillar"><div class="pi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3a6 6 0 0 0 0 12 6 6 0 0 1 0-12z"/><path d="M12 15v6M9 21h6"/></svg></div><h4>Glow</h4><p>Wellness and rejuvenation, built in.</p></div>
+      </div>
+    </div>
+
+    <div class="locgrid stag reveal" id="locGrid"></div>
+
+    <div class="reveal" style="margin-top:70px">
+      <span class="eyebrow"><span class="n">03</span> Explore the proposal</span>
+      <h2 class="title">Each solution has its own page.</h2>
+    </div>
+    <div class="grid g3 stag reveal" id="homeNav" style="margin-top:34px"></div>
+
+    <div class="pager"><span></span>
+      <a class="next" data-route="architecture"><div class="pl">Next</div><div class="pt">Solution Architecture <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ARCHITECTURE ============================ -->
+<section class="page" id="page-architecture">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">01 / 06</span> Solution architecture</span>
+      <h2 class="title">One data foundation. Every module reads the same truth.</h2>
+      <p class="lead">Each element is a first-party Microsoft service, extended where the coworking model requires it. Tap any component to see how it maps to your requirements.</p>
+    </div>
+    <div class="band" style="padding-top:24px">
+      <div class="arch reveal">
+        <div class="dataverse-bar">
+          <div class="dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v14c0 1.7 4 3 9 3s9-1.3 9-3V5"/><path d="M3 12c0 1.7 4 3 9 3s9-1.3 9-3"/></svg> Microsoft Dataverse — single data model</div>
+          <div class="dr">Company · Contract · Enquiry · Invoice · Ticket · Location · Product · Room · Booking · Entitlement</div>
+        </div>
+        <div id="archLayers"></div>
+        <div class="dataflow-note">↑ Location changes propagate to CRM, app &amp; portal with no data drift — satisfying <b style="color:var(--accent)">GEN-04</b> (&lt; 5 minutes)</div>
+      </div>
+
+      <div class="reveal" style="margin-top:56px">
+        <span class="eyebrow"><span class="n">01.1</span> The coworking accelerator</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,38px)">The entitlement engine is the heart of the platform.</h2>
+        <p class="lead">Standard CRM cannot manage monthly free-hours quotas, proration, carryover, real-time consumption and an auditable ledger. Volge builds this as a purpose-built Dataverse solution — the central custom component behind mandatory <span class="kicker">FIN-04</span>, with overage rating for <span class="kicker">FIN-05</span> and room booking for <span class="kicker">APP-05</span>.</p>
+      </div>
+      <div class="grid g3 stag reveal" style="margin-top:30px">
+        <div class="card tilt"><div class="tilt-in"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><span class="tag-pill tag-custom">FIN-04 · Custom</span><h3 style="margin-top:14px">Free-hours quota &amp; ledger</h3><p>Monthly quota per contract, proration and configurable carryover, with real-time consumption and an auditable entitlement ledger.</p></div></div>
+        <div class="card tilt"><div class="tilt-in"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg></div><span class="tag-pill tag-custom">FIN-05 · Custom</span><h3 style="margin-top:14px">Location-specific overage</h3><p>Hours beyond entitlement are rated at each location's price and tax, generating invoice lines in real time or in a controlled batch.</p></div></div>
+        <div class="card tilt"><div class="tilt-in"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><span class="tag-pill tag-custom">APP-05 · Custom</span><h3 style="margin-top:14px">Room booking workflow</h3><p>Availability, free-hours deduction, overage estimate or approval, calendar invites and cancellation rules — tied to the ledger.</p></div></div>
+      </div>
+
+      <div class="pager">
+        <a class="prev" data-route="home"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Overview</div></a>
+        <a class="next" data-route="howitworks"><div class="pl">Next</div><div class="pt">How the Solution Works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ HOW IT WORKS ============================ -->
+<section class="page" id="page-howitworks">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">02 / 08</span> How the solution works</span>
+      <h2 class="title">The whole platform, on the Microsoft ecosystem.</h2>
+      <p class="lead">From a single enquiry to a reconciled invoice — see how Azure, Dataverse, Dynamics 365, the Power Platform and Microsoft 365 work together. Run the end-to-end simulation, then explore the layers, automation, security and user journeys.</p>
+    </div>
+
+    <div class="band" style="padding-top:22px">
+      <!-- ERP SIMULATOR -->
+      <div class="reveal">
+        <span class="eyebrow"><span class="n">A</span> Interactive ERP flow · watch a lead become revenue</span>
+      </div>
+      <div class="erp reveal">
+        <div class="erp-top">
+          <div class="et-l"><span class="ld"></span> Nestwork ERP · end-to-end process</div>
+          <div class="erp-controls">
+            <button id="erpPlay" class="play"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Run scenario</button>
+            <button id="erpPrev" aria-label="Previous step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M15 6l-6 6 6 6"/></svg></button>
+            <button id="erpNext" aria-label="Next step"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><path d="M9 6l6 6-6 6"/></svg></button>
+          </div>
+        </div>
+        <div class="erp-progress"><i id="erpBar"></i></div>
+        <div class="erp-canvas"><div class="erp-flow" id="erpFlow"></div></div>
+        <div class="erp-detail">
+          <div class="ed-l">
+            <div class="ed-step" id="erpStep">Step 1 / 8</div>
+            <h4 id="erpTitle">Enquiry captured</h4>
+            <p id="erpDesc">A prospect submits an enquiry on the Nestwork website. It lands in Dynamics 365 Sales as a lead with an auto-acknowledgement.</p>
+            <div class="erp-prods" id="erpProds"></div>
+          </div>
+          <div class="ed-r">
+            <div class="erp-screen">
+              <div class="es-bar"><i></i><i></i><i></i> <span id="erpScreenT">dynamics.nestwork · lead</span></div>
+              <div class="es-body" id="erpScreen"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ECOSYSTEM LAYERS -->
+      <div class="reveal" style="margin-top:66px">
+        <span class="eyebrow"><span class="n">B</span> The Microsoft ecosystem</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">Six layers, one governed platform.</h2>
+        <p class="lead">Every capability is a first-party Microsoft service. Hover any component to feel the depth; the stack reads bottom-up, from cloud foundation to the channels members touch.</p>
+      </div>
+      <div class="eco reveal" id="ecoStack"></div>
+
+      <!-- AUTOMATION -->
+      <div class="reveal" style="margin-top:66px">
+        <span class="eyebrow"><span class="n">C</span> Automation with Power Automate</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">The work that runs itself.</h2>
+        <p class="lead">Event-driven flows remove manual handoffs across finance, operations and communications.</p>
+      </div>
+      <div class="auto-grid stag reveal" id="autoGrid"></div>
+
+      <!-- SECURITY -->
+      <div class="reveal" style="margin-top:66px">
+        <span class="eyebrow"><span class="n">D</span> Security &amp; compliance</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">Governed, encrypted, and resident in Qatar.</h2>
+      </div>
+      <div class="secgrid stag reveal" id="secGrid"></div>
+
+      <!-- USER JOURNEY -->
+      <div class="reveal" style="margin-top:66px">
+        <span class="eyebrow"><span class="n">E</span> User journeys</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">Simple for members. Powerful for staff.</h2>
+      </div>
+      <div class="journey-tabs reveal" id="journeyTabs">
+        <button data-j="member" class="on">Member journey</button>
+        <button data-j="staff">Staff journey</button>
+      </div>
+      <div class="journey reveal" id="journeyList"></div>
+
+      <div class="ticker reveal">
+        <div class="ticker-track" id="tickerTrack"></div>
+      </div>
+
+      <div class="pager">
+        <a class="prev" data-route="architecture"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Solution Design</div></a>
+        <a class="next" data-route="app"><div class="pl">Next</div><div class="pt">Member App · live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ MEMBER APP ============================ -->
+<section class="page" id="page-app">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">02 / 06</span> Member app · working prototype</span>
+      <h2 class="title">Not a slide. A running member app.</h2>
+      <p class="lead">This is a functional model of the Nestwork member experience — the same features the Power Apps native app and Power Pages portal deliver. Book a room and watch free hours deduct, raise a support ticket and watch the SLA start, browse the directory, open the guide hub. Everything below is interactive.</p>
+    </div>
+
+    <div class="appstage band" style="padding-top:20px">
+      <!-- PHONE -->
+      <div class="reveal">
+        <div class="phone">
+          <div class="screen">
+            <div class="statusbar">
+              <span id="clock">9:41</span>
+              <span class="sr">
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M2 22h4V10H2zM9 22h4V2H9zM16 22h4v-8h-4z"/></svg>
+                <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 4C7 4 3 7 1 11l11 9 11-9c-2-4-6-7-11-7z" opacity=".85"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="18" height="10" rx="2"/><path d="M22 10v4"/><rect x="4" y="9" width="13" height="6" rx="1" fill="currentColor"/></svg>
+              </span>
+            </div>
+            <div class="appbar">
+              <div class="ab-l">
+                <div class="avatar">L</div>
+                <div><div class="hi">Member · NW-1042</div><div class="nm" id="memberName">Layla Al-Emadi</div></div>
+              </div>
+              <button class="bell" id="bellBtn" aria-label="Notifications"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg><span class="badge" id="bellBadge">2</span></button>
+            </div>
+
+            <div class="appscroll" id="appScroll">
+              <!-- HOME SCREEN -->
+              <div class="ascreen on" id="s-home">
+                <div class="sc-title">Good morning, Layla</div>
+                <div class="sc-sub">Design Republic LLC · West Bay</div>
+                <div class="ent-widget">
+                  <svg class="ring" id="entRing" viewBox="0 0 42 42"></svg>
+                  <div>
+                    <div class="ew-t">Meeting-room free hours</div>
+                    <div class="ew-v"><span id="ewRemain">10</span><small> / 10 h this month</small></div>
+                    <div class="ew-s" id="ewSub">Resets 1 August · 2 h carryover eligible</div>
+                  </div>
+                </div>
+                <div class="qrow">
+                  <button class="qbtn" data-goto="rooms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><b>Book a room</b></button>
+                  <button class="qbtn" data-goto="tickets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b>New ticket</b></button>
+                </div>
+                <div class="sec-h">Announcements <a data-goto="ann">See all</a></div>
+                <div id="homeAnn"></div>
+                <div class="sec-h">Upcoming bookings</div>
+                <div id="homeBookings"></div>
+              </div>
+
+              <!-- ROOMS SCREEN -->
+              <div class="ascreen" id="s-rooms">
+                <div class="sc-title">Meeting rooms</div>
+                <div class="sc-sub" id="roomsSub">Burj Al Gassar · Level 7</div>
+                <div class="afield"><label>Location</label><select id="appLoc"></select></div>
+                <div class="sec-h">Available now</div>
+                <div id="roomList"></div>
+              </div>
+
+              <!-- BOOKING SHEET SCREEN -->
+              <div class="ascreen" id="s-book">
+                <div class="sc-title" id="bkRoomName">Pearl Boardroom</div>
+                <div class="sc-sub" id="bkRoomMeta">12 pax · Burj Al Gassar</div>
+                <div class="afield"><label>Date</label><select id="bkDate"></select></div>
+                <div class="afield"><label>Start time</label><select id="bkStart"></select></div>
+                <div class="afield"><label>Duration (hours)</label>
+                  <div class="aseg" id="bkDur">
+                    <button data-h="1">1</button><button data-h="2" class="on">2</button><button data-h="3">3</button><button data-h="4">4</button><button data-h="6">6</button>
+                  </div>
+                </div>
+                <div class="est">
+                  <div class="er"><span class="lbl">Free hours remaining</span><span class="val free" id="bkRemain">—</span></div>
+                  <div class="er"><span class="lbl">Applied from entitlement</span><span class="val free" id="bkApplied">—</span></div>
+                  <div class="er"><span class="lbl">Billable overage</span><span class="val over" id="bkOver">—</span></div>
+                  <div class="er"><span class="lbl">Rate · VAT</span><span class="val" id="bkRate">—</span></div>
+                  <div class="er tot"><span class="lbl">Estimated charge</span><span class="val over" id="bkTotal">—</span></div>
+                </div>
+                <button class="btn btn-primary appbtn" id="bkConfirm">Confirm booking
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></button>
+                <button class="btn btn-ghost appbtn" id="bkCancel" style="margin-top:10px">Back to rooms</button>
+              </div>
+
+              <!-- TICKETS SCREEN -->
+              <div class="ascreen" id="s-tickets">
+                <div class="sc-title">Support tickets</div>
+                <div class="sc-sub">Raised via app · handled in Dynamics 365 Customer Service</div>
+                <button class="btn btn-primary appbtn" id="newTicketBtn" style="margin-bottom:16px">+ New ticket</button>
+                <div id="ticketList"></div>
+              </div>
+
+              <!-- NEW TICKET SCREEN -->
+              <div class="ascreen" id="s-newticket">
+                <div class="sc-title">New ticket</div>
+                <div class="sc-sub">SLA timer starts the moment you submit</div>
+                <div class="afield"><label>Category</label>
+                  <div class="chips" id="tCat">
+                    <span class="chip on" data-v="Facilities">Facilities</span>
+                    <span class="chip" data-v="IT / Wi-Fi">IT / Wi-Fi</span>
+                    <span class="chip" data-v="Cleaning">Cleaning</span>
+                    <span class="chip" data-v="Access">Access</span>
+                  </div>
+                </div>
+                <div class="afield"><label>Priority</label>
+                  <div class="chips" id="tPrio">
+                    <span class="chip" data-v="Low">Low</span>
+                    <span class="chip on" data-v="Normal">Normal</span>
+                    <span class="chip p-high" data-v="High">High</span>
+                  </div>
+                </div>
+                <div class="afield"><label>Describe the issue</label><textarea id="tDesc" placeholder="e.g. Meeting room AC not cooling in Pearl Boardroom"></textarea></div>
+                <div class="afield"><label>Attachment</label>
+                  <button class="btn btn-ghost appbtn" id="tAttach" style="justify-content:flex-start;text-transform:none;letter-spacing:0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.5L12.5 21a5 5 0 0 1-7-7l8.5-8.5a3.5 3.5 0 1 1 5 5L10.5 18"/></svg> <span id="tAttachL">Add a photo</span></button>
+                </div>
+                <button class="btn btn-primary appbtn" id="tSubmit">Submit ticket</button>
+                <button class="btn btn-ghost appbtn" id="tBack" style="margin-top:10px">Cancel</button>
+              </div>
+
+              <!-- ANNOUNCEMENTS SCREEN -->
+              <div class="ascreen" id="s-ann">
+                <div class="sc-title">Announcements</div>
+                <div class="sc-sub">Events &amp; building maintenance · segmented to you</div>
+                <div id="annList"></div>
+              </div>
+
+              <!-- DIRECTORY SCREEN -->
+              <div class="ascreen" id="s-directory">
+                <div class="sc-title">Member directory</div>
+                <div class="sc-sub">Opt-in companies across Nestwork locations</div>
+                <div class="dsearch"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="dirSearch" placeholder="Search by name or sector…"></div>
+                <div id="dirList"></div>
+              </div>
+
+              <!-- GUIDE SCREEN -->
+              <div class="ascreen" id="s-guide">
+                <div class="sc-title">Guide hub</div>
+                <div class="sc-sub">Everything you need to work here</div>
+                <div id="guideList"></div>
+              </div>
+            </div>
+
+            <!-- notifications sheet -->
+            <div class="sheet" id="notifSheet">
+              <div class="sheet-in">
+                <div class="sheet-grab"></div>
+                <div class="sc-title" style="font-size:19px;margin-bottom:14px">Notifications</div>
+                <div id="notifList"></div>
+              </div>
+            </div>
+
+            <!-- TAB BAR -->
+            <div class="tabbar" id="tabbar">
+              <button data-tab="home" class="on"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 10l9-7 9 7v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg><span class="tl">Home</span></button>
+              <button data-tab="rooms"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg><span class="tl">Rooms</span></button>
+              <button data-tab="tickets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="tl">Tickets</span></button>
+              <button data-tab="directory"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17.5" cy="8.5" r="2.5"/><path d="M21 19c0-2-1.5-3.5-3.5-4"/></svg><span class="tl">Directory</span></button>
+              <button data-tab="guide"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 5a2 2 0 0 1 2-2h12v18H6a2 2 0 0 1-2-2z"/><path d="M8 7h7M8 11h7"/></svg><span class="tl">Guide</span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- annotations -->
+      <div class="reveal">
+        <span class="eyebrow" style="margin-bottom:26px"><span class="n">↔</span> What you're touching</span>
+        <div class="appnotes">
+          <div class="an"><div class="req">APP-05 · FIN-04 · FIN-05</div><h4>Room booking &amp; entitlement</h4><p>Booking deducts free hours from the contract's monthly quota; anything beyond is rated at the location's price &amp; tax and raised as an invoice line — live, in the ledger.</p></div>
+          <div class="an"><div class="req">APP-01 · COL-01</div><h4>Support ticketing</h4><p>Members raise tickets with category, priority and a photo; the SLA timer starts on submit and the case is handled in Dynamics 365 Customer Service.</p></div>
+          <div class="an"><div class="req">APP-02</div><h4>Announcements</h4><p>Segmented event &amp; maintenance broadcasts with read state — push, email or WhatsApp, with read receipts and expiry.</p></div>
+          <div class="an"><div class="req">APP-04</div><h4>Company directory</h4><p>Searchable, opt-in company profiles with sector &amp; location filters and moderated contact requests.</p></div>
+          <div class="an"><div class="req">APP-03 · WEB-01</div><h4>Guide hub &amp; parity</h4><p>Role-based onboarding content, securely handled; the Power Pages portal mirrors every feature with the same permissions.</p></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="reveal">
+      <span class="eyebrow"><span class="n">02.1</span> Key features</span>
+      <h2 class="title" style="font-size:clamp(24px,3.6vw,38px)">Everything a member needs, in one branded app.</h2>
+    </div>
+    <div class="featstrip stag reveal">
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><h4>Book &amp; pay for rooms</h4><p>Real-time availability, free-hours deduction and instant overage estimates with calendar invites.</p><div class="fr">APP-05 · FIN-04/05</div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div><h4>Raise &amp; track tickets</h4><p>Photo attachments, priority, live SLA timers and push updates — resolved in Customer Service.</p><div class="fr">APP-01 · COL-01</div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.7 21a2 2 0 0 1-3.4 0"/></svg></div><h4>Stay in the loop</h4><p>Segmented announcements and notifications by push, email or WhatsApp, with read receipts.</p><div class="fr">APP-02 · MKT-01</div></div>
+      <div class="feat"><div class="fi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17.5" cy="8.5" r="2.5"/></svg></div><h4>Connect &amp; onboard</h4><p>Opt-in company directory, contact requests and a role-based guide hub for everything on-site.</p><div class="fr">APP-03 · APP-04</div></div>
+    </div>
+
+    <div class="reveal" style="margin-top:64px">
+      <span class="eyebrow"><span class="n">02.2</span> The member journey</span>
+      <h2 class="title" style="font-size:clamp(24px,3.6vw,38px)">Five taps from sign-in to done.</h2>
+    </div>
+    <div class="journey stag reveal" style="margin-top:30px" id="memberJourney"></div>
+
+    <div class="wrap" style="padding:0">
+      <div class="pager">
+        <a class="prev" data-route="howitworks"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> How it Works</div></a>
+        <a class="next" data-route="platform"><div class="pl">Next</div><div class="pt">Platform &amp; Compliance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- ============================ PLATFORM & COMPLIANCE ============================ -->
+<section class="page" id="page-platform">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">03 / 06</span> Platform modules &amp; compliance</span>
+      <h2 class="title">Every module. Every requirement. One clear answer.</h2>
+      <p class="lead">A Power Apps native app and a Power Pages portal on the same Dataverse data, mirroring each other per <span class="kicker">WEB-01</span>. Each module is priced independently — and every RFP requirement ID is mapped to Native, Integration or Custom.</p>
+    </div>
+
+    <div class="band" style="padding-top:24px">
+      <div class="grid g3 stag reveal" id="moduleGrid"></div>
+
+      <div class="reveal" style="margin-top:60px">
+        <span class="eyebrow"><span class="n">03.1</span> Requirement compliance matrix</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">Search all requirement IDs.</h2>
+        <p class="lead">The RFP's mandatory rule: map each requirement to a delivery method. We did — all of them.</p>
+      </div>
+      <div class="matrix-tools reveal">
+        <label class="searchbox"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg>
+          <input type="text" id="mSearch" placeholder="Search — e.g. entitlement, WhatsApp, FIN-04…" aria-label="Search requirements"></label>
+        <div class="filters" id="mFilters">
+          <button data-f="all" class="on">All</button><button data-f="native">Native</button>
+          <button data-f="integration">Integration</button><button data-f="custom">Custom</button><button data-f="must">Must</button>
+        </div>
+      </div>
+      <div class="mcount" id="mCount"></div>
+      <div class="mtable reveal" id="mTable"></div>
+
+      <div class="pager">
+        <a class="prev" data-route="app"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Member App</div></a>
+        <a class="next" data-route="analytics"><div class="pl">Next</div><div class="pt">Operations Analytics <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ ANALYTICS ============================ -->
+<section class="page" id="page-analytics">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">04 / 06</span> Operations analytics</span>
+      <h2 class="title">The dashboards you run the business on.</h2>
+      <p class="lead">Power BI, embedded in the app, portal and staff interface — occupancy, revenue, churn, bookings, free-hours utilisation and overage revenue, satisfying <span class="kicker">ANL-01 to ANL-05</span>. Figures shown are an illustrative model.</p>
+    </div>
+    <div class="band" style="padding-top:20px">
+      <div class="dash reveal">
+        <div class="dash-top">
+          <div class="dt"><span class="ld"></span> Nestwork · Portfolio overview</div>
+          <div class="dash-toggle" id="dashToggle"><button data-p="q" class="on">Quarter</button><button data-p="y">Year</button></div>
+        </div>
+        <div class="dash-kpis" id="dashKpis"></div>
+        <div class="dash-charts">
+          <div class="chart-box"><div class="cbh"><span class="ct">Recurring revenue</span><span class="cs" id="revScope">MRR · last 8 months</span></div>
+            <svg class="linechart" id="lineChart" viewBox="0 0 640 180" preserveAspectRatio="none" aria-label="Revenue trend"></svg></div>
+          <div class="chart-box"><div class="cbh"><span class="ct">Occupancy by location</span><span class="cs">desk utilisation %</span></div>
+            <div class="bars" id="barChart"></div></div>
+        </div>
+        <div class="dash-charts" style="border-top:1px solid var(--border)">
+          <div class="chart-box"><div class="cbh"><span class="ct">Free-hours utilisation</span><span class="cs">consumed vs entitlement</span></div>
+            <div class="donut-wrap"><svg class="donut" id="donut" viewBox="0 0 42 42" aria-label="Free hours utilisation"></svg><div class="legend" id="donutLegend"></div></div></div>
+          <div class="chart-box"><div class="cbh"><span class="ct">Booking mix</span><span class="cs">this quarter</span></div>
+            <div class="legend" id="mixLegend" style="gap:15px"></div></div>
+        </div>
+      </div>
+      <div class="pager">
+        <a class="prev" data-route="platform"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Platform</div></a>
+        <a class="next" data-route="delivery"><div class="pl">Next</div><div class="pt">Migration &amp; Delivery <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DELIVERY ============================ -->
+<section class="page" id="page-delivery">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">05 / 06</span> Migration &amp; delivery</span>
+      <h2 class="title">A controlled, reversible move off Zoho.</h2>
+      <p class="lead">Zoho CRM is retired as the source of record on go-live. Migration is planned, validated, reconciled and reversible — with a rollback restore point held until go-live is signed off.</p>
+    </div>
+    <div class="band" style="padding-top:20px">
+      <div class="flow-track reveal" id="flowTrack"></div>
+      <div class="reveal" style="margin-top:64px">
+        <span class="eyebrow"><span class="n">05.1</span> Implementation plan</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">20–24 weeks to go-live, across six phases.</h2>
+      </div>
+      <div class="timeline reveal" id="timeline"></div>
+      <div class="pager">
+        <a class="prev" data-route="analytics"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Analytics</div></a>
+        <a class="next" data-route="commercials"><div class="pl">Next</div><div class="pt">Commercial Model <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ COMMERCIALS ============================ -->
+<section class="page" id="page-commercials">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">06 / 06</span> Commercial model</span>
+      <h2 class="title">Modular by design. Remove a module, see the impact.</h2>
+      <p class="lead">Requirement <span class="kicker">PRP-01</span> asks for modular pricing with the cost impact of removal made explicit; <span class="kicker">PRP-02</span> for two commercial models. Both are addressed. Index units below are illustrative; final figures are in the priced schedule.</p>
+    </div>
+    <div class="band" style="padding-top:20px">
+      <div class="models reveal">
+        <div class="model">
+          <div class="mtag">Model A · Subscription (SaaS)</div>
+          <h3>Managed service on Microsoft subscriptions</h3>
+          <p class="mdesc">Nestwork holds Dynamics 365, Power Platform and Azure subscriptions by user tier and module; Volge provides the managed service.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Licences by user tier &amp; module</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Volge managed service &amp; support SLA</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Contract term &amp; annual escalation</li>
+          </ul>
+        </div>
+        <div class="model feat">
+          <div class="mtag">Model B · Accelerator licence</div>
+          <h3>Volge accelerator, perpetual or source-available</h3>
+          <p class="mdesc">Volge licenses its coworking accelerator &amp; IP on a perpetual or source-available basis with annual maintenance, on subscriptions held by Nestwork.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Accelerator licence + customisation rights</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Maintenance %, upgrade &amp; support policy</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Hosting responsibility defined</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="modules reveal">
+        <div class="mh"><div><h3>Modular boundaries &amp; cost impact of removal</h3>
+          <p>Each module carries its own licence and implementation cost. Toggle any module off to see the requirements affected and the illustrative index change.</p></div></div>
+        <div class="modlist" id="modList"></div>
+        <div class="modsummary"><div class="ms-l">Illustrative implementation index</div>
+          <div class="ms-r"><span class="idx" id="modIndex">100</span> <span style="font-size:16px;color:var(--muted)">units</span></div></div>
+        <div class="modwarn" id="modWarn"></div>
+      </div>
+
+      <div class="reveal" style="margin-top:60px">
+        <span class="eyebrow"><span class="n">§11</span> Built for how you'll score it</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">Aligned to your evaluation weighting.</h2>
+      </div>
+      <div class="why-grid">
+        <div class="stag reveal">
+          <div class="card" style="margin-bottom:22px"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>In-country data residency</h3><p>Azure, Microsoft 365, Dynamics 365 and Power Platform run from the Microsoft Cloud Qatar Central region — a compliance advantage for an Alfardan Properties entity that Zoho does not offer.</p></div>
+          <div class="card" style="margin-bottom:22px"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h3>One Microsoft platform</h3><p>CRM, leasing, billing signals, ticketing, communications, documents and analytics on one Dataverse model, one identity provider, one security &amp; audit model.</p></div>
+          <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M8 12l3 3 5-6"/></svg></div><h3>An accelerator, not a workaround</h3><p>The entitlement engine, room booking and multi-contract account model are purpose-built — not forced into unsuitable standard objects.</p></div>
+        </div>
+        <div class="card reveal" style="align-self:start">
+          <span class="eyebrow" style="margin-bottom:22px"><span class="n">§11</span> RFP evaluation weighting</span>
+          <div id="evalList"></div>
+        </div>
+      </div>
+
+      <div class="pager">
+        <a class="prev" data-route="delivery"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Migration &amp; Delivery</div></a>
+        <a class="next" data-route="contact"><div class="pl">Next</div><div class="pt">Let's talk <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ CONTACT ============================ -->
+<section class="page" id="page-contact">
+  <div class="wrap band">
+    <div class="cwrap reveal">
+      <div class="blob a"></div>
+      <span class="eyebrow"><span class="n">→</span> The next step</span>
+      <h2>We look forward to discussing this in detail.</h2>
+      <p class="lead">Every mandatory checklist item in Section 13 of the RFP is addressed. We'd welcome a working session to walk Nestwork through the accelerator, the migration plan and the priced commercial schedule.</p>
+      <div class="hero-actions" style="justify-content:center;animation:none;opacity:1">
+        <a href="mailto:B.maroua@volge.com?subject=Nestwork%20Coworking%20Platform%20Proposal" class="btn btn-primary" data-magnetic>Arrange a working session
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+        <div class="btn btn-hero-ghost" data-route="app" data-magnetic>Replay the demo</div>
+      </div>
+      <div class="contact-card">
+        <div class="cc"><div class="ccl">Prepared by</div><div class="ccv">Volge Middle East<br>Microsoft solutions &amp; digital transformation</div></div>
+        <div class="cc"><div class="ccl">In response to</div><div class="ccv">Nestwork Coworking Management Platform RFP<br>Version 2.0 · 24 June 2026</div></div>
+        <div class="cc"><div class="ccl">Contact</div><div class="ccv"><a href="mailto:B.maroua@volge.com">B.maroua@volge.com</a></div></div>
+        <div class="cc"><div class="ccl">Classification</div><div class="ccv">Confidential — named recipient only</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="fin">
+      <div class="brand"><span class="dot"></span>VOLGE<span class="sep">×</span><span class="cli">Nestwork</span></div>
+      <div class="fmeta">Response to RFP · Comprehensive Coworking Management Platform<br>Microsoft Dynamics 365 &amp; Power Platform · Qatar Central data residency</div>
+    </div>
+    <div class="conf">Confidential · For Nestwork &amp; Alfardan Properties evaluation only · © Volge Middle East 2026</div>
+  </div>
+</footer>
+
+<div id="toast">
+  <div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M20 6L9 17l-5-5"/></svg></div>
+  <div><div class="tt" id="toastT">Booking confirmed</div><div class="ts" id="toastS">Calendar invite sent</div></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  var reduce=window.matchMedia&&window.matchMedia("(prefers-reduced-motion:reduce)").matches;
+  var $=function(s,c){return (c||document).querySelector(s)};
+  var $$=function(s,c){return Array.prototype.slice.call((c||document).querySelectorAll(s))};
+  var fmt=function(n){return Math.round(n).toLocaleString("en-US")};
+
+  /* PRELOADER */
+  window.addEventListener("load",function(){ setTimeout(function(){var l=$("#loader");if(l)l.classList.add("done")},reduce?200:1350); });
+
+  /* THEME */
+  var root=document.documentElement,tBtn=$("#themeBtn"),tIcon=$("#themeIcon");
+  var sun='<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>';
+  var moon='<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/>';
+  function curTheme(){return root.getAttribute("data-theme")||(window.matchMedia("(prefers-color-scheme:dark)").matches?"dark":"light")}
+  function setTheme(t){root.setAttribute("data-theme",t);tIcon.innerHTML=t==="dark"?moon:sun;if(dashInit)renderDash(false)}
+  var dashInit=false;
+  setTheme(curTheme());
+  tBtn.addEventListener("click",function(){setTheme(curTheme()==="dark"?"light":"dark")});
+
+  /* CURSOR */
+  var cur=$("#cursor"),dot=$("#cursorDot"),cx=innerWidth/2,cy=innerHeight/2,dx=cx,dy=cy;
+  if(!reduce&&matchMedia("(hover:hover)").matches){
+    window.addEventListener("mousemove",function(e){cx=e.clientX;cy=e.clientY;dot.style.transform="translate("+cx+"px,"+cy+"px)"});
+    (function loop(){dx+=(cx-dx)*.18;dy+=(cy-dy)*.18;cur.style.transform="translate("+dx+"px,"+dy+"px)";requestAnimationFrame(loop)})();
+    document.addEventListener("mouseover",function(e){if(e.target.closest("a,button,select,input,textarea,.node,.card,.modrow,.room,.chip,.qbtn,.guide,[data-route],[data-magnetic],[data-goto],[data-tab]"))cur.classList.add("hov")});
+    document.addEventListener("mouseout",function(e){if(e.target.closest("a,button,select,input,textarea,.node,.card,.modrow,.room,.chip,.qbtn,.guide,[data-route],[data-magnetic],[data-goto],[data-tab]"))cur.classList.remove("hov")});
+  } else {if(cur)cur.style.display="none";if(dot)dot.style.display="none"}
+  function bindMagnetic(){ if(reduce||!matchMedia("(hover:hover)").matches)return;
+    $$("[data-magnetic]:not(.mbound)").forEach(function(el){el.classList.add("mbound");
+      el.addEventListener("mousemove",function(e){var r=el.getBoundingClientRect();el.style.transform="translate("+((e.clientX-r.left-r.width/2)*.28)+"px,"+((e.clientY-r.top-r.height/2)*.34)+"px)"});
+      el.addEventListener("mouseleave",function(){el.style.transform=""});
+    });
+  }
+  bindMagnetic();
+
+  /* REVEAL (scroll-based, robust with page switches) */
+  function checkReveals(){
+    $$(".reveal:not(.in),.stag:not(.in)").forEach(function(el){
+      var p=el.closest(".page"); if(p&&!p.classList.contains("active"))return;
+      var r=el.getBoundingClientRect();
+      if(r.top<innerHeight*0.9&&r.bottom>0){el.classList.add("in");$$("[data-count]",el).forEach(countUp)}
+    });
+  }
+  var ticking=false;
+  window.addEventListener("scroll",function(){if(!ticking){ticking=true;requestAnimationFrame(function(){checkReveals();onScroll();ticking=false})}},{passive:true});
+  function countUp(node){
+    if(node.dataset.done)return; node.dataset.done="1";
+    if(reduce){node.textContent=node.getAttribute("data-count")+(node.getAttribute("data-suffix")||"");return}
+    var end=parseFloat(node.getAttribute("data-count")),suf=node.getAttribute("data-suffix")||"",t0=null,dur=1300;
+    function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1),e=1-Math.pow(1-p,3);node.textContent=Math.round(end*e)+suf;if(p<1)requestAnimationFrame(step)}
+    requestAnimationFrame(step);
+  }
+
+  /* PROGRESS + NAV */
+  var nav=$("#nav"),prog=$("#progress");
+  function onScroll(){var st=window.pageYOffset,h=document.documentElement.scrollHeight-innerHeight;prog.style.width=(h>0?st/h*100:0)+"%"}
+  var mb=$("#menuBtn"),mm=$("#mobileMenu");
+  if(mb)mb.addEventListener("click",function(){mm.classList.toggle("open")});
+
+  /* TILT */
+  function bindTilt(){ if(reduce||!matchMedia("(hover:hover)").matches)return;
+    $$(".tilt:not(.tbound)").forEach(function(card){card.classList.add("tbound");
+      card.addEventListener("mousemove",function(e){var r=card.getBoundingClientRect();var rx=((e.clientY-r.top)/r.height-.5)*-8,ry=((e.clientX-r.left)/r.width-.5)*8;card.style.transform="perspective(800px) rotateX("+rx+"deg) rotateY("+ry+"deg) translateY(-4px)"});
+      card.addEventListener("mouseleave",function(){card.style.transform=""});
+    });
+  }
+
+  /* ============================ ROUTER ============================ */
+  var wipe=$("#wipe"),ANIM={a:false};
+  var pageTriggers={
+    analytics:function(){ if(!dashInit){dashInit=true;renderDash(true)} },
+    delivery:function(){ triggerFlow(); triggerTimeline(); },
+    commercials:function(){ triggerEval(); }
+  };
+  function setActive(route){
+    $$(".page").forEach(function(p){p.classList.toggle("active",p.id==="page-"+route)});
+    $$("#navLinks a").forEach(function(a){a.classList.toggle("active",a.getAttribute("data-route")===route)});
+    window.scrollTo(0,0);
+    bindMagnetic();bindTilt();
+    requestAnimationFrame(function(){checkReveals();onScroll()});
+    if(pageTriggers[route])pageTriggers[route]();
+    if(location.hash!=="#"+route)history.replaceState(null,"","#"+route);
+  }
+  function go(route,skip){
+    if(!document.getElementById("page-"+route))route="home";
+    mm.classList.remove("open");
+    if(skip||reduce||ANIM.a){setActive(route);return}
+    ANIM.a=true; wipe.classList.remove("out"); wipe.classList.add("in");
+    setTimeout(function(){ setActive(route); },430);
+    setTimeout(function(){ wipe.classList.remove("in"); wipe.classList.add("out"); },520);
+    setTimeout(function(){ wipe.classList.remove("out"); ANIM.a=false; },1040);
+  }
+  document.addEventListener("click",function(e){
+    var t=e.target.closest("[data-route]"); if(t){e.preventDefault();go(t.getAttribute("data-route"))}
+  });
+  window.addEventListener("hashchange",function(){var r=location.hash.replace("#","")||"home";if(!document.querySelector(".page.active#page-"+r))go(r)});
+
+  /* ============================ DATA + RENDERERS (shared) ============================ */
+  function methodClass(m){m=m.toLowerCase();if(m.indexOf("integration")>-1&&m.indexOf("native")===-1&&m.indexOf("custom")===-1)return"tag-integ";if(m.indexOf("custom")>-1)return"tag-custom";return"tag-native"}
+
+  var ARCH=[
+    {layer:"CRM · leasing · coworking core",nodes:[
+      {t:"GEN · CRM",n:"Dynamics 365 Sales + accelerator",m:"Native + Custom",d:"Enquiry, lead, lease, account and multi-contract lifecycle with location-level history."},
+      {t:"FIN-04 · APP-05",n:"Entitlement & booking engine",m:"Custom",d:"Free-hours quota, ledger, proration, carryover, overage rating and room booking."},
+      {t:"GEN-05 · FIN-06",n:"Per-location catalogue",m:"Custom",d:"Plans, add-ons and room rates with effective dates, versioning and audit trail."}
+    ]},
+    {layer:"Member-facing channels",nodes:[
+      {t:"APP-01→05",n:"Power Apps native app",m:"Native + Custom",d:"Tickets, announcements, guide hub, directory and booking, packaged for App Store & Play."},
+      {t:"WEB-01",n:"Power Pages portal",m:"Native + Custom",d:"Responsive portal with SSO and the same permissions as the app."},
+      {t:"GEN-03 · NFR-01",n:"Entra ID / External ID",m:"Native",d:"Staff SSO via Entra ID; member identity via Entra External ID. SAML & OAuth."}
+    ]},
+    {layer:"Communications · support · docs",nodes:[
+      {t:"MKT-01→03",n:"Customer Insights – Journeys",m:"Native",d:"Email native; campaigns, segmentation, delivery metrics and attribution."},
+      {t:"MKT-01 · APP-02",n:"WhatsApp via Azure Comms",m:"Integration",d:"WhatsApp Business channel kept in the Microsoft ecosystem; Infobip alternative."},
+      {t:"COL-01 · COL-02",n:"Dynamics 365 Customer Service",m:"Native",d:"Ticketing, SLA timers, escalation and knowledge base."},
+      {t:"DOC-01",n:"SharePoint Online",m:"Native + Integration",d:"Secure contracts, policies and knowledge storage with retention & DR."}
+    ]},
+    {layer:"Finance · analytics · hosting",nodes:[
+      {t:"FIN-01→03",n:"Billing + corporate Dynamics",m:"Integration",d:"Two-way sync to corporate Dynamics with reconciliation logs; native billing optional."},
+      {t:"ANL-01→05",n:"Microsoft Power BI",m:"Native + Custom",d:"Occupancy, revenue, churn, bookings and free-hours dashboards, embedded everywhere."},
+      {t:"NFR-02→04",n:"Microsoft Cloud Qatar Central",m:"Native",d:"In-country data residency, encryption, 99.9% SLA, backup, RPO/RTO and DR runbooks."}
+    ]}
+  ];
+  (function(){var host=$("#archLayers");ARCH.forEach(function(L){
+    var w=document.createElement("div");w.className="arch-layer";w.innerHTML='<div class="layer-h">'+L.layer+'</div>';
+    var f=document.createElement("div");f.className="arch-flow";
+    L.nodes.forEach(function(nd){var el=document.createElement("div");el.className="node";el.tabIndex=0;
+      el.innerHTML='<div class="nt">'+nd.t+'</div><div class="nn">'+nd.n+'</div><span class="tag-pill '+methodClass(nd.m)+'" style="margin-top:9px;font-size:10px;padding:3px 9px">'+nd.m+'</span><div class="nd">'+nd.d+'</div>';
+      function tog(){var was=el.classList.contains("on");$$(".node",f).forEach(function(x){x.classList.remove("on")});if(!was)el.classList.add("on")}
+      el.addEventListener("click",tog);el.addEventListener("keydown",function(e){if(e.key==="Enter"||e.key===" "){e.preventDefault();tog()}});
+      f.appendChild(el);
+    });w.appendChild(f);host.appendChild(w);
+  })})();
+
+  /* HOME NAV cards */
+  var HN=[
+    ["01","Architecture","architecture","One Dataverse model; every module reads the same truth."],
+    ["02","Member App","app","A working member app — book rooms, raise tickets, browse."],
+    ["03","Platform &amp; Compliance","platform","Every module + all requirement IDs mapped."],
+    ["04","Analytics","analytics","Occupancy, revenue, churn & free-hours dashboards."],
+    ["05","Migration &amp; Delivery","delivery","Reversible move off Zoho; 20–24 weeks to go-live."],
+    ["06","Commercials","commercials","Two models, modular pricing, cost-of-removal."]
+  ];
+  (function(){var g=$("#homeNav");HN.forEach(function(h){var c=document.createElement("div");c.className="card tilt";c.setAttribute("data-route",h[2]);c.style.cursor="pointer";
+    c.innerHTML='<div class="tilt-in"><div style="font-family:var(--f-mono);font-size:12px;color:var(--accent);letter-spacing:.1em">'+h[0]+'</div><h3 style="margin-top:12px;display:flex;align-items:center;gap:9px;justify-content:space-between">'+h[1]+' <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" style="width:18px;height:18px;color:var(--accent)"><path d="M5 12h14M13 6l6 6-6 6"/></svg></h3><p>'+h[3]+'</p></div>';
+    g.appendChild(c)})})();
+
+  /* MODULE grid */
+  var MODULES=[
+    {ic:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',id:"CRM-01→03",n:"CRM, leasing & accounts",m:"Custom on D365 Sales",d:"Full coworking lifecycle with quality/non-quality scoring and multiple contracts per company across locations."},
+    {ic:'<path d="M4 4h16v12H5.2L4 18z"/><path d="M8 9h8M8 12h5"/>',id:"MKT-01→03",n:"Comms · Email & WhatsApp",m:"Native + Integration",d:"Segmented announcements, campaigns, opt-in/out, delivery metrics; WhatsApp via Azure Communication Services."},
+    {ic:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',id:"MKT-02",n:"Surveys & feedback",m:"Native",d:"Customer Voice — branching, anonymous option, CSV/XLSX export, NPS & CSAT."},
+    {ic:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',id:"COL-01 · COL-02",n:"Ticketing & knowledge",m:"Native",d:"Customer Service intake by app/web/email, SLA timers, escalation, closure and a versioned knowledge base."},
+    {ic:'<rect x="4" y="4" width="7" height="7" rx="1"/><rect x="13" y="4" width="7" height="7" rx="1"/><rect x="4" y="13" width="7" height="7" rx="1"/><path d="M13 16h7M16 13v7"/>',id:"APP-03 · APP-04",n:"Guide hub & directory",m:"Custom",d:"Role-based onboarding content and a searchable, opt-in company directory with moderation controls."},
+    {ic:'<path d="M3 3v18h18"/><path d="M18 9l-5 5-3-3-4 4"/>',id:"COL-03",n:"Project management",m:"Integration",d:"Microsoft Planner & Project for the Web for tasks, milestones and dependencies; Jira connector optional."}
+  ];
+  (function(){var g=$("#moduleGrid");MODULES.forEach(function(mo){var c=document.createElement("div");c.className="card tilt";
+    c.innerHTML='<div class="tilt-in"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+mo.ic+'</svg></div><span class="tag-pill '+methodClass(mo.m)+'">'+mo.id+'</span><h3 style="margin-top:13px">'+mo.n+'</h3><p>'+mo.d+'</p><div style="font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:16px">'+mo.m+'</div></div>';
+    g.appendChild(c)})})();
+
+  /* ============================ MEMBER APP ============================ */
+  var LOCS=[
+    {id:"westbay",name:"West Bay · Burj Al Gassar",short:"West Bay",rate:145,rooms:[
+      {n:"Pearl Boardroom",cap:12,x:1,avail:true},{n:"Onaiza Meeting Room",cap:6,x:.75,avail:true},{n:"Focus Room",cap:4,x:.6,avail:false}]},
+    {id:"souq",name:"Souq Waqif · Alfardan Centre",short:"Souq Waqif",rate:130,rooms:[
+      {n:"Grand Hamad Suite",cap:12,x:1,avail:true},{n:"Heritage Room",cap:8,x:.8,avail:true},{n:"Majlis Room",cap:4,x:.6,avail:true}]},
+    {id:"lusail",name:"Lusail · Burj Alfardan",short:"Lusail",rate:150,rooms:[
+      {n:"Marina Boardroom",cap:16,x:1,avail:true},{n:"Crescent Room",cap:8,x:.8,avail:true},{n:"Quiet Room",cap:2,x:.5,avail:true}]},
+    {id:"msheireb",name:"Msheireb · M7",short:"Msheireb",rate:135,rooms:[
+      {n:"Innovation Suite",cap:14,x:1,avail:true},{n:"Collaboration Room",cap:8,x:.8,avail:true},{n:"Huddle Room",cap:4,x:.6,avail:true}]}
+  ];
+  var VAT=0.00; // Qatar: no standard VAT; engine supports any rate per FIN spec
+  var ENT=10;
+  var app={remain:ENT,used:0,billed:0,loc:0,room:0,dur:2,date:0,start:2,bookings:[],notifs:[],notifSeen:false,seq:1042,tseq:5051};
+  app.notifs=[
+    {i:"cal",h:"Booking confirmed — Doha Meeting Room",d:"Tomorrow 10:00, 2h · free hours applied",t:"2h"},
+    {i:"mega",h:"Chiller maintenance · Level 7",d:"Sat 08:00–12:00, some AC zones affected",t:"1d"}
+  ];
+  var tickets=[
+    {id:5049,n:"Wi-Fi drops in Pearl Boardroom",cat:"IT / Wi-Fi",prio:"High",st:"progress",sla:0.35,due:"2h 10m"},
+    {id:5044,n:"Extra chairs for Studio",cat:"Facilities",prio:"Normal",st:"resolved",sla:1,due:"Resolved"}
+  ];
+  var announcements=[
+    {tag:"Event",unread:true,h:"Founders' Breakfast · Thursday 8:30",d:"Networking over coffee in the Level 7 lounge. All members welcome."},
+    {tag:"Maintenance",unread:true,h:"Chiller maintenance · Saturday",d:"AC zones on Level 7 affected 08:00–12:00. Meeting rooms unaffected."},
+    {tag:"Community",unread:false,h:"New member: Meridian Studio",d:"A design studio has joined on Level 7 — say hello in the directory."}
+  ];
+  var companies=[
+    {n:"Meridian Studio",s:"Design & branding",fl:"Gassar · L7",in:true},
+    {n:"Qanat Capital",s:"Venture capital",fl:"Msheireb",in:true},
+    {n:"Doha Legal Partners",s:"Legal services",fl:"The Pearl",in:true},
+    {n:"Cedar Analytics",s:"Data & AI",fl:"Lusail",in:true},
+    {n:"Falcon Logistics",s:"Supply chain",fl:"Gassar · L7",in:false},
+    {n:"Najma Health",s:"Healthtech",fl:"Msheireb",in:true}
+  ];
+  var guides=[
+    {i:'<path d="M5 13a10 10 0 0 1 14 0"/><path d="M8.5 16.5a5 5 0 0 1 7 0"/><path d="M2 8.8a15 15 0 0 1 20 0"/><circle cx="12" cy="20" r="1"/>',t:"Wi-Fi access",d:'Network <b>Nestwork-Member</b>. Your password:',wifi:"Nw-WestBay-2026"},
+    {i:'<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/>',t:"House policies",d:"Quiet zones on Level 7, guest sign-in at reception, meeting-room grace period of 10 minutes before release."},
+    {i:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',t:"Onboarding checklist",d:"Activate your access card · set up printing · book your first meeting room · join the community channel."},
+    {i:'<circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/>',t:"Get help",d:"Front desk 8:00–20:00, or raise a ticket in the app — the community team responds within SLA."}
+  ];
+
+  /* --- app tabs / screens --- */
+  var screens=["home","rooms","book","tickets","newticket","ann","directory","guide"];
+  function show(scr){ screens.forEach(function(s){var el=$("#s-"+s);if(el)el.classList.toggle("on",s===scr)});
+    $$("#tabbar button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-tab")===scr)});
+    var sc=$("#appScroll"); if(sc)sc.scrollTop=0;
+  }
+  $$("#tabbar button").forEach(function(b){b.addEventListener("click",function(){show(b.getAttribute("data-tab"))})});
+  $$("[data-goto]").forEach(function(b){b.addEventListener("click",function(){var g=b.getAttribute("data-goto");show(g)})});
+
+  /* entitlement ring */
+  function ring(){
+    var pct=app.remain/ENT*100, a=accent();
+    $("#entRing").innerHTML='<circle cx="21" cy="21" r="15.9155" fill="none" stroke="var(--border)" stroke-width="4"/>'+
+      '<circle cx="21" cy="21" r="15.9155" fill="none" stroke="'+a+'" stroke-width="4" stroke-linecap="round" stroke-dasharray="'+pct+' '+(100-pct)+'" stroke-dashoffset="25" transform="rotate(-90 21 21)"'+(reduce?'':' style="transition:stroke-dasharray .7s var(--ease)"')+'/>'+
+      '<text x="21" y="23.5" text-anchor="middle" font-size="10" font-weight="700" fill="'+inkCol()+'">'+app.remain.toFixed(app.remain%1?1:0)+'</text>';
+    $("#ewRemain").textContent=app.remain.toFixed(app.remain%1?1:0);
+  }
+  /* home lists */
+  function renderHome(){
+    $("#homeAnn").innerHTML=announcements.slice(0,2).map(function(a){
+      return '<div class="ann '+(a.unread?"unread":"")+'" data-goto="ann"><div class="at">'+a.tag+'</div><div class="ah">'+a.h+'</div></div>';
+    }).join("");
+    $$("#homeAnn [data-goto]").forEach(function(b){b.addEventListener("click",function(){show("ann")})});
+    if(!app.bookings.length){ $("#homeBookings").innerHTML='<div class="acard" style="color:var(--muted);font-size:13.5px">No upcoming bookings. Tap <b style="color:var(--accent)">Book a room</b> to make one.</div>'; }
+    else { $("#homeBookings").innerHTML=app.bookings.slice(0,3).map(function(b){
+      return '<div class="acard"><div style="display:flex;justify-content:space-between;align-items:center"><div><div style="color:var(--ink);font-weight:650;font-size:14.5px">'+b.room+'</div><div style="font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:3px">'+b.loc+' · '+b.date+' '+b.start+' · '+b.dur+'h</div></div>'+
+        (b.total>0?'<div style="font-family:var(--f-mono);font-size:12px;color:var(--accent)">'+fmt(b.total)+' QAR</div>':'<div style="font-family:var(--f-mono);font-size:11px;color:var(--good)">free</div>')+'</div></div>';
+    }).join(""); }
+  }
+  /* rooms */
+  var appLoc=$("#appLoc");
+  LOCS.forEach(function(l,i){var o=document.createElement("option");o.value=i;o.textContent=l.name;appLoc.appendChild(o)});
+  appLoc.addEventListener("change",function(){app.loc=+appLoc.value;renderRooms()});
+  function renderRooms(){
+    var l=LOCS[app.loc]; $("#roomsSub").textContent=l.name;
+    $("#roomList").innerHTML=l.rooms.map(function(r,i){
+      var rate=Math.round(l.rate*r.x);
+      return '<div class="room" data-room="'+i+'"><div class="rthumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>'+
+        '<div><div class="rn">'+r.n+'</div><div class="rmeta">'+r.cap+' pax · projector · whiteboard</div></div>'+
+        '<div class="rstat"><div class="avail '+(r.avail?"":"busy")+'">'+(r.avail?"Available":"Busy till 2pm")+'</div><div class="rrate">'+rate+' QAR/h overage</div></div></div>';
+    }).join("");
+    $$("#roomList .room").forEach(function(el){el.addEventListener("click",function(){openBook(+el.getAttribute("data-room"))})});
+  }
+  /* booking */
+  var bkDur=$("#bkDur"),bkDate=$("#bkDate"),bkStart=$("#bkStart");
+  ["Today","Tomorrow","Wed 15 Jul","Thu 16 Jul"].forEach(function(d,i){var o=document.createElement("option");o.value=i;o.textContent=d;bkDate.appendChild(o)});
+  ["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00"].forEach(function(t,i){var o=document.createElement("option");o.value=i;o.textContent=t;bkStart.appendChild(o)});
+  $$("#bkDur button").forEach(function(b){b.addEventListener("click",function(){$$("#bkDur button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");app.dur=+b.getAttribute("data-h");bkPreview()})});
+  bkDate.addEventListener("change",function(){app.date=+bkDate.value});
+  bkStart.addEventListener("change",function(){app.start=+bkStart.value});
+  function curRate(){var l=LOCS[app.loc],r=l.rooms[app.room];return Math.round(l.rate*r.x)}
+  function bkCalc(){var rate=curRate(),applied=Math.min(app.remain,app.dur),over=Math.max(0,app.dur-app.remain),net=over*rate,total=net*(1+VAT);return{rate:rate,applied:applied,over:over,total:total}}
+  function openBook(ri){app.room=ri;var l=LOCS[app.loc],r=l.rooms[ri];$("#bkRoomName").textContent=r.n;$("#bkRoomMeta").textContent=r.cap+" pax · "+l.short;bkPreview();show("book")}
+  function bkPreview(){var c=bkCalc();
+    $("#bkRemain").textContent=app.remain.toFixed(1)+" h";
+    $("#bkApplied").textContent=c.applied.toFixed(1)+" h";
+    $("#bkOver").textContent=c.over>0?("+"+c.over.toFixed(1)+" h"):"0 h";
+    $("#bkRate").textContent=fmt(c.rate)+" QAR · "+(VAT*100).toFixed(0)+"%";
+    $("#bkTotal").textContent=c.total>0?fmt(c.total)+" QAR":"No charge";
+    $("#bkTotal").className="val "+(c.total>0?"over":"free");
+  }
+  $("#bkCancel").addEventListener("click",function(){show("rooms")});
+  $("#bkConfirm").addEventListener("click",function(){
+    var c=bkCalc(),l=LOCS[app.loc],r=l.rooms[app.room];
+    app.bookings.unshift({room:r.n,loc:l.short,date:bkDate.options[app.date].text,start:bkStart.options[app.start].text,dur:app.dur,applied:c.applied,over:c.over,total:c.total,inv:app.seq++});
+    app.remain=Math.max(0,app.remain-c.applied);app.used+=app.dur;app.billed+=c.total;
+    app.notifs.unshift({i:"cal",h:"Booking confirmed — "+r.n,d:bkDate.options[app.date].text+" "+bkStart.options[app.start].text+", "+app.dur+"h"+(c.over>0?" · "+fmt(c.total)+" QAR overage":" · free hours applied"),t:"now"});
+    app.notifSeen=false; updateBell();
+    ring();renderHome();
+    toast(c.over>0?"Booking confirmed · overage invoiced":"Booking confirmed · free hours applied", c.over>0?fmt(c.total)+" QAR queued · ICS invite sent":"No charge · ICS invite sent");
+    show("home");
+  });
+  /* tickets */
+  function renderTickets(){
+    $("#ticketList").innerHTML=tickets.map(function(t){
+      var pct=Math.round(t.sla*100);
+      return '<div class="ticket"><div class="th"><div><div class="tn">'+t.n+'</div><div class="tid">CASE-'+t.id+' · '+t.cat+' · '+t.prio+' priority</div></div>'+
+        '<span class="status '+t.st+'">'+(t.st==="progress"?"In progress":t.st==="resolved"?"Resolved":"Open")+'</span></div>'+
+        (t.st!=="resolved"?'<div class="sla"><i style="width:'+pct+'%"></i></div><div class="sla-l"><span>SLA response</span><span>due in '+t.due+'</span></div>':'')+'</div>';
+    }).join("");
+  }
+  $("#newTicketBtn").addEventListener("click",function(){show("newticket")});
+  $("#tBack").addEventListener("click",function(){show("tickets")});
+  $$("#tCat .chip").forEach(function(c){c.addEventListener("click",function(){$$("#tCat .chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on")})});
+  $$("#tPrio .chip").forEach(function(c){c.addEventListener("click",function(){$$("#tPrio .chip").forEach(function(x){x.classList.remove("on")});c.classList.add("on")})});
+  var attached=false;
+  $("#tAttach").addEventListener("click",function(){attached=!attached;$("#tAttachL").textContent=attached?"Photo attached ✓":"Add a photo"});
+  $("#tSubmit").addEventListener("click",function(){
+    var cat=($("#tCat .chip.on")||{}).textContent||"Facilities", prio=($("#tPrio .chip.on")||{}).textContent||"Normal";
+    var desc=$("#tDesc").value.trim()||"New request from member app";
+    var id=app.tseq++;
+    tickets.unshift({id:id,n:desc.length>44?desc.slice(0,44)+"…":desc,cat:cat,prio:prio,st:"open",sla:1,due:prio==="High"?"4h 00m":"8h 00m"});
+    app.notifs.unshift({i:"ticket",h:"Ticket raised — CASE-"+id,d:cat+" · "+prio+" priority · SLA timer started",t:"now"});
+    app.notifSeen=false; updateBell();
+    $("#tDesc").value="";attached=false;$("#tAttachL").textContent="Add a photo";
+    renderTickets();toast("Ticket submitted","CASE-"+id+" · SLA timer started · agent notified");show("tickets");
+  });
+  /* announcements */
+  function renderAnn(){
+    $("#annList").innerHTML=announcements.map(function(a){
+      return '<div class="ann '+(a.unread?"unread":"")+'"><div class="at">'+a.tag+'</div><div class="ah">'+a.h+'</div><div class="ad">'+a.d+'</div></div>';
+    }).join("");
+    $$("#annList .ann").forEach(function(el,i){el.addEventListener("click",function(){announcements[i].unread=false;renderAnn();renderHome()})});
+  }
+  /* directory */
+  function renderDir(q){
+    q=(q||"").toLowerCase();
+    var list=companies.filter(function(c){return c.in&&(!q||(c.n+" "+c.s+" "+c.fl).toLowerCase().indexOf(q)>-1)});
+    $("#dirList").innerHTML=list.map(function(c,i){
+      return '<div class="company"><div class="clogo">'+c.n[0]+'</div><div><div class="cn">'+c.n+'</div><div class="cm">'+c.s+' · '+c.fl+'</div></div>'+
+        '<button class="cbtn" data-c="'+companies.indexOf(c)+'">Request intro</button></div>';
+    }).join("")||'<div class="acard" style="color:var(--muted);font-size:13.5px">No companies match “'+q+'”.</div>';
+    $$("#dirList .cbtn").forEach(function(b){b.addEventListener("click",function(){b.textContent="Requested ✓";b.classList.add("sent");toast("Intro requested","The company will be notified — moderated per privacy settings")})});
+  }
+  $("#dirSearch").addEventListener("input",function(){renderDir(this.value)});
+  /* guide */
+  function renderGuide(){
+    $("#guideList").innerHTML=guides.map(function(g,i){
+      return '<div class="guide" data-g="'+i+'"><div class="gh"><div class="gi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+g.i+'</svg></div><div class="gt">'+g.t+'</div></div>'+
+        '<div class="gd">'+g.d+(g.wifi?'<br><span class="wifi-pass">'+g.wifi+'</span>':'')+'</div></div>';
+    }).join("");
+    $$("#guideList .guide").forEach(function(el){el.addEventListener("click",function(){el.classList.toggle("open")})});
+  }
+  /* notifications */
+  var bellBadge=$("#bellBadge"),notifSheet=$("#notifSheet");
+  function updateBell(){var n=app.notifs.length;bellBadge.textContent=n;bellBadge.style.display=(app.notifSeen||n===0)?"none":"grid"}
+  function renderNotifs(){
+    var ic={cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mega:'<path d="M3 11l14-7v16L3 13z"/><path d="M3 11v2"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'};
+    $("#notifList").innerHTML=app.notifs.map(function(n){
+      return '<div class="notif"><div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+(ic[n.i]||ic.mega)+'</svg></div><div><div class="nh">'+n.h+'</div><div class="nd">'+n.d+'</div></div><div class="nt">'+n.t+'</div></div>';
+    }).join("");
+  }
+  $("#bellBtn").addEventListener("click",function(){app.notifSeen=true;updateBell();renderNotifs();notifSheet.classList.add("open")});
+  notifSheet.addEventListener("click",function(e){if(e.target===notifSheet)notifSheet.classList.remove("open")});
+
+  /* init app */
+  ring();renderHome();renderRooms();renderTickets();renderAnn();renderDir("");renderGuide();updateBell();show("home");
+
+  /* toast */
+  var toastEl=$("#toast"),toastTO;
+  function toast(t,s){$("#toastT").textContent=t;$("#toastS").textContent=s;toastEl.classList.add("show");clearTimeout(toastTO);toastTO=setTimeout(function(){toastEl.classList.remove("show")},3400)}
+
+  /* ============================ COMPLIANCE MATRIX ============================ */
+  var MX=[
+    {g:"General platform & multi-location",items:[
+      ["GEN-01","Must","Native","Multi-location support with centralized management","Business units + location attribute scope data, roles and reporting."],
+      ["GEN-02","Must","Custom","Branding for app, portal, emails & pages","Power Pages theming, email templates, custom domain, native app branding."],
+      ["GEN-03","Must","Native","Security & compliance standards","Entra SSO (SAML/OAuth), RBAC, audit logs, encryption, retention, consent."],
+      ["GEN-04","Must","Custom","Location module synced with CRM & app","Single source tables; changes appear with no drift within 5 minutes."],
+      ["GEN-05","Must","Custom","Location-specific product catalogue","Effective-dated catalogue flows to contract and invoice creation."]]},
+    {g:"CRM, enquiries, leasing, accounts & contracts",items:[
+      ["CRM-01","Must","Custom","Coworking-specific multi-location CRM","Enquiry→lease→account→members→multiple contracts, with location history."],
+      ["CRM-02","Must","Custom","Enquiry quality classification","Rule-based Quality/Non-Quality; retained but excluded from pipeline."],
+      ["CRM-03","Must","Custom","Leasing → account → multiple contracts","Signed lease creates/updates account holding multiple active contracts."]]},
+    {g:"Finance, billing, entitlements & Dynamics",items:[
+      ["FIN-01","Could","Custom","Built-in billing & invoicing (optional)","Recurring & usage invoices, VAT, credit notes, aging and dunning."],
+      ["FIN-02","Could","Integration","Integration with Microsoft Dynamics","Two-way sync of customers, invoices, payments, GL, tax with reconciliation."],
+      ["FIN-03","Could","Integration","Payment gateway integration","Payment links/portal, cards & local methods, PCI, settlement reports."],
+      ["FIN-04","Must","Custom","Meeting-room free-hours entitlement","Monthly quota, proration, carryover, real-time consumption, auditable ledger."],
+      ["FIN-05","Could","Custom","Meeting-room overage billing","Rated at location price & tax; invoice lines in real time or batch."],
+      ["FIN-06","Could","Custom","Product catalogue per location","Versioned, effective-dated, role-based updates, audit trail, bulk/API."]]},
+    {g:"Marketing, communications & feedback",items:[
+      ["MKT-01","Must","Native","Announcements via Email & WhatsApp","Email native; WhatsApp via Azure Communication Services; segmentation & metrics."],
+      ["MKT-02","Must","Native","Surveys & feedback forms","Customer Voice: branching, anonymous, CSV/XLSX export, NPS & CSAT."],
+      ["MKT-03","Must","Native","Marketing analytics & reporting","Campaign dashboards, engagement, attribution, unsubscribe tracking."]]},
+    {g:"Member app, portal, directory & rooms",items:[
+      ["APP-01","Must","Native","Member ticket submission (app & web)","Customer Service backend; create, attach, track, notify, SLA visibility."],
+      ["APP-02","Must","Custom","Announcements for events & maintenance","Segmented broadcasts; push/email/WhatsApp; read receipts, archive, expiry."],
+      ["APP-03","Must","Custom","Guide hub for onboarding","Role-based content, secure handling, version history."],
+      ["APP-04","Must","Custom","Company directory","Searchable profiles, filters, opt-in privacy, contact requests, moderation."],
+      ["APP-05","Must","Custom","Meeting-room booking with entitlement","Availability, free-hours deduction, overage workflow, calendar invites."],
+      ["WEB-01","Must","Native","Web portal mirrors app features","Responsive Power Pages, SSO, same permissions as the app."]]},
+    {g:"Collaboration, ticketing & knowledge",items:[
+      ["COL-01","Must","Native","Built-in member support ticketing","Intake app/web/email, priority, SLA timers, escalation, closure, reporting."],
+      ["COL-02","Should","Native","Knowledge / learning module","Authoring, review, publish, versioning, search, role/location access."],
+      ["COL-03","Must","Integration","Project management capability","Planner & Project for the Web; Jira connector available."]]},
+    {g:"Documents, analytics & reporting",items:[
+      ["DOC-01","Could","Native","Document storage / SharePoint","SharePoint Online with metadata, permissions, audit, retention, DR."],
+      ["ANL-01","Must","Custom","System-wide dashboards & reporting","Power BI: occupancy, revenue, churn, bookings, free-hours, overage."],
+      ["ANL-02","Must","Custom","Occupancy & utilisation reporting","Desk/room utilisation, heatmaps, filters, scheduled exports."],
+      ["ANL-03","Must","Custom","Revenue & billing analytics","MRR/ARR, aging, collections, revenue by dimension, Dynamics reconciliation."],
+      ["ANL-04","Should","Custom","Churn analytics","Logo & revenue churn, reasons, drill-down, churn-tagging methodology."],
+      ["ANL-05","Should","Native","Support & experience analytics","Ticket volume, SLA compliance, CSAT/NPS with survey integration."]]},
+    {g:"Non-functional requirements",items:[
+      ["NFR-01","Must","Native","Authentication & authorization","SSO (SAML/OAuth), RBAC across modules, admin controls, audit logs."],
+      ["NFR-02","Must","Native","Data protection & compliance","Encryption at rest/in transit, consent, retention, certifications."],
+      ["NFR-03","Must","Native","Performance & scalability","Multi-location & concurrent users, target latency for key flows."],
+      ["NFR-04","Must","Native","Availability, backup & DR","99.9%+ uptime SLA, backup, RPO/RTO, DR runbooks."],
+      ["NFR-05","Must","Native","Administration & auditability","Role-based admin, config history, audit trail, exportable logs."]]},
+    {g:"Commercial proposal requirements",items:[
+      ["PRP-01","Must","Commercial","Modular pricing with cost impact of removal","Line-item cost per module, dependency map, TCO scenarios."],
+      ["PRP-02","Must","Commercial","SaaS & accelerator models","Subscription model and accelerator-licence model both provided."]]}
+  ];
+  var mTable=$("#mTable"),mSearch=$("#mSearch"),mCount=$("#mCount"),mFilter="all";
+  function methodTag(m){var cls=m==="Native"?"tag-native":m==="Integration"?"tag-integ":m==="Custom"?"tag-custom":"";return '<span class="tag-pill '+cls+'">'+m+'</span>'}
+  function renderMatrix(){
+    var q=(mSearch.value||"").toLowerCase().trim(),shown=0,total=0,html="";
+    MX.forEach(function(grp){var rows="",gc=0;
+      grp.items.forEach(function(it){total++;var id=it[0],prio=it[1],meth=it[2],req=it[3],how=it[4];
+        var okF=mFilter==="all"||(mFilter==="must"&&prio==="Must")||(mFilter==="native"&&meth==="Native")||(mFilter==="integration"&&meth==="Integration")||(mFilter==="custom"&&meth==="Custom");
+        var okQ=!q||(id+" "+req+" "+how+" "+meth+" "+grp.g).toLowerCase().indexOf(q)>-1;
+        if(okF&&okQ){gc++;shown++;
+          rows+='<div class="mitem"><div class="mid">'+id+'</div><div class="mprio'+(prio==="Must"?" must":"")+'">'+prio+'</div><div class="mreq"><b>'+req+'</b><br><span style="font-size:13px">'+how+'</span></div><div class="mmethod">'+methodTag(meth)+'</div></div>';}
+      });
+      if(gc>0)html+='<div class="mgroup-h">'+grp.g+' <span class="gc">· '+gc+'</span></div>'+rows;
+    });
+    mTable.innerHTML=html||'<div class="mitem" style="grid-template-columns:1fr"><div class="mreq">No requirements match — try another term.</div></div>';
+    mCount.innerHTML='Showing <b>'+shown+'</b> of '+total+' requirement IDs — every one mapped to a delivery method.';
+  }
+  mSearch.addEventListener("input",renderMatrix);
+  $$("#mFilters button").forEach(function(b){b.addEventListener("click",function(){$$("#mFilters button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");mFilter=b.getAttribute("data-f");renderMatrix()})});
+  renderMatrix();
+
+  /* ============================ DASHBOARD ============================ */
+  var DASH={
+    q:{kpis:[["MRR","QAR 1.24M","up","+8.4%"],["Occupancy","87%","up","+3.1%"],["Active contracts","312","up","+18"],["Net churn","1.9%","down","−0.4%"]],
+       line:[62,68,66,74,79,83,88,94],lineLbl:"MRR · last 8 months",bars:[["Gassar",92],["Msheireb",84],["Pearl",79],["Lusail",71]],
+       donut:[["Consumed",68,"#FF5A1F"],["Available",32,"#8A8A8A"]],
+       mix:[["Members (free-hours)",58,"#FF5A1F"],["Overage bookings",27,"#1f6feb"],["Walk-in / external",15,"#0f9d63"]]},
+    y:{kpis:[["ARR","QAR 14.1M","up","+22%"],["Occupancy","83%","up","+6.5%"],["Active contracts","341","up","+63"],["Net churn","2.4%","down","−1.1%"]],
+       line:[40,46,52,58,63,70,82,94],lineLbl:"ARR run-rate · last 8 quarters",bars:[["Gassar",88],["Msheireb",80],["Pearl",83],["Lusail",76]],
+       donut:[["Consumed",72,"#FF5A1F"],["Available",28,"#8A8A8A"]],
+       mix:[["Members (free-hours)",61,"#FF5A1F"],["Overage bookings",24,"#1f6feb"],["Walk-in / external",15,"#0f9d63"]]}
+  };
+  var dashPer="q";
+  function accent(){return getComputedStyle(root).getPropertyValue("--accent").trim()||"#FF5A1F"}
+  function inkCol(){return getComputedStyle(root).getPropertyValue("--ink").trim()||"#111"}
+  function renderDash(animate){
+    var d=DASH[dashPer],a=accent();
+    $("#dashKpis").innerHTML=d.kpis.map(function(k){return '<div class="dk"><div class="dkl">'+k[0]+'</div><div class="dkv">'+k[1]+'</div><div class="dkc '+k[2]+'">'+(k[2]==="up"?"▲":"▼")+' '+k[3]+' vs prev</div></div>'}).join("");
+    $("#revScope").textContent=d.lineLbl;
+    var svg=$("#lineChart"),W=640,H=180,max=Math.max.apply(null,d.line)*1.08,min=Math.min.apply(null,d.line)*.9;
+    var pts=d.line.map(function(v,i){return[i/(d.line.length-1)*W,H-((v-min)/(max-min))*(H-20)-10]});
+    var path="M"+pts.map(function(p){return p[0].toFixed(1)+","+p[1].toFixed(1)}).join(" L"),area=path+" L"+W+","+H+" L0,"+H+" Z";
+    svg.innerHTML='<defs><linearGradient id="lg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="'+a+'" stop-opacity=".28"/><stop offset="1" stop-color="'+a+'" stop-opacity="0"/></linearGradient></defs>'+
+      '<g stroke="var(--border)" stroke-width="1"><line x1="0" y1="45" x2="640" y2="45"/><line x1="0" y1="90" x2="640" y2="90"/><line x1="0" y1="135" x2="640" y2="135"/></g>'+
+      '<path d="'+area+'" fill="url(#lg)"/>'+
+      '<path d="'+path+'" fill="none" stroke="'+a+'" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"'+(animate&&!reduce?' stroke-dasharray="1600" stroke-dashoffset="1600"><animate attributeName="stroke-dashoffset" from="1600" to="0" dur="1.4s" fill="freeze"/></path>':'/>')+
+      pts.map(function(p,i){return '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="'+(i===pts.length-1?4.5:3)+'" fill="'+(i===pts.length-1?a:"var(--ground)")+'" stroke="'+a+'" stroke-width="2"/>'}).join("");
+    $("#barChart").innerHTML=d.bars.map(function(b){return '<div class="bar"><div class="bval">'+b[1]+'%</div><div class="bfill" data-h="'+b[1]+'"></div><div class="blab">'+b[0]+'</div></div>'}).join("");
+    if(animate&&!reduce){setTimeout(function(){$$("#barChart .bfill").forEach(function(f){f.style.height=f.getAttribute("data-h")+"%"})},60)}else{$$("#barChart .bfill").forEach(function(f){f.style.height=f.getAttribute("data-h")+"%"})}
+    var off=25,dh="";d.donut.forEach(function(seg){dh+='<circle cx="21" cy="21" r="15.9155" fill="transparent" stroke="'+seg[2]+'" stroke-width="5" stroke-dasharray="'+seg[1]+' '+(100-seg[1])+'" stroke-dashoffset="'+off+'"/>';off=(off-seg[1]+100)%100});
+    $("#donut").innerHTML=dh+'<text x="21" y="20.5" text-anchor="middle" font-size="7" font-weight="700" fill="'+inkCol()+'">'+d.donut[0][1]+'%</text><text x="21" y="26" text-anchor="middle" font-size="2.6" fill="#8A8A8A">CONSUMED</text>';
+    $("#donutLegend").innerHTML=d.donut.map(function(s){return '<div class="li"><i style="background:'+s[2]+'"></i>'+s[0]+'<b>'+s[1]+'%</b></div>'}).join("");
+    $("#mixLegend").innerHTML=d.mix.map(function(s){return '<div class="li" style="flex-direction:column;align-items:stretch;gap:6px"><div style="display:flex;align-items:center;gap:9px"><i style="background:'+s[2]+'"></i>'+s[0]+'<b>'+s[1]+'%</b></div><div style="height:6px;background:var(--panel);border-radius:6px;overflow:hidden"><div style="height:100%;width:'+(animate&&!reduce?"0":s[1]+"%")+';background:'+s[2]+';border-radius:6px;transition:width 1s var(--ease)" data-w="'+s[1]+'"></div></div></div>'}).join("");
+    if(animate&&!reduce){setTimeout(function(){$$("#mixLegend [data-w]").forEach(function(el){el.style.width=el.getAttribute("data-w")+"%"})},80)}
+  }
+  $$("#dashToggle button").forEach(function(b){b.addEventListener("click",function(){$$("#dashToggle button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");dashPer=b.getAttribute("data-p");renderDash(true)})});
+
+  /* ============================ MIGRATION + TIMELINE ============================ */
+  var FLOW=[["Extract","Enquiries, accounts, contacts, deals, notes & attachments via Zoho bulk & REST APIs."],["Transform","Mapped to Dataverse via Azure Data Factory / dataflows against a documented field spec."],["Load","Staged load into Dataverse respecting entity relationships and lifecycle states."],["Validate","Validation report & exception log; record counts reconciled against Zoho."],["Roll back","Rollback plan & restore point held until sign-off and go-live are confirmed."]];
+  (function(){var t=$("#flowTrack");FLOW.forEach(function(f,i){var s=document.createElement("div");s.className="fstep";s.innerHTML='<div class="fn">'+(i+1)+'</div><h4>'+f[0]+'</h4><p>'+f[1]+'</p>';t.appendChild(s)})})();
+  var flowDone=false;function triggerFlow(){if(flowDone)return;flowDone=true;$$("#flowTrack .fstep").forEach(function(s,i){setTimeout(function(){s.classList.add("in")},reduce?0:i*160)})}
+  var PHASES=[["Discovery","Workshops · process validation · integration mapping",2,"2–3 wks",false],["Configuration & build","Modules, roles, locations, workflows + accelerator",10,"8–10 wks",false],["Data migration","Extract, transform, load, validate, reconcile (parallel)",4,"3–4 wks",true],["Testing","Functional, integration, security, performance & UAT",4,"3–4 wks",false],["Training","Admin, business, finance & support-agent training",2,"1–2 wks",false],["Go-live & hypercare","Cutover, launch, monitoring & stabilisation",3,"2–3 wks",false]];
+  (function(){var tl=$("#timeline");PHASES.forEach(function(p){var row=document.createElement("div");row.className="trow";row.innerHTML='<div class="tp"><div class="tpn">'+p[0]+'</div><div class="tpd">'+p[1]+'</div></div><div class="tbarwrap"><div class="tbar'+(p[4]?" alt":"")+'" data-w="'+(p[2]/10*100)+'"></div></div><div class="tw">'+p[3]+'</div>';tl.appendChild(row)})})();
+  var tlDone=false;function triggerTimeline(){if(tlDone)return;tlDone=true;$$("#timeline .tbar").forEach(function(b,i){setTimeout(function(){b.style.width=b.getAttribute("data-w")+"%"},reduce?0:i*120)})}
+
+  /* ============================ COMMERCIAL ============================ */
+  var MODCOST=[
+    {n:"Core CRM, leasing & entitlement engine",reqs:"GEN · CRM · FIN-04 · APP-05",cost:34,locked:true},
+    {n:"Member app & web portal",reqs:"APP-01→05 · WEB-01",cost:18,locked:false},
+    {n:"Native billing",reqs:"FIN-01 · FIN-05 (native path)",cost:9,locked:false,note:"Corporate Dynamics remains the financial system of record."},
+    {n:"Payment gateway",reqs:"FIN-03",cost:6,locked:false},
+    {n:"WhatsApp channel",reqs:"MKT-01 · APP-02",cost:7,locked:false,note:"Removes the WhatsApp delivery path — a Must for that channel."},
+    {n:"Company directory",reqs:"APP-04",cost:5,locked:false,note:"APP-04 is a Must requirement."},
+    {n:"Advanced analytics (churn & experience)",reqs:"ANL-04 · ANL-05",cost:8,locked:false},
+    {n:"Project management integration",reqs:"COL-03",cost:6,locked:false,note:"COL-03 is a Must requirement."}
+  ];
+  var modState=MODCOST.map(function(){return true});
+  (function(){var host=$("#modList");
+    MODCOST.forEach(function(m,i){var row=document.createElement("div");row.className="modrow";
+      row.innerHTML='<div class="mm"><div class="mn">'+m.n+(m.locked?' <span class="tag-pill" style="font-size:9px;padding:2px 8px">Core · always on</span>':'')+'</div><div class="mreqs">'+m.reqs+'</div></div><button class="sw" aria-label="Toggle module"'+(m.locked?' disabled style="opacity:.55;cursor:not-allowed"':'')+'></button>';
+      host.appendChild(row);var sw=$(".sw",row);
+      if(!m.locked)sw.addEventListener("click",function(){modState[i]=!modState[i];sw.classList.toggle("off",!modState[i]);row.classList.toggle("off",!modState[i]);recompute()});
+    });
+    function recompute(){var total=0,warn=[];MODCOST.forEach(function(m,i){if(modState[i])total+=m.cost;else if(m.note)warn.push(m.note)});
+      var idx=$("#modIndex");animateNum(idx,parseInt(idx.textContent,10)||100,total);$("#modWarn").textContent=warn.length?("⚠ "+warn[0]):"";}
+    recompute();
+  })();
+  function animateNum(node,from,to){if(reduce){node.textContent=to;return}var t0=null,dur=500;function step(ts){if(!t0)t0=ts;var p=Math.min((ts-t0)/dur,1);node.textContent=Math.round(from+(to-from)*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(step)}requestAnimationFrame(step)}
+
+  /* EVAL bars */
+  var EVAL=[["Core coworking & ERP feature coverage",25],["API & integration depth",9],["Total Cost of Ownership",8],["Customization & extensibility",8],["Scalability (multi-site, growth)",7],["Reporting & analytics",6],["Security & compliance posture",6],["Ease of implementation",6],["Vendor / delivery risk",6],["Product roadmap & innovation",5],["Operational support model",5],["Data model & ownership",5],["Mobile experience",4]];
+  (function(){var host=$("#evalList");EVAL.forEach(function(e){var row=document.createElement("div");row.className="evalrow";row.innerHTML='<div class="en">'+e[0]+'</div><div class="ew">'+e[1]+'%</div><div class="ebarwrap"><div class="ebar" data-w="'+(e[1]/25*100)+'"></div></div>';host.appendChild(row)})})();
+  var evalDone=false;function triggerEval(){if(evalDone)return;evalDone=true;$$("#evalList .ebar").forEach(function(b,i){setTimeout(function(){b.style.width=b.getAttribute("data-w")+"%"},reduce?0:i*70)})}
+
+  /* ============================ CLIENT LOCATIONS ============================ */
+  var BRANCHES=[
+    {tag:"Souq Waqif Branch",n:"Alfardan Centre",d:"Grand Hamad St · Souq Waqif, Doha",desks:"Coworking & serviced offices",rooms:"4 meeting rooms"},
+    {tag:"West Bay",n:"Burj Al Gassar",d:"Onaiza · West Bay, Doha",desks:"Private desks & suites",rooms:"6 meeting rooms"},
+    {tag:"Lusail",n:"Burj Alfardan",d:"Marina Central · Lusail",desks:"Enterprise floors",rooms:"5 meeting rooms"},
+    {tag:"Msheireb",n:"M7",d:"Abdulla Bin Thani St · Msheireb, Doha",desks:"Creative & event spaces",rooms:"3 meeting rooms"}
+  ];
+  (function(){var g=$("#locGrid");if(!g)return;BRANCHES.forEach(function(b){
+    var c=document.createElement("div");c.className="loccard";
+    c.innerHTML='<div class="lcpin"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></div>'+
+      '<div class="lcn">'+b.tag+'</div><h4>'+b.n+'</h4><div class="lcd">'+b.d+'</div>'+
+      '<div class="lcmeta"><span><b>·</b> '+b.desks+'</span><span><b>·</b> '+b.rooms+'</span></div>';
+    g.appendChild(c);
+  })})();
+
+  /* ============================ TEAM ============================ */
+  var TEAM=[
+    {in:"AK",n:"Adnan Khoury",r:"Engagement Lead",bio:"Owns the commercial relationship and executive governance across the programme.",tags:["Program Director","Alfardan liaison"],g:["#231F20","#4a3f39"]},
+    {in:"SR",n:"Sara Rahman",r:"Project Manager",bio:"Runs the plan, risk register and cadence from discovery through hypercare.",tags:["PMP","Agile"],g:["#FF5A1F","#ff9a6b"]},
+    {in:"MH",n:"Mazen Haddad",r:"Solution Architect",bio:"Designs the Dataverse model, the accelerator and the integration architecture.",tags:["MB-280","PL-600","AZ-305"],g:["#3b6fd4","#6ea8ff"]},
+    {in:"LN",n:"Layla Nasser",r:"Functional Consultant",bio:"Maps coworking processes to Dynamics 365 and configures CRM, leasing & billing.",tags:["MB-210","Customer Service"],g:["#8a55c9","#b98ce0"]},
+    {in:"OF",n:"Omar Farooq",r:"Technical Consultant",bio:"Builds the entitlement engine, Power Automate flows and Azure integrations.",tags:["PL-400","AZ-204"],g:["#1aa39a","#4fd1c5"]},
+    {in:"YT",n:"Yasmin Tariq",r:"Data Migration Lead",bio:"Owns the reversible move off Zoho — extract, transform, validate, reconcile.",tags:["Azure Data Factory","DP-203"],g:["#e0603a","#f2a07f"]}
+  ];
+  var teamDone=false;
+  function triggerTeam(){ if(teamDone)return; teamDone=true; var g=$("#teamGrid"); if(!g)return;
+    g.innerHTML=TEAM.map(function(m){
+      return '<div class="tmember"><div class="tavatar" style="background:linear-gradient(135deg,'+m.g[0]+','+m.g[1]+')">'+m.in+'</div>'+
+        '<h4>'+m.n+'</h4><div class="trole">'+m.r+'</div><div class="tbio">'+m.bio+'</div>'+
+        '<div class="ttags">'+m.tags.map(function(t){return '<span>'+t+'</span>'}).join("")+'</div></div>';
+    }).join("");
+  }
+
+  /* ============================ ERP SIMULATOR ============================ */
+  var P={azure:"#2b88d8",d365:"#3b6fd4",power:"#8a55c9",pbi:"#e6a817",flow:"#2f9bd8",m365:"#e0603a",data:"#1aa39a",custom:"#FF5A1F"};
+  var IC={
+    web:'<path d="M4 4h16v12H5.2L4 18z"/><path d="M8 9h8"/>',
+    sales:'<path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/>',
+    db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/>',
+    app:'<rect x="6" y="2" width="12" height="20" rx="3"/><path d="M11 18h2"/>',
+    flow:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5V15a3 3 0 0 0 3 3h6.5"/>',
+    sync:'<path d="M3 12a9 9 0 0 1 15-6.7L21 8"/><path d="M21 3v5h-5"/><path d="M21 12a9 9 0 0 1-15 6.7L3 16"/><path d="M3 21v-5h5"/>',
+    bi:'<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>',
+    msg:'<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-3.3A8.4 8.4 0 1 1 21 11.5z"/>'
+  };
+  var STAGES=[
+    {ic:"web",nm:"Enquiry",ph:"Power Pages",title:"Enquiry captured",desc:"A prospect submits an enquiry on the Nestwork website. It lands in Dynamics 365 Sales as a lead, with an auto-acknowledgement and source tracking.",prods:[["Power Pages","power"],["D365 Sales","d365"]],st:"nestwork.qa · enquiry form",screen:[["Company","Design Republic LLC"],["Interest","Private office · West Bay"],["Source","Website form","g"],["Status","New lead","o"]]},
+    {ic:"sales",nm:"Qualify",ph:"D365 Sales",title:"Qualified & lease signed",desc:"The lead is scored Quality vs Non-Quality by business rules, progresses through the leasing pipeline, and the lease is negotiated and signed.",prods:[["D365 Sales","d365"],["Accelerator","custom"]],st:"dynamics · opportunity",screen:[["Quality score","Quality ✓","g"],["Plan","6 desks · 12-month"],["Location","West Bay"],["Lease","Signed","g"]]},
+    {ic:"db",nm:"Account",ph:"Dataverse",title:"Account & contracts created",desc:"The signed lease creates the company account and one-or-many contracts across locations, each with its own entitlement — all on one Dataverse model.",prods:[["Dataverse","data"],["Accelerator","custom"]],st:"dataverse · account",screen:[["Account","Design Republic LLC"],["Contract NW-1042","West Bay · active","g"],["Contract NW-1043","Lusail · active","g"],["Entitlement","10 h / month","o"]]},
+    {ic:"app",nm:"Booking",ph:"Power Apps",title:"Member books a room",desc:"A member books a meeting room in the app. The entitlement engine checks the free-hours balance and deducts eligible hours in real time.",prods:[["Power Apps","power"],["Entitlement engine","custom"]],st:"member app · booking",screen:[["Room","Pearl Boardroom · 3 h"],["Free hours","10 h available","g"],["Applied","3 h from quota","g"],["Remaining","7 h","o"]]},
+    {ic:"flow",nm:"Invoice",ph:"Power Automate",title:"Overage rated & invoiced",desc:"When a booking exceeds the quota, a Power Automate flow rates the overage at the location price and tax and raises an invoice line automatically.",prods:[["Power Automate","flow"],["Billing","custom"]],st:"power automate · rate overage",screen:[["Booking","5 h · quota 2 h left"],["Overage","3 h × 145 QAR","o"],["Invoice line","INV-1042 · 435 QAR","o"],["Trigger","Automated flow","g"]]},
+    {ic:"sync",nm:"Dynamics",ph:"Azure",title:"Synced to corporate Dynamics",desc:"Customers, invoices, payments, GL codes and tax sync two-way to the Alfardan corporate Microsoft Dynamics environment, with reconciliation logs.",prods:[["Azure Functions","azure"],["Corporate Dynamics","d365"]],st:"azure · integration log",screen:[["Customer","Synced ✓","g"],["Invoice INV-1042","Posted to GL","g"],["Tax / GL code","Mapped","g"],["Reconciliation","0 exceptions","g"]]},
+    {ic:"bi",nm:"Analytics",ph:"Power BI",title:"Dashboards update",desc:"Occupancy, revenue, free-hours utilisation and overage revenue refresh in Power BI — embedded in the app, the portal and the staff interface.",prods:[["Power BI","pbi"]],st:"power bi · portfolio",screen:[["MRR","QAR 1.24M ▲","g"],["Occupancy","87%","g"],["Overage revenue","QAR 61k","o"],["Free-hours used","68%"]]},
+    {ic:"msg",nm:"Notify",ph:"Azure Comms",title:"Member notified",desc:"The member receives confirmation and their invoice by push, email or WhatsApp through Azure Communication Services — closing the loop.",prods:[["Azure Comms","azure"],["WhatsApp","flow"],["Outlook","m365"]],st:"azure comms · delivery",screen:[["Channel","WhatsApp + email","g"],["Booking confirm","Delivered ✓","g"],["Calendar invite","ICS sent","g"],["Invoice","Attached","g"]]}
+  ];
+  var erpI=0,erpTimer=null,erpBuilt=false;
+  function buildErp(){ if(erpBuilt)return; erpBuilt=true;
+    $("#erpFlow").innerHTML=STAGES.map(function(s,i){
+      return '<div class="erp-stagebox" data-i="'+i+'"><div class="erp-chip"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+IC[s.ic]+'</svg></div><div class="esn">'+s.nm+'</div><div class="esp">'+s.ph+'</div></div>';
+    }).join("");
+    $$("#erpFlow .erp-stagebox").forEach(function(el){el.addEventListener("click",function(){stopErp();erpI=+el.getAttribute("data-i");renderErp()})});
+    renderErp();
+  }
+  function renderErp(){
+    var s=STAGES[erpI];
+    $$("#erpFlow .erp-stagebox").forEach(function(el,i){el.classList.toggle("active",i===erpI);el.classList.toggle("done",i<erpI)});
+    $("#erpBar").style.width=((erpI+1)/STAGES.length*100)+"%";
+    $("#erpStep").textContent="Step "+(erpI+1)+" / "+STAGES.length;
+    $("#erpTitle").textContent=s.title; $("#erpDesc").textContent=s.desc;
+    $("#erpProds").innerHTML=s.prods.map(function(p){return '<span class="erp-prod"><i style="background:'+P[p[1]]+'"></i>'+p[0]+'</span>'}).join("");
+    $("#erpScreenT").textContent=s.st;
+    $("#erpScreen").innerHTML=s.screen.map(function(l){return '<div class="erp-line"><span class="ell">'+l[0]+'</span><span class="elv '+(l[2]||"")+'">'+l[1]+'</span></div>'}).join("");
+    // keep active chip centered by scrolling only the flow strip (never the page)
+    var flow=$("#erpFlow"),act=$("#erpFlow .erp-stagebox.active");
+    if(flow&&act&&flow.scrollWidth>flow.clientWidth){
+      var target=act.offsetLeft-flow.clientWidth/2+act.offsetWidth/2;
+      try{flow.scrollTo({left:target,behavior:reduce?"auto":"smooth"})}catch(e){flow.scrollLeft=target}
+    }
+  }
+  function stopErp(){ if(erpTimer){clearInterval(erpTimer);erpTimer=null} var b=$("#erpPlay"); if(b)b.innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Run scenario'; }
+  function playErp(){
+    if(erpTimer){stopErp();return}
+    if(erpI>=STAGES.length-1)erpI=0; renderErp();
+    $("#erpPlay").innerHTML='<svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14"/><rect x="14" y="5" width="4" height="14"/></svg> Pause';
+    erpTimer=setInterval(function(){ if(erpI>=STAGES.length-1){stopErp();return} erpI++; renderErp(); },reduce?400:1650);
+  }
+  $("#erpPlay").addEventListener("click",playErp);
+  $("#erpNext").addEventListener("click",function(){stopErp();erpI=Math.min(STAGES.length-1,erpI+1);renderErp()});
+  $("#erpPrev").addEventListener("click",function(){stopErp();erpI=Math.max(0,erpI-1);renderErp()});
+
+  /* ============================ ECOSYSTEM STACK ============================ */
+  var ECO=[
+    {n:"Layer 6",t:"Member & staff channels",items:[["app","Power Apps native app","iOS · Android","power"],["web","Power Pages portal","Responsive web","power"],["msg","Outlook & Teams","Staff collaboration","m365"]]},
+    {n:"Layer 5",t:"Business applications",items:[["sales","Dynamics 365 Sales","CRM & leasing","d365"],["msg","Customer Service","Ticketing & KB","d365"],["bi","Customer Insights","Journeys & campaigns","d365"],["web","Customer Voice","Surveys & NPS","d365"]]},
+    {n:"Layer 4",t:"Coworking accelerator (custom)",items:[["flow","Entitlement engine","Quota · ledger · overage","custom"],["app","Room booking","Availability & rules","custom"],["db","Multi-contract accounts","Per-location contracts","custom"]]},
+    {n:"Layer 3",t:"Data & logic",items:[["db","Microsoft Dataverse","Single data model","data"],["flow","Power Automate","Event-driven flows","flow"],["bi","Power BI","Embedded analytics","pbi"]]},
+    {n:"Layer 2",t:"Integration",items:[["sync","Azure Functions","APIs & middleware","azure"],["msg","WhatsApp · Azure Comms","Member messaging","azure"],["db","SharePoint Online","Documents & DR","m365"],["sync","Corporate Dynamics","Finance sync","d365"]]},
+    {n:"Layer 1",t:"Foundation",items:[["azure","Microsoft Cloud Qatar Central","In-country residency","azure"],["sync","Microsoft Entra ID","SSO · External ID","azure"],["msg","Microsoft 365","Productivity","m365"]]}
+  ];
+  (function(){var host=$("#ecoStack");if(!host)return;
+    ECO.forEach(function(L,li){
+      var el=document.createElement("div");el.className="eco-layer";
+      el.innerHTML='<div class="elh"><span class="eln">'+L.n+'</span><span class="elt">'+L.t+'</span></div>'+
+        '<div class="eco-prods">'+L.items.map(function(it){return '<div class="eco-item"><div class="eci" style="background:'+P[it[3]]+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+IC[it[0]]+'</svg></div><div><div class="ecn">'+it[1]+'</div><div class="ecd">'+it[2]+'</div></div></div>'}).join("")+'</div>';
+      host.appendChild(el);
+      if(li<ECO.length-1){var ar=document.createElement("div");ar.className="eco-arrow";ar.textContent="↑";host.appendChild(ar)}
+    });
+  })();
+
+  /* ============================ AUTOMATION ============================ */
+  var AUTO=[
+    ["Lease signed","Create account, contracts & monthly entitlement in Dataverse"],
+    ["Booking exceeds free hours","Rate overage at location price & tax, raise invoice line"],
+    ["Invoice posted","Sync to corporate Dynamics & reconcile GL / tax"],
+    ["Ticket SLA at 80%","Escalate to manager & notify assignee"],
+    ["Maintenance scheduled","Send segmented WhatsApp / email to affected members"],
+    ["Month rollover","Reset quota & apply eligible carryover per contract"]
+  ];
+  (function(){var g=$("#autoGrid");if(!g)return;
+    g.innerHTML=AUTO.map(function(a){
+      return '<div class="autocard"><div class="lbl">When</div><div class="trigger"><div class="ti"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h7l-1 8 10-12h-7z"/></svg></div><div><b>'+a[0]+'</b></div></div>'+
+        '<div class="flowline"></div><div class="lbl">Power Automate does</div><div class="action"><div class="ai"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><div>'+a[1]+'</div></div></div>';
+    }).join("");
+  })();
+
+  /* ============================ SECURITY ============================ */
+  var SEC=[
+    ['<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',"Identity & SSO","Microsoft Entra ID & External ID — SAML / OAuth single sign-on for staff and members."],
+    ['<rect x="4" y="10" width="16" height="11" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/>',"Role-based access","Dataverse security roles govern every module, record and field by role and location."],
+    ['<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/>',"Encryption","Encryption at rest and in transit is native to the platform, end to end."],
+    ['<path d="M12 21s-7-6.3-7-11a7 7 0 0 1 14 0c0 4.7-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/>',"Qatar data residency","Hosted in the Microsoft Cloud Qatar Central region — customer data stays in Qatar."],
+    ['<path d="M4 4h16v16H4z"/><path d="M8 8h8M8 12h8M8 16h5"/>',"Audit & config history","Full audit trail for financial, product and contract changes, with exportable logs."],
+    ['<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',"99.9% SLA & DR","Documented uptime SLA, backup, RPO / RTO objectives and disaster-recovery runbooks."],
+    ['<path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9"/>',"Consent & retention","Consent handling and data-retention controls, privacy by design throughout."],
+    ['<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',"PCI payments (optional)","Payment gateway integration with PCI-compliant handling and settlement reports."]
+  ];
+  (function(){var g=$("#secGrid");if(!g)return;
+    g.innerHTML=SEC.map(function(s){return '<div class="seccard"><div class="si"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+s[0]+'</svg></div><h4>'+s[1]+'</h4><p>'+s[2]+'</p></div>'}).join("");
+  })();
+
+  /* ============================ JOURNEYS ============================ */
+  var JOURNEYS={
+    member:[
+      ["Sign in","Secure sign-in with Microsoft Entra External ID — no separate password to manage.","Entra External ID"],
+      ["Personalised home","Land on a branded home with free-hours balance, announcements and quick actions.","Power Apps"],
+      ["Book or request","Book a meeting room or raise a support ticket in a couple of taps.","Accelerator · Customer Service"],
+      ["Get notified","Receive confirmations, invoices and updates by push, email or WhatsApp.","Azure Communication Services"],
+      ["It just syncs","Usage flows to billing, dashboards and corporate Dynamics — no manual steps.","Power Automate · Dataverse"]
+    ],
+    staff:[
+      ["Capture & qualify","Enquiries arrive in Dynamics 365 Sales and are scored Quality vs Non-Quality.","D365 Sales"],
+      ["Lease to account","A signed lease creates the account and multiple location contracts automatically.","Accelerator · Dataverse"],
+      ["Manage the model","Maintain entitlements, per-location catalogue, rooms and rates with full audit.","Custom accelerator"],
+      ["Serve members","Handle tickets with SLA timers, escalation and a knowledge base.","D365 Customer Service"],
+      ["Report & reconcile","Track occupancy, revenue and churn in Power BI; reconcile to corporate Dynamics.","Power BI · Azure"]
+    ]
+  };
+  function renderJourney(host,key){
+    if(!host)return;
+    host.innerHTML=JOURNEYS[key].map(function(j,i){
+      return '<div class="jline"><div class="jdot">'+(i+1)+'</div><div class="jcontent"><h4>'+j[0]+'</h4><p>'+j[1]+'</p><div class="jprod">'+j[2]+'</div></div></div>';
+    }).join("");
+    // stagger the dots
+    var lines=$$(".jline",host);
+    lines.forEach(function(l,i){ setTimeout(function(){l.classList.add("in")}, reduce?0:i*140); });
+  }
+  $$("#journeyTabs button").forEach(function(b){b.addEventListener("click",function(){
+    $$("#journeyTabs button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");renderJourney($("#journeyList"),b.getAttribute("data-j"));
+  })});
+
+  /* ============================ TICKER ============================ */
+  (function(){var t=$("#tickerTrack");if(!t)return;
+    var items=[["azure","Microsoft Azure"],["d365","Dynamics 365 Sales"],["d365","Dynamics 365 Customer Service"],["data","Microsoft Dataverse"],["power","Power Apps"],["flow","Power Automate"],["power","Power Pages"],["pbi","Power BI"],["m365","Microsoft 365"],["azure","Microsoft Entra ID"],["m365","SharePoint Online"],["azure","Azure Communication Services"]];
+    var html=items.map(function(it){return '<div class="ticker-item"><span class="tk" style="background:'+P[it[0]]+'"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="8" height="8"/><rect x="13" y="3" width="8" height="8"/><rect x="3" y="13" width="8" height="8"/><rect x="13" y="13" width="8" height="8"/></svg></span>'+it[1]+'</div>'}).join("");
+    t.innerHTML=html+html;
+  })();
+
+  /* ============================ HOW-IT-WORKS init ============================ */
+  var hiwInit=false;
+  function initHIW(){ buildErp(); if(!hiwInit){hiwInit=true; renderJourney($("#journeyList"),"member");} }
+
+  /* member journey on app page */
+  var mjDone=false;
+  function triggerMemberJourney(){ if(mjDone)return; mjDone=true; renderJourney($("#memberJourney"),"member"); }
+
+  /* wire new page triggers */
+  pageTriggers.howitworks=function(){ initHIW(); };
+  pageTriggers.app=function(){ triggerMemberJourney(); };
+
+  /* ============================ BOOT ============================ */
+  bindTilt();
+  var initial=location.hash.replace("#","")||"home";
+  go(initial,true);
+})();
+</script>
+
+
