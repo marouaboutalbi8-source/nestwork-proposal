@@ -838,6 +838,46 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 .crm-timeline .ti svg{width:15px;height:15px}
 .crm-timeline .th{color:var(--ink);font-weight:600}
 .crm-timeline .td{color:var(--muted);font-family:var(--f-mono);font-size:11px;margin-top:2px}
+.pill.warn{color:#b7791f;border-color:rgba(183,121,31,.4);background:rgba(183,121,31,.1)}
+.pill.sign{color:#8a55c9;border-color:rgba(138,85,201,.4);background:rgba(138,85,201,.1)}
+/* Contract document — Volge palette (black / white / orange / charcoal / grays) */
+.cdoc{background:#FFFFFF;border:1px solid #E8E8E8;border-radius:8px;overflow:hidden;max-width:840px;color:#666666}
+.cdoc-lh{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;padding:22px 26px;background:#231F20;color:#fff;border-bottom:3px solid #FF5A1F}
+.cdoc-brand{font-family:var(--f-display);font-weight:750;font-size:24px;letter-spacing:-.02em;color:#fff;line-height:1;display:flex;align-items:center;gap:11px}
+.cdoc-brand .nwdot{width:11px;height:11px;border-radius:50%;background:#FF5A1F;flex:none;box-shadow:0 0 0 4px rgba(255,90,31,.22)}
+.cdoc-brand small{display:block;font-family:var(--f-mono);font-size:9px;letter-spacing:.14em;text-transform:uppercase;color:rgba(255,255,255,.55);font-weight:400;margin-top:6px}
+.cdoc-meta{text-align:right;font-family:var(--f-mono);font-size:11px;color:rgba(255,255,255,.72);line-height:1.7}
+.cdoc-statuschip{display:inline-block;margin-top:6px;font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;padding:3px 10px;border-radius:20px;background:rgba(255,90,31,.2);color:#FF8A5C;border:1px solid rgba(255,90,31,.5)}
+.cdoc-body{padding:24px 26px}
+.cdoc-body h5{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:#FF5A1F;margin:0 0 8px;font-weight:600}
+.cdoc-parties{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:22px}
+@media(max-width:640px){.cdoc-parties{grid-template-columns:1fr}}
+.cdoc-party{border:1px solid #E8E8E8;border-radius:6px;padding:14px;border-top:3px solid #FF5A1F;background:#F6F6F6}
+.cdoc-party .pn{font-weight:700;color:#111111;font-size:14px}
+.cdoc-party .pd{font-size:12.5px;color:#666666;margin-top:6px;line-height:1.6}
+.cdoc-grid{border:1px solid #E8E8E8;border-radius:6px;overflow:hidden;margin-top:4px}
+.cdoc-grid table{width:100%;border-collapse:collapse;font-size:13px}
+.cdoc-grid td{padding:10px 13px;border-bottom:1px solid #EEEEEE;color:#666666}
+.cdoc-grid tr:last-child td{border-bottom:none}
+.cdoc-grid td:first-child{color:#8A8A8A;font-family:var(--f-mono);font-size:11px;width:44%}
+.cdoc-grid td b{color:#111111}
+.cdoc-grid .nlinput{width:100%;background:#fff;border:1px solid #E8E8E8;color:#111111}
+.incl{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:4px}
+@media(max-width:640px){.incl{grid-template-columns:1fr}}
+.incl .ii{display:flex;align-items:center;gap:9px;border:1px solid #E8E8E8;border-radius:6px;padding:10px 12px;font-size:12.5px;color:#666666;background:#F6F6F6}
+.incl .ii svg{width:16px;height:16px;color:#FF5A1F;flex:none}
+.incl .ii b{color:#111111}
+.cdoc-clause{font-size:12.5px;color:#666666;line-height:1.6;margin-bottom:9px}
+.cdoc-clause b{color:#111111}
+.cdoc-sign{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:22px;padding-top:18px;border-top:1px solid #E8E8E8}
+@media(max-width:640px){.cdoc-sign{grid-template-columns:1fr}}
+.cdoc-sig{border:1px dashed #E8E8E8;border-radius:6px;padding:14px;min-height:82px}
+.cdoc-sig .sl{font-family:var(--f-mono);font-size:10px;text-transform:uppercase;letter-spacing:.06em;color:#8A8A8A}
+.cdoc-sig .sv{font-family:"Segoe Script","Bradley Hand","Snell Roundhand",cursive;font-size:24px;color:#111111;margin-top:10px}
+.cdoc-sig .su{font-family:var(--f-mono);font-size:11px;color:#B0B0B0;margin-top:12px}
+.cdoc-sig.signed{border-style:solid;border-color:#FF5A1F;background:rgba(255,90,31,.06)}
+.cdoc-email{border:1px solid #FF5A1F;border-radius:6px;padding:13px 15px;background:rgba(255,90,31,.07);margin-top:16px;font-size:12.5px;color:#666666;line-height:1.7}
+.cdoc-email b{color:#111111}
 
 /* ---- Authentic Microsoft Dynamics 365 (Fluent) skin — scoped to the CRM window only ---- */
 .crmwin{
@@ -1920,7 +1960,19 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   ];
   /* Nestwork product / space types + shared contract-signing state (CRM ↔ app) */
   var SPACES=["Coworking Space","Serviced Office","Enterprise Workspace","Meeting Room","Workshop Room","Event Space"];
-  var CF={state:"none",id:"AGR-1042",company:"Design Republic LLC",member:"Layla Al-Emadi",email:"B.maroua@volge.com",plan:"Serviced Office",loc:"West Bay",mrr:"QAR 18,000",term:"12 months",ent:"10 h / month",memberSigDrawn:false};
+  var AGR=[
+    {id:"AGR-1042",company:"Design Republic LLC",member:"Layla Al-Emadi",qid:"289 0112 34567",email:"B.maroua@volge.com",plan:"Serviced Office",loc:"West Bay",mrr:"QAR 18,000",term:"12 months",ent:"20 h / month",seats:"6 dedicated seats",access:"24/7 access",overage:"QAR 145 / hour",deposit:"QAR 18,000 (1 month)",notice:"60 days",start:"1 Aug 2026",status:"draft",sent:false,memberSigDrawn:false,app:true},
+    {id:"AGR-1051",company:"Meridian Studio",member:"Sara Kamal",qid:"271 0455 88120",email:"sara@meridianstudio.qa",plan:"Coworking Space",loc:"West Bay",mrr:"QAR 9,500",term:"6 months",ent:"10 h / month",seats:"3 hot desks",access:"07:00–22:00",overage:"QAR 120 / hour",deposit:"QAR 9,500 (1 month)",notice:"30 days",start:"15 Jul 2026",status:"review",sent:false,memberSigDrawn:false},
+    {id:"AGR-1055",company:"Qanat Capital",member:"Yousef Al-Ali",qid:"268 0987 33410",email:"yousef@qanat.qa",plan:"Enterprise Workspace",loc:"Lusail",mrr:"QAR 32,000",term:"24 months",ent:"40 h / month",seats:"14 dedicated seats",access:"24/7 access",overage:"QAR 165 / hour",deposit:"QAR 64,000 (2 months)",notice:"90 days",start:"1 Sep 2026",status:"approval",sent:false,memberSigDrawn:false},
+    {id:"AGR-1061",company:"Najma Health",member:"Dr. Huda Salim",qid:"279 0231 90055",email:"huda@najmahealth.qa",plan:"Serviced Office",loc:"Msheireb",mrr:"QAR 15,000",term:"12 months",ent:"16 h / month",seats:"8 dedicated seats",access:"24/7 access",overage:"QAR 135 / hour",deposit:"QAR 15,000 (1 month)",notice:"60 days",start:"1 Aug 2026",status:"adjustment",sent:false,memberSigDrawn:false},
+    {id:"AGR-1044",company:"Cedar Analytics",member:"Reem Nasser",qid:"284 0776 21008",email:"reem@cedar.qa",plan:"Coworking Space",loc:"Msheireb",mrr:"QAR 6,000",term:"6 months",ent:"8 h / month",seats:"2 hot desks",access:"08:00–20:00",overage:"QAR 120 / hour",deposit:"QAR 6,000 (1 month)",notice:"30 days",start:"10 Jul 2026",status:"member",sent:true,memberSigDrawn:true},
+    {id:"AGR-1039",company:"Doha Legal Partners",member:"Faisal Idris",qid:"262 0344 71190",email:"faisal@dlp.qa",plan:"Serviced Office",loc:"Souq Waqif",mrr:"QAR 21,000",term:"12 months",ent:"24 h / month",seats:"10 dedicated seats",access:"24/7 access",overage:"QAR 150 / hour",deposit:"QAR 21,000 (1 month)",notice:"60 days",start:"1 Jun 2026",status:"dual",sent:true,memberSigDrawn:true}
+  ];
+  var CF=AGR[0];                 /* the agreement wired to the member app */
+  function agLabel(s){return {draft:"Draft",review:"Under Review",approval:"Under Approval",adjustment:"Request Adjustment",member:"Signed from member",dual:"Dual signed"}[s]||s}
+  function agPill(s){return {draft:"",review:"open",approval:"new",adjustment:"warn",member:"sign",dual:"won"}[s]||""}
+  function agEditable(s){return s==="draft"||s==="review"||s==="approval"||s==="adjustment"}
+  function appAgrState(){ if(CF.status==="dual")return "dual"; if(CF.status==="member")return "member"; if(CF.sent)return "sign"; return "hidden"; }
   var MEMBER_CO="Design Republic LLC";
   var tickets=[
     {id:5049,n:"Wi-Fi keeps dropping in our office",cat:"Wi-Fi / Internet",prio:"High",st:"progress",sla:0.35,due:"2h 10m",co:MEMBER_CO,src:"Member app"},
@@ -2195,29 +2247,29 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   function renderContract(){
     var docIc='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v5h5"/><path d="M6 3h9l5 5v13H6z"/><path d="M9 13h6M9 17h4"/></svg>';
     var chk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:16px;height:16px"><path d="M20 6L9 17l-5-5"/></svg>';
-    var hb=$("#homeContract");
+    var st=appAgrState(),hb=$("#homeContract");
     if(hb){
-      if(CF.state==="sent_to_member"){hb.innerHTML='<div class="rentbanner"><div class="rb-ic">'+docIc+'</div><div><div class="rb-t">Action required</div><div class="rb-v" style="font-size:16px">Sign your membership agreement</div><div class="rb-d">'+CF.id+' · '+CF.plan+'</div></div><button class="rb-btn" id="homeCtBtn">Review &amp; sign</button></div>';var b=$("#homeCtBtn");if(b)b.addEventListener("click",function(){show("contract")});}
-      else if(CF.state==="member_signed"){hb.innerHTML='<div class="rentbanner"><div class="rb-ic">'+docIc+'</div><div><div class="rb-t">Agreement</div><div class="rb-v" style="font-size:16px">Signed · awaiting Nestwork</div><div class="rb-d">'+CF.id+' · countersignature pending</div></div></div>';}
-      else if(CF.state==="countersigned"){hb.innerHTML='<div class="rentbanner paid"><div class="rb-ic">'+chk+'</div><div><div class="rb-t">Agreement executed</div><div class="rb-v" style="font-size:16px">Fully signed ✓</div><div class="rb-d">'+CF.id+' · countersigned by Nestwork</div></div><button class="rb-btn" id="homeCtBtn">View</button></div>';var b2=$("#homeCtBtn");if(b2)b2.addEventListener("click",function(){show("contract")});}
+      if(st==="sign"){hb.innerHTML='<div class="rentbanner"><div class="rb-ic">'+docIc+'</div><div><div class="rb-t">Action required</div><div class="rb-v" style="font-size:16px">Sign your membership agreement</div><div class="rb-d">'+CF.id+' · '+CF.plan+'</div></div><button class="rb-btn" id="homeCtBtn">Review &amp; sign</button></div>';var b=$("#homeCtBtn");if(b)b.addEventListener("click",function(){show("contract")});}
+      else if(st==="member"){hb.innerHTML='<div class="rentbanner"><div class="rb-ic">'+docIc+'</div><div><div class="rb-t">Agreement</div><div class="rb-v" style="font-size:16px">Signed · awaiting Nestwork</div><div class="rb-d">'+CF.id+' · countersignature pending</div></div></div>';}
+      else if(st==="dual"){hb.innerHTML='<div class="rentbanner paid"><div class="rb-ic">'+chk+'</div><div><div class="rb-t">Agreement executed</div><div class="rb-v" style="font-size:16px">Fully signed ✓</div><div class="rb-d">'+CF.id+' · countersigned by Nestwork</div></div><button class="rb-btn" id="homeCtBtn">View</button></div>';var b2=$("#homeCtBtn");if(b2)b2.addEventListener("click",function(){show("contract")});}
       else hb.innerHTML="";
     }
     var area=$("#contractArea"); if(!area)return;
     var summary='<div class="est" style="margin-top:0">'+ctRow("Agreement",CF.id)+ctRow("Company",CF.company)+ctRow("Workspace",CF.plan)+ctRow("Location",CF.loc)+ctRow("Term",CF.term)+ctRow("Monthly fee",CF.mrr)+ctRow("Meeting-room hours",CF.ent)+ctRow("Signatory",CF.member)+ctRow("Email",CF.email)+'</div>';
-    if(CF.state==="none"){area.innerHTML='<div class="acard" style="color:var(--muted);font-size:13.5px">No agreement pending. When Nestwork sends your membership agreement, it appears here to review and sign.</div>';return}
-    if(CF.state==="sent_to_member"){
+    if(st==="hidden"){area.innerHTML='<div class="acard" style="color:var(--muted);font-size:13.5px">No agreement to sign yet. When Nestwork sends your membership agreement it appears here to review and sign.</div>';return}
+    if(st==="sign"){
       area.innerHTML=summary+'<div class="sec-h">Your signature</div><div class="sigpad" id="csigPad"><canvas id="csigCanvas"></canvas><div class="sig-ph">✍  Sign to accept the agreement</div></div><button class="sig-clear" id="csigClear">Clear signature</button><button class="btn btn-primary appbtn" id="ctSign" style="margin-top:6px">Sign &amp; return to Nestwork</button>';
       var cc=$("#csigClear");if(cc)cc.addEventListener("click",function(){var c=$("#csigCanvas");if(csigCtx&&c)csigCtx.clearRect(0,0,c.width,c.height);CF.memberSigDrawn=false;$("#csigPad").classList.remove("drawn")});
       var cs=$("#ctSign");if(cs)cs.addEventListener("click",ctSign);
       requestAnimationFrame(initCSig);
-    } else if(CF.state==="member_signed"){
+    } else if(st==="member"){
       area.innerHTML=summary+'<div class="acard" style="border-color:var(--accent-line);margin-top:14px"><div style="display:flex;align-items:center;gap:10px;color:var(--good);font-family:var(--f-mono);font-size:12px">'+chk+' Signed by you · returned to Nestwork</div><div style="font-size:12.5px;color:var(--muted);margin-top:8px">Awaiting Nestwork’s countersignature — the executed copy will arrive here.</div></div>';
     } else {
       area.innerHTML=summary+'<div class="acard" style="border-color:rgba(15,122,83,.4);background:rgba(15,122,83,.05);margin-top:14px"><div style="display:flex;align-items:center;gap:10px;color:var(--good);font-family:var(--f-mono);font-size:12px">'+chk+' Fully executed · signed by both parties</div><div style="font-size:12.5px;color:var(--muted);margin-top:8px">Countersigned by Nestwork. A copy has been emailed to '+CF.email+'.</div></div><button class="btn btn-ghost appbtn" id="ctDownload" style="margin-top:12px">Download PDF</button>';
       var dl=$("#ctDownload");if(dl)dl.addEventListener("click",function(){toast("Agreement downloaded",CF.id+" · executed copy")});
     }
   }
-  function ctSign(){ if(!CF.memberSigDrawn){toast("Signature required","Please sign to accept the agreement");return} CF.state="member_signed"; app.notifs.unshift({i:"reg",h:"Agreement signed — sent to Nestwork",d:CF.id+" · awaiting countersignature",t:"now"}); app.notifSeen=false; updateBell(); renderContract(); toast("Agreement signed","Returned to Nestwork for countersignature"); show("home"); }
+  function ctSign(){ if(!CF.memberSigDrawn){toast("Signature required","Please sign to accept the agreement");return} CF.status="member"; app.notifs.unshift({i:"reg",h:"Agreement signed — sent to Nestwork",d:CF.id+" · awaiting countersignature",t:"now"}); app.notifSeen=false; updateBell(); renderContract(); toast("Agreement signed","Returned to Nestwork for countersignature"); show("home"); }
 
   /* notifications */
   var bellBadge=$("#bellBadge"),notifSheet=$("#notifSheet");
@@ -2226,7 +2278,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var ic={cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mega:'<path d="M3 11l14-7v16L3 13z"/><path d="M3 11v2"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',invoice:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',reg:'<path d="M14 3v5h5"/><path d="M6 3h9l5 5v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>'};
     $("#notifList").innerHTML=app.notifs.map(function(n){
       var pay=(n.pay&&!app.rent.paid)?'<button class="notifpay" data-notifpay="1">Pay now</button>':'';
-      var ct=(n.contract&&CF.state==="sent_to_member")?'<button class="notifpay" data-notifct="1">Review &amp; sign</button>':'';
+      var ct=(n.contract&&appAgrState()==="sign")?'<button class="notifpay" data-notifct="1">Review &amp; sign</button>':'';
       return '<div class="notif"><div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+(ic[n.i]||ic.mega)+'</svg></div><div><div class="nh">'+n.h+'</div><div class="nd">'+n.d+'</div>'+pay+ct+'</div><div class="nt">'+n.t+'</div></div>';
     }).join("");
     $$("#notifList [data-notifpay]").forEach(function(b){b.addEventListener("click",function(){notifSheet.classList.remove("open");show("pay")})});
@@ -2624,10 +2676,10 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     {grp:"Billing",items:[["invoices","Invoices","inv",crmInv.length]]},
     {grp:"Intelligence",items:[["agents","Copilot & agents","sparkle",null],["integrations","Integrations","plug",null]]}
   ];
-  var crmView="dashboard",crmLeadId=null,crmAcct=null,crmCaseId=null,crmInit=false;
+  var crmView="dashboard",crmLeadId=null,crmAcct=null,crmCaseId=null,crmAgrId=null,agrEdit=false,crmInit=false;
   function svg(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
   function renderSide(){
-    var av=({lead:"leads",newlead:"leads",account:"accounts",case:"cases"})[crmView]||crmView;
+    var av=({lead:"leads",newlead:"leads",account:"accounts",case:"cases",contractdoc:"contracts"})[crmView]||crmView;
     var CN={leads:crmLeads.length,pipeline:crmPipe.length,accounts:crmAccts.length,invoices:crmInv.length,cases:tickets.length};
     var h=""; CRMNAV.forEach(function(g){ h+='<div class="crm-grp">'+g.grp+'</div>';
       g.items.forEach(function(it){ var cn=(CN[it[0]]!=null)?CN[it[0]]:it[3]; h+='<div class="crm-nav'+((av===it[0])?' on':'')+'" data-cv="'+it[0]+'">'+svg(CI[it[2]])+'<span>'+it[1]+'</span>'+(cn!=null?'<span class="cnt">'+cn+'</span>':'')+'</div>'; });
@@ -2649,6 +2701,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     else if(crmView==="accounts")m.innerHTML=crmAccountsView();
     else if(crmView==="account")m.innerHTML=crmAccountForm();
     else if(crmView==="contracts")m.innerHTML=crmContracts();
+    else if(crmView==="contractdoc")m.innerHTML=crmContractDoc();
     else if(crmView==="invoices")m.innerHTML=crmInvoices();
     else if(crmView==="cases")m.innerHTML=crmCases();
     else if(crmView==="case")m.innerHTML=crmCase();
@@ -2661,7 +2714,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     $$("#crmMain [data-lead]").forEach(function(r){r.addEventListener("click",function(){crmLeadId=r.getAttribute("data-lead");crmView="lead";renderSide();renderMain()})});
     $$("#crmMain [data-acct]").forEach(function(r){r.addEventListener("click",function(){crmAcct=+r.getAttribute("data-acct");crmView="account";renderSide();renderMain()})});
     $$("#crmMain [data-back]").forEach(function(b){b.addEventListener("click",function(){crmGo(b.getAttribute("data-back"))})});
-    $$("#crmMain [data-kadv]").forEach(function(c){c.addEventListener("click",function(){var i=+c.getAttribute("data-kadv");if(crmPipe[i].stage<3){crmPipe[i].stage++;renderMain();if(crmPipe[i].stage===3)toast("Opportunity won","“"+crmPipe[i].c+"” — lease signed, account created")}})});
+    $$("#crmMain [data-kadv]").forEach(function(c){c.addEventListener("click",function(){var i=+c.getAttribute("data-kadv");if(crmPipe[i].stage<3){crmPipe[i].stage++;renderMain();if(crmPipe[i].stage===3){var nid=createDraft(crmPipe[i].c,null,crmPipe[i].loc,crmPipe[i].v);toast("Opportunity won","“"+crmPipe[i].c+"” — "+(nid?"draft agreement "+nid+" created":"agreement already exists"))}}})});
     var q=$("#crmQualify");if(q)q.addEventListener("click",crmQualify);
     var n=$("#crmNext");if(n)n.addEventListener("click",crmNext);
     var d=$("#crmDisq");if(d)d.addEventListener("click",crmDisq);
@@ -2669,8 +2722,15 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var nb=$("#crmNewLead");if(nb)nb.addEventListener("click",function(){crmGo("newlead")});
     var sv=$("#crmSaveLead");if(sv)sv.addEventListener("click",crmSaveLead);
     var cl=$("#crmCancelLead");if(cl)cl.addEventListener("click",function(){crmGo("leads")});
-    var sc2=$("#crmSendContract");if(sc2)sc2.addEventListener("click",function(){CF.state="sent_to_member";app.notifs.unshift({i:"reg",h:"Membership agreement to sign",d:CF.id+" · "+CF.plan+" · tap to review & sign",t:"now",contract:true});app.notifSeen=false;updateBell();renderMain();toast("Sent to member app","“"+CF.company+"” can now sign in the app")});
-    var cs2=$("#crmCountersign");if(cs2)cs2.addEventListener("click",function(){CF.state="countersigned";app.notifs.unshift({i:"reg",h:"Agreement fully executed",d:CF.id+" · countersigned by Nestwork",t:"now"});app.notifSeen=false;updateBell();renderMain();toast("Countersigned","Executed copy delivered to the member app")});
+    $$("#crmMain [data-agr]").forEach(function(r){r.addEventListener("click",function(){crmAgrId=r.getAttribute("data-agr");agrEdit=false;crmView="contractdoc";renderSide();renderMain()})});
+    var eb=$("#agrEditBtn");if(eb)eb.addEventListener("click",function(){agrEdit=!agrEdit;renderMain()});
+    var sv=$("#agrSave");if(sv)sv.addEventListener("click",agrSaveEdit);
+    var rv=$("#agrReview");if(rv)rv.addEventListener("click",function(){var a=agrGet();a.status="review";agrEdit=false;renderSide();renderMain();toast("Sent for review",a.id)});
+    var ap=$("#agrApprovalStage");if(ap)ap.addEventListener("click",function(){var a=agrGet();a.status="approval";agrEdit=false;renderMain();toast("Sent for approval",a.id)});
+    var aj=$("#agrAdjust");if(aj)aj.addEventListener("click",function(){var a=agrGet();a.status="adjustment";a.sent=false;agrEdit=false;renderMain();toast("Adjustment requested",a.id+" returned for changes")});
+    var sd=$("#agrSend");if(sd)sd.addEventListener("click",function(){var a=agrGet();a.sent=true;if(a.app){app.notifs.unshift({i:"reg",h:"Membership agreement to sign",d:a.id+" · "+a.plan+" · tap to review & sign",t:"now",contract:true});app.notifSeen=false;updateBell()}renderMain();toast("Approved & sent to customer",a.app?"“"+a.company+"” can now sign in the app":"Sent for e-signature")});
+    var ags=$("#agrCountersign");if(ags)ags.addEventListener("click",function(){var a=agrGet();a.status="dual";if(a.app){app.notifs.unshift({i:"reg",h:"Agreement fully executed",d:a.id+" · account activated",t:"now"});app.notifSeen=false;updateBell()}renderSide();renderMain();toast("Countersigned · account activated","Welcome email sent to "+a.email)});
+    var dn=$("#agrDownload");if(dn)dn.addEventListener("click",function(){toast("Agreement downloaded",crmAgrId+" · executed copy")});
     $$("#crmMain [data-caseid]").forEach(function(r){r.addEventListener("click",function(){crmCaseId=parseInt(r.getAttribute("data-caseid"),10);crmView="case";renderSide();renderMain()})});
     var cr=$("#caseResolve");if(cr)cr.addEventListener("click",function(){caseSet("resolved")});
     var cp=$("#caseProgress");if(cp)cp.addEventListener("click",function(){caseSet("progress")});
@@ -2742,8 +2802,10 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   function crmNext(){var l=null;crmLeads.forEach(function(x){if(x.id===crmLeadId)l=x});if(!l)return;
     if(l.quality!=="Quality"){toast("Qualify first","Qualify the lead to advance the business process flow");return}
     if(l.stage>=BPF.length-1){toast("Process complete","Contract created — see Accounts & Contracts");return}
-    l.stage++;renderMain();
-    var msg={2:"Lease stage — proposal issued",3:"Account created for "+l.company,4:"Contract created — added to Accounts"};
+    l.stage++;
+    if(l.stage===4)createDraft(l.company,l.plan,l.loc,l.budget);
+    renderMain();
+    var msg={2:"Lease stage — proposal issued",3:"Account created for "+l.company,4:"Draft agreement created — see Contracts"};
     toast("Advanced to "+BPF[l.stage],msg[l.stage]||"");
   }
   function crmDisq(){var l=null;crmLeads.forEach(function(x){if(x.id===crmLeadId)l=x});if(!l)return;
@@ -2791,22 +2853,57 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
       '</div><div><div class="crm-card" style="margin-bottom:16px"><h4>SLA</h4><div class="leadscore"><div class="ls-bar" style="flex:1"><i style="width:'+Math.round((t.sla||1)*100)+'%"></i></div></div><div style="font-size:12.5px;color:var(--muted);margin-top:9px">'+(t.st==="resolved"?"Resolved within SLA.":"Response due in "+t.due)+'</div></div>'+
       '<div class="crm-card"><h4>Sync</h4><p style="font-size:13px;color:var(--body);line-height:1.6">Synced with the member app — raised via <b>'+(t.src||"app")+'</b>. Status changes flow back to the member in real time.</p></div></div></div></div>';
   }
-  function crmAgreementCard(){
-    var s=CF.state,status,btn;
-    if(s==="none"){status='<span class="pill new">Draft</span>';btn='<button class="crm-btn pri" id="crmSendContract">'+svg('<path d="M5 12h14M13 6l6 6-6 6"/>')+' Send to member app</button>';}
-    else if(s==="sent_to_member"){status='<span class="pill open">Sent to app · awaiting member signature</span>';btn='<button class="crm-btn" disabled style="opacity:.6;cursor:default">Awaiting member…</button>';}
-    else if(s==="member_signed"){status='<span class="pill open">Signed by member · awaiting your signature</span>';btn='<button class="crm-btn pri" id="crmCountersign">'+svg(CI.check)+' Countersign &amp; issue</button>';}
-    else {status='<span class="pill won">Fully executed ✓</span>';btn='<span style="font-family:var(--f-mono);font-size:12px;color:var(--good)">Countersigned &amp; delivered to member app</span>';}
-    return '<div class="crm-card" style="border-color:var(--accent-line);margin-bottom:16px"><h4>Membership agreement · '+CF.id+'</h4>'+
-      '<div style="font-size:13px;color:var(--body);margin-bottom:12px">'+CF.company+' · '+CF.plan+' · '+CF.loc+' · '+CF.term+' · '+CF.mrr+' / mo · signatory '+CF.member+' ('+CF.email+')</div>'+
-      '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+status+btn+'</div>'+
-      '<div class="crm-note">Send the agreement to the member app for e-signature. The member signs and returns it, you countersign, and the executed copy is delivered back to their app.</div></div>';
+  function agrGet(){var a=null;AGR.forEach(function(x){if(x.id===crmAgrId)a=x});return a}
+  function createDraft(company,plan,loc,mrr){
+    var exists=false;AGR.forEach(function(a){if(a.company===company)exists=true});if(exists)return null;
+    var n=1062;AGR.forEach(function(a){var m=parseInt(a.id.replace("AGR-",""),10);if(!isNaN(m)&&m>=n)n=m+1});var id="AGR-"+n;
+    AGR.unshift({id:id,company:company,member:"—",qid:"—",email:"—",plan:plan||"Serviced Office",loc:loc||"West Bay",mrr:mrr||"QAR —",term:"12 months",ent:"16 h / month",seats:"— seats",access:"24/7 access",overage:"QAR 145 / hour",deposit:"1 month",notice:"60 days",start:"TBC",status:"draft",sent:false,memberSigDrawn:false});
+    return id;
   }
   function crmContracts(){
-    var rows="";crmAccts.forEach(function(a){a.contracts.forEach(function(c){rows+='<tr><td><b>'+c.id+'</b></td><td>'+a.company+'</td><td>'+c.plan+'</td><td>'+c.loc+'</td><td>'+c.mrr+'</td><td>'+c.ent+'</td></tr>'})});
-    return cmd("Contracts &amp; agreements","Agreements and active contracts")+
-      '<div class="crm-view">'+crmAgreementCard()+'<table class="crm-grid"><thead><tr><th>Contract</th><th>Account</th><th>Plan</th><th>Location</th><th>MRR</th><th>Entitlement</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+    var rows=AGR.map(function(a){return '<tr data-agr="'+a.id+'"><td><span class="lk">'+a.id+'</span></td><td><b>'+a.company+'</b></td><td>'+a.plan+'</td><td>'+a.loc+'</td><td>'+a.mrr+'</td><td><span class="pill '+agPill(a.status)+'">'+agLabel(a.status)+(a.status==="approval"&&a.sent?" · sent":"")+'</span></td></tr>'}).join("");
+    return cmd("Contracts &amp; agreements","Membership agreements · full signing workflow")+
+      '<div class="crm-view"><div class="crm-note" style="margin-top:0;margin-bottom:14px">Won opportunities auto-generate a <b>Draft</b> agreement on Nestwork letterhead. Open any row to view, edit (Draft / Review / Approval / Adjustment), send for e-signature, or countersign.</div>'+
+      '<table class="crm-grid"><thead><tr><th>Agreement</th><th>Company</th><th>Workspace</th><th>Location</th><th>Monthly fee</th><th>Status</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
   }
+  function crmContractDoc(){
+    var a=agrGet();if(!a)return crmContracts();
+    var ed=agrEdit&&agEditable(a.status), memSig=(a.status==="member"||a.status==="dual"), nwSig=(a.status==="dual");
+    var acts='';
+    if(a.status==="draft")acts='<button class="crm-btn" id="agrEditBtn">'+(ed?"Done editing":"Edit")+'</button><button class="crm-btn pri" id="agrReview">Send for review</button>';
+    else if(a.status==="review")acts='<button class="crm-btn" id="agrEditBtn">'+(ed?"Done editing":"Edit")+'</button><button class="crm-btn pri" id="agrApprovalStage">Send for approval</button><button class="crm-btn" id="agrAdjust">Request adjustment</button>';
+    else if(a.status==="approval"){acts=a.sent?'<span style="font-family:var(--f-mono);font-size:12px;color:var(--info);align-self:center">Sent to customer · awaiting signature</span><button class="crm-btn" id="agrAdjust">Request adjustment</button>':'<button class="crm-btn" id="agrEditBtn">'+(ed?"Done editing":"Edit")+'</button><button class="crm-btn pri" id="agrSend">Approve &amp; send to customer</button><button class="crm-btn" id="agrAdjust">Request adjustment</button>';}
+    else if(a.status==="adjustment")acts='<button class="crm-btn" id="agrEditBtn">'+(ed?"Done editing":"Edit")+'</button><button class="crm-btn pri" id="agrReview">Resubmit for review</button>';
+    else if(a.status==="member")acts='<button class="crm-btn pri" id="agrCountersign">'+svg(CI.check)+' Countersign &amp; activate account</button>';
+    else acts='<span style="font-family:var(--f-mono);font-size:12px;color:var(--good);align-self:center">Fully executed · delivered to member app</span><button class="crm-btn" id="agrDownload">Download</button>';
+    if(ed)acts+='<button class="crm-btn pri" id="agrSave">Save changes</button>';
+    function drow(l,v,id,opts){if(ed){if(opts)return '<tr><td>'+l+'</td><td><select class="nlinput" id="'+id+'">'+opts+'</select></td></tr>';return '<tr><td>'+l+'</td><td><input class="nlinput" id="'+id+'" value="'+v+'"></td></tr>';}return '<tr><td>'+l+'</td><td><b>'+v+'</b></td></tr>';}
+    var wsOpts=SPACES.map(function(s){return '<option'+(s===a.plan?" selected":"")+'>'+s+'</option>'}).join("");
+    var terms='<div class="cdoc-grid"><table><tbody>'+drow("Workspace",a.plan,"agWs",wsOpts)+drow("Location",a.loc,"agLoc")+drow("Term",a.term,"agTerm")+drow("Monthly fee",a.mrr,"agMrr")+drow("Start date",a.start,"agStart")+'</tbody></table></div>';
+    var IX={seat:'<circle cx="9" cy="8" r="3"/><path d="M4 20c0-3 3-4 5-4s5 1 5 4"/><circle cx="17.5" cy="9" r="2"/>',clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',door:'<path d="M5 21h14M7 21V4h10v17"/><path d="M13 12h.01"/>',chart:'<path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/>',shield:'<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/>',cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>'};
+    function incl(ic,l,v){return '<div class="ii"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+IX[ic]+'</svg><span>'+l+': <b>'+v+'</b></span></div>'}
+    var included='<div class="incl">'+incl("seat","Seats",a.seats)+incl("clock","Meeting-room hours",a.ent)+incl("door","Access",a.access)+incl("chart","Overage rate",a.overage)+incl("shield","Security deposit",a.deposit)+incl("cal","Notice period",a.notice)+'</div>';
+    var memBlock='<div class="cdoc-sig'+(memSig?" signed":"")+'"><div class="sl">Member — '+a.member+'</div>'+(memSig?'<div class="sv">'+a.member+'</div>':'<div class="su">Awaiting signature</div>')+'</div>';
+    var nwBlock='<div class="cdoc-sig'+(nwSig?" signed":"")+'"><div class="sl">For Nestwork (Alfardan Properties)</div>'+(nwSig?'<div class="sv">Nestwork</div>':'<div class="su">Pending countersignature</div>')+'</div>';
+    var emailMock=(a.status==="member"||a.status==="dual")?'<div class="cdoc-email"><b>✉ Welcome email sent to '+a.email+'</b><br>A Nestwork member app account has been created. App link: <b>nestwork.app/get</b> · temporary password: <b>Nw-'+a.id.replace("AGR-","")+'!</b></div>':'';
+    return cmd('<span class="lk" style="cursor:pointer" data-back="contracts">Contracts</span> › '+a.id, a.company+' · '+agLabel(a.status), acts)+
+      '<div class="crm-view"><div class="cdoc">'+
+      '<div class="cdoc-lh"><div class="cdoc-brand"><span class="nwdot"></span><div style="line-height:1">Nestwork<small>An Alfardan Group company · Where Work Meets Play</small></div></div><div class="cdoc-meta">Membership Agreement<br>'+a.id+'<br><span class="cdoc-statuschip">'+agLabel(a.status)+'</span></div></div>'+
+      '<div class="cdoc-body"><div class="cdoc-parties">'+
+        '<div class="cdoc-party"><div class="pn">Nestwork</div><div class="pd">Alfardan Properties LLC<br>'+a.loc+' · Doha, Qatar<br>C.R. 15713/3</div></div>'+
+        '<div class="cdoc-party"><div class="pn">'+a.company+'</div><div class="pd">Signatory: '+a.member+'<br>QID: '+a.qid+'<br>'+a.email+'</div></div></div>'+
+        '<h5>1 · Membership terms</h5>'+terms+
+        '<h5 style="margin-top:20px">2 · What\'s included</h5>'+included+
+        '<h5 style="margin-top:20px">3 · Terms &amp; conditions</h5>'+
+        '<div class="cdoc-clause"><b>3.1 Grant.</b> Nestwork grants the Member access to a '+a.plan+' ('+a.seats+') at '+a.loc+' for a term of '+a.term+', commencing '+a.start+', with '+a.access+'.</div>'+
+        '<div class="cdoc-clause"><b>3.2 Fees.</b> The monthly membership fee is '+a.mrr+', invoiced monthly in advance. A security deposit of '+a.deposit+' applies.</div>'+
+        '<div class="cdoc-clause"><b>3.3 Meeting rooms.</b> The membership includes <b>'+a.ent+'</b> of meeting-room time. Usage beyond the entitlement is charged at '+a.overage+', rated per location and billed automatically.</div>'+
+        '<div class="cdoc-clause"><b>3.4 Term &amp; notice.</b> Either party may terminate with '+a.notice+' written notice. Renewal is automatic unless notice is given.</div>'+
+        '<div class="cdoc-clause"><b>3.5 Data &amp; residency.</b> Member data is processed on Microsoft Dynamics 365 with in-country residency in the Microsoft Cloud Qatar Central region.</div>'+
+        '<div class="cdoc-sign">'+memBlock+nwBlock+'</div>'+emailMock+
+      '</div></div></div>';
+  }
+  function agrSaveEdit(){var a=agrGet();if(!a)return;var g=function(id){var e=$("#"+id);return e?e.value:null};if($("#agWs"))a.plan=$("#agWs").value;if(g("agLoc"))a.loc=g("agLoc");if(g("agTerm"))a.term=g("agTerm");if(g("agMrr"))a.mrr=g("agMrr");if(g("agEnt"))a.ent=g("agEnt");if(g("agStart"))a.start=g("agStart");agrEdit=false;renderMain();toast("Changes saved",a.id+" updated")}
   function crmInvoices(){
     var rows=crmInv.map(function(v){var cls=v.status==="Paid"?"paid":v.status==="Overdue"?"over":"open";return '<tr><td><b>'+v.id+'</b></td><td>'+v.acct+'</td><td>'+v.amt+'</td><td><span class="pill '+cls+'">'+v.status+'</span></td><td>'+v.due+'</td></tr>'}).join("");
     return cmd("Invoices","Billing · synced to corporate Dynamics")+
