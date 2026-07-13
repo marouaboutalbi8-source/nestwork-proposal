@@ -84,9 +84,9 @@ h2.title{font-size:clamp(28px,4.6vw,54px);font-weight:750;margin-top:20px;max-wi
 .load-meta{font-family:var(--f-mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.5)}
 
 /* CURSOR */
-#cursor,#cursorDot{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;mix-blend-mode:difference;will-change:transform}
-#cursor{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid #fff;border-radius:50%;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),background .25s}
-#cursorDot{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;background:#fff;border-radius:50%}
+#cursor,#cursorDot{position:fixed;top:0;left:0;z-index:9998;pointer-events:none;mix-blend-mode:difference;will-change:transform;opacity:0}
+#cursor{width:34px;height:34px;margin:-17px 0 0 -17px;border:1.5px solid #fff;border-radius:50%;transition:width .25s var(--ease),height .25s var(--ease),margin .25s var(--ease),background .25s,opacity .25s}
+#cursorDot{width:5px;height:5px;margin:-2.5px 0 0 -2.5px;background:#fff;border-radius:50%;transition:opacity .25s}
 #cursor.hov{width:56px;height:56px;margin:-28px 0 0 -28px;background:rgba(255,255,255,.12)}
 @media (hover:none),(pointer:coarse){#cursor,#cursorDot{display:none}}
 
@@ -162,7 +162,7 @@ main#app{padding-top:var(--nav-h)}
 .btn svg{width:15px;height:15px}
 
 /* HERO (home) */
-#hero{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;background:var(--inv-ground);color:var(--inv-body);position:relative;overflow:hidden;margin-top:calc(-1*var(--nav-h));padding-top:var(--nav-h)}
+#hero{min-height:calc(100vh - var(--nav-h));display:flex;align-items:center;background:var(--inv-ground);color:var(--inv-body);position:relative;overflow:hidden;margin-top:calc(-1*var(--nav-h));padding-top:calc(var(--nav-h) + 24px);padding-bottom:clamp(70px,12vh,130px)}
 #hero .wrap{position:relative;z-index:3;width:100%}
 .hero-grid{position:absolute;inset:0;z-index:1;opacity:.5;background-image:linear-gradient(var(--inv-border) 1px,transparent 1px),linear-gradient(90deg,var(--inv-border) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(120% 90% at 72% 18%,#000 30%,transparent 78%);mask-image:radial-gradient(120% 90% at 72% 18%,#000 30%,transparent 78%)}
 .blob{position:absolute;border-radius:50%;filter:blur(60px);z-index:1;opacity:.5}
@@ -181,7 +181,7 @@ h1.hero-h{color:var(--inv-ink);font-size:clamp(38px,8vw,108px);font-weight:800;l
 @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
 .hero-actions{display:flex;flex-wrap:wrap;gap:14px;margin-top:36px;opacity:0;animation:fadeUp 1s .66s var(--ease) forwards}
 .btn-hero-ghost{border-color:var(--inv-border);color:var(--inv-ink)}.btn-hero-ghost:hover{border-color:var(--inv-ink);background:rgba(255,255,255,.05)}
-.hero-meta{display:flex;flex-wrap:wrap;gap:30px;margin-top:52px;padding-top:28px;border-top:1px solid var(--inv-border);opacity:0;animation:fadeUp 1s .82s var(--ease) forwards}
+.hero-meta{display:flex;flex-wrap:wrap;gap:clamp(20px,4vw,38px);margin-top:clamp(30px,5vh,48px);padding-top:26px;border-top:1px solid var(--inv-border);opacity:0;animation:fadeUp 1s .82s var(--ease) forwards}
 .hero-meta .m .k{font-family:var(--f-mono);font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
 .hero-meta .m .v{color:var(--inv-ink);font-weight:600;font-size:15px;margin-top:5px}
 
@@ -748,6 +748,197 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 .reg-check{display:flex;gap:10px;align-items:flex-start;margin:18px 0 4px;font-size:12.5px;color:var(--body);cursor:pointer;line-height:1.45}
 .reg-check input{margin-top:1px;accent-color:var(--accent);width:17px;height:17px;flex:none}
 
+/* ============ DYNAMICS 365 CRM DESKTOP DEMO ============ */
+.crmscroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin-top:40px;border-radius:14px}
+.crmwin{min-width:920px;border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:var(--shadow-lg);background:var(--ground)}
+.crm-chrome{display:flex;align-items:center;gap:12px;padding:10px 16px;background:var(--panel);border-bottom:1px solid var(--border)}
+.crm-chrome .cdots{display:flex;gap:6px}.crm-chrome .cdots i{width:11px;height:11px;border-radius:50%;background:var(--border);display:block}.crm-chrome .cdots i:first-child{background:var(--accent)}
+.crm-chrome .addr{flex:1;background:var(--ground);border:1px solid var(--border);border-radius:7px;padding:6px 12px;font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px}
+.crm-chrome .addr svg{width:12px;height:12px;color:var(--good);flex:none}
+.crm-appbar{display:flex;align-items:center;gap:14px;padding:11px 16px;background:var(--ink);color:var(--ground)}
+.crm-appbar .waffle{display:grid;grid-template-columns:repeat(3,4px);gap:2px;opacity:.85}
+.crm-appbar .waffle i{width:4px;height:4px;background:var(--ground);border-radius:1px;display:block}
+.crm-appbar .appttl{font-weight:700;font-size:14px;letter-spacing:-.01em;color:var(--ground)}
+.crm-appbar .appttl b{color:var(--accent)}
+.crm-appbar .crm-search{margin-left:auto;background:rgba(125,125,125,.22);border:1px solid rgba(150,150,150,.25);border-radius:6px;padding:6px 12px;font-size:12px;color:var(--ground);opacity:.75;display:flex;align-items:center;gap:8px;min-width:180px}
+.crm-appbar .crm-search svg{width:13px;height:13px}
+.crm-appbar .env{font-family:var(--f-mono);font-size:10px;letter-spacing:.05em;text-transform:uppercase;border:1px solid rgba(150,150,150,.3);border-radius:20px;padding:4px 10px;opacity:.8}
+.crm-appbar .crm-user{width:28px;height:28px;border-radius:50%;background:var(--accent);display:grid;place-items:center;font-size:11px;font-weight:700;color:#fff}
+.crm-body{display:grid;grid-template-columns:222px 1fr;min-height:590px}
+.crm-side{background:var(--panel);border-right:1px solid var(--border);padding:8px 10px 16px}
+.crm-grp{font-family:var(--f-mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);padding:15px 10px 7px}
+.crm-nav{display:flex;align-items:center;gap:11px;padding:9px 11px;border-radius:8px;cursor:pointer;color:var(--body);font-size:13.5px;transition:.15s}
+.crm-nav svg{width:17px;height:17px;flex:none;color:var(--muted)}
+.crm-nav:hover{background:var(--ground)}
+.crm-nav.on{background:var(--ground);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--accent)}
+.crm-nav.on svg{color:var(--accent)}
+.crm-nav .cnt{margin-left:auto;font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.crm-main{overflow:hidden;display:flex;flex-direction:column}
+.crm-cmd{display:flex;align-items:center;gap:8px;padding:14px 20px;border-bottom:1px solid var(--border);flex-wrap:wrap}
+.crm-cmd .vt{color:var(--ink);font-size:17px;font-weight:700;margin-right:auto}
+.crm-cmd .vt small{display:block;font-family:var(--f-mono);font-size:11px;color:var(--muted);font-weight:400;margin-top:3px}
+.crm-btn{font-family:var(--f-mono);font-size:11.5px;letter-spacing:.03em;border:1px solid var(--border);background:var(--ground);color:var(--ink);border-radius:7px;padding:8px 13px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.2s}
+.crm-btn:hover{border-color:var(--accent);color:var(--accent)}
+.crm-btn.pri{background:var(--accent);border-color:var(--accent);color:#fff}
+.crm-btn.pri:hover{color:#fff;filter:brightness(1.06)}
+.crm-btn svg{width:14px;height:14px}
+.crm-view{padding:20px;overflow:auto;flex:1}
+.crm-grid{width:100%;border-collapse:collapse;font-size:13px}
+.crm-grid th{text-align:left;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);font-weight:500;padding:10px 12px;border-bottom:1px solid var(--border);white-space:nowrap}
+.crm-grid td{padding:12px;border-bottom:1px solid var(--border);color:var(--body);white-space:nowrap}
+.crm-grid tbody tr{cursor:pointer;transition:.15s}
+.crm-grid tbody tr:hover{background:var(--panel)}
+.crm-grid .lk{color:var(--info);font-weight:600}
+.crm-grid td b{color:var(--ink)}
+.pill{font-family:var(--f-mono);font-size:10px;letter-spacing:.04em;padding:3px 9px;border-radius:20px;border:1px solid var(--border);color:var(--muted);white-space:nowrap}
+.pill.q,.pill.won,.pill.paid{color:var(--good);border-color:rgba(15,122,83,.4);background:rgba(15,122,83,.08)}
+.pill.new{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.pill.over{color:var(--accent);border-color:var(--accent-line);background:var(--accent-soft)}
+.pill.open{color:var(--info);border-color:rgba(31,111,235,.35);background:rgba(31,111,235,.08)}
+.bpf{display:flex;align-items:stretch;margin-bottom:22px;border:1px solid var(--border);border-radius:8px;background:var(--panel);overflow:hidden}
+.bpf-stage{flex:1;position:relative;padding:11px 12px 11px 22px;border-right:1px solid var(--border);min-width:0}
+.bpf-stage:first-child{padding-left:14px}
+.bpf-stage::after{content:"";position:absolute;right:-10px;top:50%;transform:translateY(-50%) rotate(45deg);width:19px;height:19px;background:var(--panel);border-top:1px solid var(--border);border-right:1px solid var(--border);z-index:2}
+.bpf-stage:last-child{border-right:none}.bpf-stage:last-child::after{display:none}
+.bpf-stage .bs-n{font-family:var(--f-mono);font-size:9px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.bpf-stage .bs-t{color:var(--ink);font-weight:600;margin-top:3px;font-size:13px}
+.bpf-stage.done{background:var(--accent-soft)}.bpf-stage.done::after{background:var(--accent-soft)}
+.bpf-stage.active{background:var(--accent)}.bpf-stage.active::after{background:var(--accent)}
+.bpf-stage.active .bs-t,.bpf-stage.active .bs-n{color:#fff}
+.crm-form{display:grid;grid-template-columns:1.4fr 1fr;gap:22px}
+@media(max-width:900px){.crm-form{grid-template-columns:1fr}}
+.crm-card{border:1px solid var(--border);border-radius:10px;padding:18px}
+.crm-card h4{font-size:11px;font-family:var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;font-weight:500}
+.frow{display:flex;justify-content:space-between;gap:14px;padding:9px 0;border-bottom:1px solid var(--border);font-size:13.5px}
+.frow:last-child{border-bottom:none}
+.frow .fl{color:var(--muted)}.frow .fv{color:var(--ink);font-weight:600;text-align:right}
+.kanban{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.kcol{background:var(--panel);border:1px solid var(--border);border-radius:10px;padding:12px;min-height:220px}
+.kcol h5{font-family:var(--f-mono);font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted);margin-bottom:12px;display:flex;justify-content:space-between}
+.kcol h5 span{color:var(--accent)}
+.kcard{background:var(--ground);border:1px solid var(--border);border-radius:9px;padding:12px;margin-bottom:10px;cursor:pointer;transition:.2s;animation:lrowIn .4s var(--ease)}
+.kcard:hover{border-color:var(--accent);transform:translateY(-2px);box-shadow:var(--shadow)}
+.kcard .kc-c{color:var(--ink);font-weight:650;font-size:13.5px}
+.kcard .kc-m{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:5px}
+.kcard .kc-v{color:var(--accent);font-family:var(--f-mono);font-size:12px;margin-top:9px;font-weight:600;display:flex;justify-content:space-between;align-items:center}
+.kcard .kc-v .adv{color:var(--muted)}
+.crm-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:760px){.crm-kpis{grid-template-columns:1fr 1fr}}
+.crm-kpi{border:1px solid var(--border);border-radius:10px;padding:16px}
+.crm-kpi .kl{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.crm-kpi .kv{font-family:var(--f-display);font-weight:770;color:var(--ink);font-size:28px;margin-top:8px;font-variant-numeric:tabular-nums}
+.crm-kpi .kc{font-family:var(--f-mono);font-size:10.5px;color:var(--good);margin-top:6px}
+.crm-dash2{display:grid;grid-template-columns:1.3fr 1fr;gap:16px}
+@media(max-width:860px){.crm-dash2{grid-template-columns:1fr}}
+.crm-hint{font-family:var(--f-mono);font-size:11px;color:var(--muted);margin-top:12px;display:flex;align-items:center;gap:7px}
+.crm-hint svg{width:13px;height:13px;color:var(--accent)}
+.crm-timeline .titem{display:flex;gap:11px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px}
+.crm-timeline .titem:last-child{border-bottom:none}
+.crm-timeline .ti{width:30px;height:30px;border-radius:8px;background:var(--accent-soft);color:var(--accent);display:grid;place-items:center;flex:none}
+.crm-timeline .ti svg{width:15px;height:15px}
+.crm-timeline .th{color:var(--ink);font-weight:600}
+.crm-timeline .td{color:var(--muted);font-family:var(--f-mono);font-size:11px;margin-top:2px}
+
+/* ---- Authentic Microsoft Dynamics 365 (Fluent) skin — scoped to the CRM window only ---- */
+.crmwin{
+  --ground:#ffffff;--panel:#f5f6f7;--ink:#242424;--body:#575757;--muted:#8a8886;
+  --border:#e6e6e6;--accent:#0f6cbd;--accent-soft:rgba(15,108,189,.1);--accent-line:rgba(15,108,189,.4);
+  --good:#107c10;--info:#0f6cbd;--shadow:0 1.6px 3.6px rgba(0,0,0,.11),0 .3px .9px rgba(0,0,0,.07);
+  --f-display:"Segoe UI","Segoe UI Web",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  font-family:"Segoe UI","Segoe UI Web",-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  color:#575757;
+}
+.crmwin .crm-chrome{background:#fff}
+.crmwin .crm-appbar{background:#0f6cbd;color:#fff}
+.crmwin .crm-appbar .appttl,.crmwin .crm-appbar .appttl b{color:#fff}
+.crmwin .crm-appbar .waffle i{background:#fff}
+.crmwin .crm-appbar .crm-search{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3);color:#fff;opacity:.92}
+.crmwin .crm-appbar .env{border-color:rgba(255,255,255,.35);color:#fff;opacity:.85}
+.crmwin .crm-appbar .crm-user{background:#fff;color:#0f6cbd}
+.crmwin .crm-nav.on{background:rgba(15,108,189,.09)}
+.crmwin .crm-btn{border-radius:2px}
+.crmwin .crm-btn.pri{box-shadow:none}
+.crmwin .crm-card,.crmwin .kcol,.crmwin .crm-kpi{border-radius:4px}
+.crmwin .bpf,.crmwin .kcard{border-radius:3px}
+.crmwin .pill{border-radius:12px}
+.crmwin .crm-grid .lk{color:#0f6cbd}
+/* Copilot AI pane + AI insights (inside CRM window) */
+.crm-mainwrap{position:relative;overflow:hidden;display:flex;min-width:0}
+.crm-mainwrap .crm-main{flex:1;min-width:0}
+.cop-btn{background:rgba(255,255,255,.16);border:1px solid rgba(255,255,255,.32);color:#fff;border-radius:16px;padding:6px 12px;font-size:12px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;transition:.2s;font-family:inherit}
+.cop-btn:hover{background:rgba(255,255,255,.28)}
+.cop-btn svg{width:14px;height:14px}
+.copilot{position:absolute;top:0;right:0;bottom:0;width:358px;max-width:82%;background:var(--ground);border-left:1px solid var(--border);box-shadow:-14px 0 34px -20px rgba(0,0,0,.35);transform:translateX(102%);transition:transform .42s var(--ease);display:flex;flex-direction:column;z-index:6}
+.copilot.open{transform:none}
+.cop-head{display:flex;align-items:center;gap:10px;padding:13px 15px;border-bottom:1px solid var(--border)}
+.cop-logo{width:27px;height:27px;border-radius:7px;background:linear-gradient(135deg,#2aa5ff,#8a55c9 55%,#e0603a);display:grid;place-items:center;color:#fff;flex:none}
+.cop-logo svg{width:16px;height:16px}
+.cop-t{font-weight:700;color:var(--ink);font-size:15px}
+.cop-t span{font-family:var(--f-mono);font-size:9px;color:var(--muted);border:1px solid var(--border);border-radius:20px;padding:2px 7px;margin-left:7px;text-transform:uppercase;letter-spacing:.05em}
+.cop-x{margin-left:auto;background:none;border:none;color:var(--muted);cursor:pointer;font-size:20px;line-height:1;padding:0 4px}
+.cop-body{flex:1;overflow:auto;padding:16px}
+.cop-intro{font-size:13px;color:var(--body);line-height:1.55;margin-bottom:4px}
+.cop-intro b{color:var(--ink)}
+.cop-msg{margin-bottom:12px;animation:lrowIn .4s var(--ease)}
+.cop-msg.user{text-align:right}
+.cop-msg .bub{display:inline-block;text-align:left;max-width:92%;padding:11px 13px;border-radius:12px;font-size:13px;line-height:1.55}
+.cop-msg.user .bub{background:var(--accent);color:#fff;border-bottom-right-radius:3px}
+.cop-msg.ai .bub{background:var(--panel);color:var(--ink);border:1px solid var(--border);border-bottom-left-radius:3px}
+.cop-think{display:flex;gap:4px;padding:3px 2px}
+.cop-think i{width:6px;height:6px;border-radius:50%;background:var(--muted);animation:copdot 1s infinite}
+.cop-think i:nth-child(2){animation-delay:.15s}.cop-think i:nth-child(3){animation-delay:.3s}
+@keyframes copdot{0%,100%{opacity:.3;transform:translateY(0)}50%{opacity:1;transform:translateY(-3px)}}
+.cop-prompts{padding:10px 14px;border-top:1px solid var(--border);display:flex;flex-wrap:wrap;gap:7px}
+.cop-chip{font-size:11.5px;border:1px solid var(--border);background:var(--ground);color:var(--ink);border-radius:16px;padding:7px 11px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:6px}
+.cop-chip:hover{border-color:var(--accent);color:var(--accent)}
+.cop-chip svg{width:12px;height:12px;color:var(--accent)}
+.cop-input{padding:11px 14px;border-top:1px solid var(--border);display:flex;align-items:center;gap:9px}
+.cop-input .ci{flex:1;border:1px solid var(--border);border-radius:20px;padding:9px 14px;font-size:12.5px;color:var(--muted)}
+.cop-input .cs{width:34px;height:34px;border-radius:50%;background:var(--accent);color:#fff;border:none;display:grid;place-items:center;cursor:pointer;flex:none}
+.cop-input .cs svg{width:15px;height:15px}
+.ai-banner{border:1px solid var(--accent-line);background:linear-gradient(120deg,rgba(15,108,189,.08),rgba(138,85,201,.07));border-radius:8px;padding:13px 15px;margin-bottom:18px;display:flex;gap:12px;align-items:flex-start}
+.ai-banner .aib-i{width:27px;height:27px;border-radius:7px;background:linear-gradient(135deg,#2aa5ff,#8a55c9);display:grid;place-items:center;color:#fff;flex:none}
+.ai-banner .aib-i svg{width:15px;height:15px}
+.ai-banner .aib-t{font-size:13px;color:var(--ink);line-height:1.55}
+.ai-banner .aib-t .lbl{font-weight:700}
+.ai-banner .aib-t .sf{color:var(--accent);cursor:pointer;font-weight:600;white-space:nowrap}
+.leadscore{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.leadscore .ls-n{font-family:var(--f-display);font-weight:770;font-size:26px;color:var(--ink);line-height:1;font-variant-numeric:tabular-nums}
+.leadscore .ls-g{font-family:var(--f-mono);font-size:11px;padding:3px 9px;border-radius:20px;background:var(--accent-soft);color:var(--accent);border:1px solid var(--accent-line)}
+.leadscore .ls-bar{flex:1;height:6px;background:var(--panel);border-radius:6px;overflow:hidden}
+.leadscore .ls-bar i{display:block;height:100%;background:linear-gradient(90deg,var(--accent),#8a55c9);border-radius:6px}
+/* CRM analytics / forecast / agents / integrations */
+.crm-charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+@media(max-width:820px){.crm-charts{grid-template-columns:1fr}}
+.hbar{display:flex;align-items:center;gap:10px;margin-bottom:11px;font-size:12.5px}
+.hbar .hl{width:96px;color:var(--body);flex:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.hbar .ht{flex:1;height:20px;background:var(--panel);border-radius:4px;overflow:hidden}
+.hbar .ht i{display:block;height:100%;background:linear-gradient(90deg,#0f6cbd,#5aa0e0);border-radius:4px;width:0;transition:width .9s var(--ease)}
+.hbar .hv{width:52px;text-align:right;font-family:var(--f-mono);color:var(--ink);flex:none;font-variant-numeric:tabular-nums}
+.crm-donut{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.crm-donut svg{width:132px;height:132px;flex:none}
+.crm-lgd{display:flex;flex-direction:column;gap:9px;font-size:12.5px}
+.crm-lgd .li{display:flex;align-items:center;gap:8px;color:var(--body)}
+.crm-lgd .li i{width:10px;height:10px;border-radius:3px;flex:none}
+.crm-lgd .li b{color:var(--ink);margin-left:auto;font-family:var(--f-mono);font-size:12px}
+.agent,.intg{border:1px solid var(--border);border-radius:6px;padding:15px;display:flex;gap:13px;align-items:center;margin-bottom:12px}
+.intg{align-items:flex-start}
+.agent .ag-ic{width:38px;height:38px;border-radius:8px;background:linear-gradient(135deg,#2aa5ff,#8a55c9);display:grid;place-items:center;color:#fff;flex:none}
+.agent .ag-ic svg,.intg .ig-ic svg{width:19px;height:19px}
+.intg .ig-ic{width:38px;height:38px;border-radius:8px;display:grid;place-items:center;color:#fff;flex:none}
+.agent .ag-n,.intg .ig-n{color:var(--ink);font-weight:650;font-size:14px}
+.agent .ag-d,.intg .ig-d{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.45;max-width:52ch}
+.agent .ag-r{margin-left:auto;display:flex;align-items:center;gap:12px;flex:none}
+.intg .ig-s{margin-top:9px;font-family:var(--f-mono);font-size:11px;color:var(--good);display:flex;align-items:center;gap:6px}
+.intg .ig-s i{width:7px;height:7px;border-radius:50%;background:var(--good);display:block}
+.crm-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media(max-width:760px){.crm-grid-2{grid-template-columns:1fr}}
+.crm-note{font-size:12.5px;color:var(--muted);margin-top:14px;line-height:1.5}
+.crmwin .nl-l{font-family:var(--f-mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:7px}
+.crmwin .nl-f{margin-bottom:14px}
+.crmwin .nlinput{width:100%;border:1px solid var(--border);border-radius:4px;padding:9px 11px;font-size:13.5px;color:var(--ink);background:var(--ground);font-family:inherit;-webkit-appearance:none;appearance:none;transition:border-color .2s}
+.crmwin .nlinput:focus{outline:none;border-color:var(--accent)}
+
 @media (prefers-reduced-motion:reduce){
   *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important}
   .reveal,.stag>*{opacity:1!important;transform:none!important}
@@ -776,6 +967,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     <div class="nav-links" id="navLinks">
       <a data-route="architecture">Design</a>
       <a data-route="howitworks">How it Works</a>
+      <a data-route="crm">Dynamic CRM</a>
       <a data-route="app">Member App</a>
       <a data-route="platform">Platform</a>
       <a data-route="analytics">Analytics</a>
@@ -794,11 +986,12 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   <a data-route="home"><span>Overview</span><span class="mi">00</span></a>
   <a data-route="architecture"><span>Solution Design</span><span class="mi">01</span></a>
   <a data-route="howitworks"><span>How the Solution Works</span><span class="mi">02</span></a>
-  <a data-route="app"><span>Member App · live demo</span><span class="mi">03</span></a>
-  <a data-route="platform"><span>Platform &amp; Compliance</span><span class="mi">04</span></a>
-  <a data-route="analytics"><span>Operations Analytics</span><span class="mi">05</span></a>
-  <a data-route="delivery"><span>Migration &amp; Delivery</span><span class="mi">06</span></a>
-  <a data-route="commercials"><span>Commercial Model</span><span class="mi">07</span></a>
+  <a data-route="crm"><span>Dynamic CRM solution</span><span class="mi">03</span></a>
+  <a data-route="app"><span>Member App · live demo</span><span class="mi">04</span></a>
+  <a data-route="platform"><span>Platform &amp; Compliance</span><span class="mi">05</span></a>
+  <a data-route="analytics"><span>Operations Analytics</span><span class="mi">06</span></a>
+  <a data-route="delivery"><span>Migration &amp; Delivery</span><span class="mi">07</span></a>
+  <a data-route="commercials"><span>Commercial Model</span><span class="mi">08</span></a>
   <a data-route="contact"><span>Let's talk</span><span class="mi">→</span></a>
 </div>
 
@@ -836,29 +1029,17 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
       <h2 class="title">A coworking operating model — not another generic CRM.</h2>
       <p class="lead">The current model is fragmented across tools and runs on Zoho CRM. Free-hours entitlements, consumption ledgers, multi-contract accounts and meeting-room overage rating are <span class="kicker">not native to any standard CRM product</span>. Volge consolidates the operation onto one governed Microsoft platform, with one data model.</p>
     </div>
-    <div class="split reveal">
-      <div class="side before">
-        <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M15 9l-6 6M9 9l6 6"/></svg> Today · fragmented</div>
-        <h3 style="font-size:19px;margin-bottom:6px">Multiple disconnected tools</h3>
-        <div class="frag">
-          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Zoho CRM — enquiries &amp; leasing</div>
-          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Spreadsheets — free-hours &amp; overage</div>
-          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Separate billing &amp; finance handoffs</div>
-          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Email/WhatsApp done manually</div>
-          <div class="row"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="18" height="18" rx="2"/></svg> Data residency outside Qatar</div>
-        </div>
-      </div>
-      <div class="side after">
-        <div class="lab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Proposed · one platform</div>
-        <h3 style="font-size:19px;margin-bottom:6px">A single Microsoft Dataverse model</h3>
-        <div class="frag">
-          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> CRM, leasing &amp; multi-contract accounts</div>
-          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Entitlement engine &amp; overage rating</div>
-          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Billing signals → corporate Dynamics</div>
-          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Email + WhatsApp + surveys, native</div>
-          <div class="row one"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 6L9 17l-5-5"/></svg> Data residency in Qatar Central</div>
-        </div>
-      </div>
+    <div class="reveal" style="margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+      <span class="tag-pill tag-custom">One platform</span>
+      <h3 style="font-size:clamp(19px,2.4vw,25px);color:var(--ink);letter-spacing:-.02em">A single Microsoft Dataverse model</h3>
+    </div>
+    <div class="grid g3 stag reveal" style="margin-top:22px">
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3.4"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17.5" cy="8.5" r="2.5"/></svg></div><h3>CRM, leasing &amp; accounts</h3><p>Enquiries, leasing and multi-contract accounts across all four locations.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg></div><h3>Entitlement &amp; overage</h3><p>Free-hours quota, consumption ledger and location-specific overage rating.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg></div><h3>Billing → Dynamics</h3><p>Billing signals reconcile to the Alfardan corporate Microsoft Dynamics finance system.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v12H5.2L4 18z"/><path d="M8 9h8M8 12h5"/></svg></div><h3>Email, WhatsApp &amp; surveys</h3><p>Member communications and feedback delivered natively across channels.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/></svg></div><h3>Qatar data residency</h3><p>Hosted in the Microsoft Cloud Qatar Central region — customer data stays in Qatar.</p></div>
+      <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/><path d="M4 12c0 1.7 3.6 3 8 3s8-1.3 8-3"/></svg></div><h3>One governed data model</h3><p>CRM, app, portal and analytics all read the same Dataverse tables — no data drift.</p></div>
     </div>
     <div class="statrow stag reveal">
       <div class="stat"><div class="big"><span data-count="100" data-suffix="%">0</span></div><div class="lb">RFP requirement IDs mapped to a delivery method</div></div>
@@ -1027,6 +1208,72 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 
       <div class="pager">
         <a class="prev" data-route="architecture"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Solution Design</div></a>
+        <a class="next" data-route="crm"><div class="pl">Next</div><div class="pt">Dynamic CRM solution <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ DYNAMIC CRM SOLUTION ============================ -->
+<section class="page" id="page-crm">
+  <div class="wrap">
+    <div class="page-head reveal">
+      <span class="eyebrow"><span class="n">03 / 08</span> Live demo · Microsoft Dynamics 365</span>
+      <h2 class="title">Dynamic CRM solution.</h2>
+      <p class="lead">The staff-facing side of the platform — a working model of the <span class="kicker">Dynamics 365 model-driven app</span> your team runs the business in. Move an enquiry through the coworking business process flow, qualify it, watch the pipeline update, and open accounts, contracts and invoices. Built on the RFP's CRM lifecycle (CRM-01→03).</p>
+    </div>
+    <div class="band" style="padding-top:20px">
+      <div class="crmscroll reveal">
+        <div class="crmwin">
+          <div class="crm-chrome">
+            <div class="cdots"><i></i><i></i><i></i></div>
+            <div class="addr"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="4" y="10" width="16" height="10" rx="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3"/></svg> nestwork.crm.dynamics.com · Qatar Central</div>
+          </div>
+          <div class="crm-appbar">
+            <div class="waffle"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+            <div class="appttl">Nestwork <b>Coworking CRM</b></div>
+            <div class="crm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg> Search</div>
+            <div class="env">Prod · Qatar Central</div>
+            <button class="cop-btn" id="copToggle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.9L19.5 9.5l-5.9 1.6L12 17l-1.6-5.9L4.5 9.5l5.9-1.6z"/><path d="M18 14l.8 2.7 2.7.8-2.7.8L18 21l-.8-2.7-2.7-.8 2.7-.8z"/></svg> Copilot</button>
+            <div class="crm-user">VS</div>
+          </div>
+          <div class="crm-body">
+            <div class="crm-side" id="crmSide"></div>
+            <div class="crm-mainwrap">
+              <div class="crm-main" id="crmMain"></div>
+              <div class="copilot" id="copilotPane">
+                <div class="cop-head">
+                  <div class="cop-logo"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.9L19.5 9.5l-5.9 1.6L12 17l-1.6-5.9L4.5 9.5l5.9-1.6z"/></svg></div>
+                  <div class="cop-t">Copilot<span>AI</span></div>
+                  <button class="cop-x" id="copClose" aria-label="Close Copilot">×</button>
+                </div>
+                <div class="cop-body" id="copBody">
+                  <div class="cop-intro">Hi Volge team 👋 I'm <b>Copilot</b> for Nestwork Coworking CRM. I can summarize leads &amp; opportunities, catch you up on changes, prep for meetings, and draft emails — grounded in your Dataverse data. Try a prompt below.</div>
+                </div>
+                <div class="cop-prompts" id="copPrompts"></div>
+                <div class="cop-input"><div class="ci">Ask Copilot about your CRM…</div><button class="cs" aria-label="Send"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="crm-hint"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg> Optimised for desktop · scroll horizontally on smaller screens. This is an interactive model of the Dynamics 365 app, not the production system.</div>
+
+      <div class="grid g3 stag reveal" style="margin-top:40px">
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/></svg></div><span class="tag-pill tag-custom">CRM-01</span><h3 style="margin-top:12px">Coworking lifecycle</h3><p>Enquiry → lease → account → multiple contracts, with a business process flow that guides every stage.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div><span class="tag-pill tag-custom">CRM-02</span><h3 style="margin-top:12px">Quality classification</h3><p>Rule-based Quality vs Non-Quality scoring; non-quality enquiries are retained for analytics but excluded from the active pipeline.</p></div>
+        <div class="card"><div class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/></svg></div><span class="tag-pill tag-custom">CRM-03</span><h3 style="margin-top:12px">Multi-contract accounts</h3><p>A signed lease creates the account, which can hold multiple active contracts across different Nestwork locations.</p></div>
+      </div>
+
+      <div class="reveal" style="margin-top:64px">
+        <span class="eyebrow"><span class="n">03.1</span> Platform capabilities &amp; AI</span>
+        <h2 class="title" style="font-size:clamp(24px,3.6vw,40px)">The capabilities configured for Nestwork.</h2>
+        <p class="lead">Dynamics 365 provides these capabilities natively — including <span class="kicker">Copilot</span> generative AI and autonomous agents. Each is configured to Nestwork's coworking model and demonstrated in the live application above. You can explore them directly in the CRM's <span class="kicker">Sales analytics</span>, <span class="kicker">Copilot &amp; agents</span> and <span class="kicker">Integrations</span> areas.</p>
+      </div>
+      <div class="grid g4 stag reveal" id="crmOOTB" style="margin-top:30px"></div>
+
+      <div class="pager">
+        <a class="prev" data-route="howitworks"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> How it Works</div></a>
         <a class="next" data-route="app"><div class="pl">Next</div><div class="pt">Member App · live demo <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
       </div>
     </div>
@@ -1082,6 +1329,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                   <button class="qbtn" data-goto="tickets"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><b>New ticket</b></button>
                 </div>
                 <div id="homeOnboard"></div>
+                <div id="homeContract"></div>
                 <div class="sec-h">Announcements <a data-goto="ann">See all</a></div>
                 <div id="homeAnn"></div>
                 <div class="sec-h">Upcoming bookings</div>
@@ -1099,8 +1347,8 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 
               <!-- BOOKING SHEET SCREEN -->
               <div class="ascreen" id="s-book">
-                <div class="sc-title" id="bkRoomName">Pearl Boardroom</div>
-                <div class="sc-sub" id="bkRoomMeta">12 pax · Burj Al Gassar</div>
+                <div class="sc-title" id="bkRoomName">Room A</div>
+                <div class="sc-sub" id="bkRoomMeta">12 pax · West Bay</div>
                 <div class="afield"><label>Date</label><select id="bkDate"></select></div>
                 <div class="afield"><label>Start time</label><select id="bkStart"></select></div>
                 <div class="afield"><label>Duration (hours)</label>
@@ -1192,8 +1440,8 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                 <div class="reg-sec">Company &amp; office</div>
                 <div class="afield"><label>Company name *</label><input id="rgCompany" placeholder="e.g. Design Republic LLC"></div>
                 <div class="afield two"><div><label>Office no. *</label><select id="rgOffice"></select></div><div><label>Location *</label><select id="rgLoc"></select></div></div>
-                <div class="afield"><label>Membership type</label>
-                  <div class="chips" id="rgType"><span class="chip on" data-v="Private office">Private office</span><span class="chip" data-v="Serviced office">Serviced office</span><span class="chip" data-v="Suite">Suite</span><span class="chip" data-v="Enterprise floor">Enterprise floor</span></div>
+                <div class="afield"><label>Workspace type</label>
+                  <div class="chips" id="rgType"><span class="chip on" data-v="Coworking Space">Coworking Space</span><span class="chip" data-v="Serviced Office">Serviced Office</span><span class="chip" data-v="Enterprise Workspace">Enterprise Workspace</span><span class="chip" data-v="Meeting Room">Meeting Room</span><span class="chip" data-v="Workshop Room">Workshop Room</span><span class="chip" data-v="Event Space">Event Space</span></div>
                 </div>
                 <div class="afield two"><div><label>No. of members</label><input id="rgMembers" inputmode="numeric" placeholder="e.g. 6"></div><div><label>CR number</label><input id="rgCR" placeholder="Commercial reg."></div></div>
 
@@ -1217,6 +1465,13 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                 <div class="sc-title">Rent &amp; invoices</div>
                 <div class="sc-sub">Billing · pay securely from the app</div>
                 <div id="invoiceArea"></div>
+              </div>
+
+              <!-- CONTRACT / AGREEMENT SCREEN -->
+              <div class="ascreen" id="s-contract">
+                <div class="sc-title">Membership agreement</div>
+                <div class="sc-sub" id="ctSub">Sent by Nestwork · e-signature</div>
+                <div id="contractArea"></div>
               </div>
             </div>
 
@@ -1274,7 +1529,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 
     <div class="wrap" style="padding:0">
       <div class="pager">
-        <a class="prev" data-route="howitworks"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> How it Works</div></a>
+        <a class="prev" data-route="crm"><div class="pl">Back</div><div class="pt"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M19 12H5M11 6l-6 6 6 6"/></svg> Dynamic CRM</div></a>
         <a class="next" data-route="platform"><div class="pl">Next</div><div class="pt">Platform &amp; Compliance <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></div></a>
       </div>
     </div>
@@ -1504,7 +1759,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   /* CURSOR */
   var cur=$("#cursor"),dot=$("#cursorDot"),cx=innerWidth/2,cy=innerHeight/2,dx=cx,dy=cy;
   if(!reduce&&matchMedia("(hover:hover)").matches){
-    window.addEventListener("mousemove",function(e){cx=e.clientX;cy=e.clientY;dot.style.transform="translate("+cx+"px,"+cy+"px)"});
+    window.addEventListener("mousemove",function(e){cx=e.clientX;cy=e.clientY;dot.style.transform="translate("+cx+"px,"+cy+"px)";var z=!!(e.target&&e.target.closest&&e.target.closest("#hero,.phone,.crmwin"));cur.style.opacity=z?"1":"0";dot.style.opacity=z?"1":"0"});
     (function loop(){dx+=(cx-dx)*.18;dy+=(cy-dy)*.18;cur.style.transform="translate("+dx+"px,"+dy+"px)";requestAnimationFrame(loop)})();
     document.addEventListener("mouseover",function(e){if(e.target.closest("a,button,select,input,textarea,.node,.card,.modrow,.room,.chip,.qbtn,.guide,[data-route],[data-magnetic],[data-goto],[data-tab]"))cur.classList.add("hov")});
     document.addEventListener("mouseout",function(e){if(e.target.closest("a,button,select,input,textarea,.node,.card,.modrow,.room,.chip,.qbtn,.guide,[data-route],[data-magnetic],[data-goto],[data-tab]"))cur.classList.remove("hov")});
@@ -1663,10 +1918,16 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     {i:"cal",h:"Booking confirmed — Room A · West Bay",d:"Tomorrow 10:00, 2h · free hours applied",t:"2h"},
     {i:"mega",h:"Chiller maintenance · West Bay",d:"Sat 08:00–12:00, some AC zones affected",t:"1d"}
   ];
+  /* Nestwork product / space types + shared contract-signing state (CRM ↔ app) */
+  var SPACES=["Coworking Space","Serviced Office","Enterprise Workspace","Meeting Room","Workshop Room","Event Space"];
+  var CF={state:"none",id:"AGR-1042",company:"Design Republic LLC",member:"Layla Al-Emadi",email:"B.maroua@volge.com",plan:"Serviced Office",loc:"West Bay",mrr:"QAR 18,000",term:"12 months",ent:"10 h / month",memberSigDrawn:false};
+  var MEMBER_CO="Design Republic LLC";
   var tickets=[
-    {id:5049,n:"Wi-Fi keeps dropping in our office",cat:"Wi-Fi / Internet",prio:"High",st:"progress",sla:0.35,due:"2h 10m"},
-    {id:5047,n:"Printer on Level 7 is out of toner",cat:"Printer / Scanner",prio:"Normal",st:"open",sla:0.7,due:"5h 40m"},
-    {id:5044,n:"AC in Office 12 not cooling",cat:"Air conditioning",prio:"Normal",st:"resolved",sla:1,due:"Resolved"}
+    {id:5049,n:"Wi-Fi keeps dropping in our office",cat:"Wi-Fi / Internet",prio:"High",st:"progress",sla:0.35,due:"2h 10m",co:MEMBER_CO,src:"Member app"},
+    {id:5047,n:"Printer on Level 7 is out of toner",cat:"Printer / Scanner",prio:"Normal",st:"open",sla:0.7,due:"5h 40m",co:MEMBER_CO,src:"Member app"},
+    {id:5044,n:"AC in Office 12 not cooling",cat:"Air conditioning",prio:"Normal",st:"resolved",sla:1,due:"Resolved",co:MEMBER_CO,src:"Member app"},
+    {id:5031,n:"Access card not working at main door",cat:"Access card",prio:"High",st:"open",sla:0.6,due:"3h 20m",co:"Qanat Capital",src:"Email"},
+    {id:5028,n:"Request extra monitor for our office",cat:"IT support",prio:"Low",st:"progress",sla:0.8,due:"1d 4h",co:"Najma Health",src:"Web portal"}
   ];
   var announcements=[
     {tag:"Event",unread:true,h:"Founders' Breakfast · Thursday 8:30",d:"Networking over coffee in the Level 7 lounge. All members welcome."},
@@ -1674,11 +1935,11 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     {tag:"Community",unread:false,h:"New member: Meridian Studio",d:"A design studio has joined on Level 7 — say hello in the directory."}
   ];
   var companies=[
-    {n:"Meridian Studio",s:"Design & branding",fl:"Gassar · L7",in:true},
+    {n:"Meridian Studio",s:"Design & branding",fl:"West Bay",in:true},
     {n:"Qanat Capital",s:"Venture capital",fl:"Msheireb",in:true},
-    {n:"Doha Legal Partners",s:"Legal services",fl:"The Pearl",in:true},
+    {n:"Doha Legal Partners",s:"Legal services",fl:"Souq Waqif",in:true},
     {n:"Cedar Analytics",s:"Data & AI",fl:"Lusail",in:true},
-    {n:"Falcon Logistics",s:"Supply chain",fl:"Gassar · L7",in:false},
+    {n:"Falcon Logistics",s:"Supply chain",fl:"West Bay",in:false},
     {n:"Najma Health",s:"Healthtech",fl:"Msheireb",in:true}
   ];
   var guides=[
@@ -1689,11 +1950,12 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   ];
 
   /* --- app tabs / screens --- */
-  var screens=["home","rooms","book","tickets","newticket","ann","directory","guide","pay","register"];
+  var screens=["home","rooms","book","tickets","newticket","ann","directory","guide","pay","register","contract"];
   function show(scr){ screens.forEach(function(s){var el=$("#s-"+s);if(el)el.classList.toggle("on",s===scr)});
     $$("#tabbar button").forEach(function(b){b.classList.toggle("on",b.getAttribute("data-tab")===scr)});
     if(scr==="pay"||scr==="home")renderPayments();
     if(scr==="home")renderOnboard();
+    if(scr==="home"||scr==="contract")renderContract();
     if(scr==="register")requestAnimationFrame(initSig);
     var sc=$("#appScroll"); if(sc)sc.scrollTop=0;
   }
@@ -1765,7 +2027,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   });
   /* tickets */
   function renderTickets(){
-    $("#ticketList").innerHTML=tickets.map(function(t){
+    $("#ticketList").innerHTML=tickets.filter(function(t){return t.co===MEMBER_CO}).map(function(t){
       var pct=Math.round(t.sla*100);
       return '<div class="ticket"><div class="th"><div><div class="tn">'+t.n+'</div><div class="tid">CASE-'+t.id+' · '+t.cat+' · '+t.prio+' priority</div></div>'+
         '<span class="status '+t.st+'">'+(t.st==="progress"?"In progress":t.st==="resolved"?"Resolved":"Open")+'</span></div>'+
@@ -1782,11 +2044,11 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var cat=($("#tCat .chip.on")||{}).textContent||"Facilities", prio=($("#tPrio .chip.on")||{}).textContent||"Normal";
     var desc=$("#tDesc").value.trim()||"New request from member app";
     var id=app.tseq++;
-    tickets.unshift({id:id,n:desc.length>44?desc.slice(0,44)+"…":desc,cat:cat,prio:prio,st:"open",sla:1,due:prio==="High"?"4h 00m":"8h 00m"});
-    app.notifs.unshift({i:"ticket",h:"Ticket raised — CASE-"+id,d:cat+" · "+prio+" priority · SLA timer started",t:"now"});
+    tickets.unshift({id:id,n:desc.length>44?desc.slice(0,44)+"…":desc,cat:cat,prio:prio,st:"open",sla:1,due:prio==="High"?"4h 00m":"8h 00m",co:MEMBER_CO,src:"Member app"});
+    app.notifs.unshift({i:"ticket",h:"Ticket raised — CASE-"+id,d:cat+" · "+prio+" priority · created in Dynamics 365",t:"now"});
     app.notifSeen=false; updateBell();
     $("#tDesc").value="";attached=false;$("#tAttachL").textContent="Add a photo";
-    renderTickets();toast("Ticket submitted","CASE-"+id+" · SLA timer started · agent notified");show("tickets");
+    renderTickets();toast("Ticket submitted","CASE-"+id+" · created in Dynamics 365 &amp; synced");show("tickets");
   });
   /* announcements */
   function renderAnn(){
@@ -1916,6 +2178,47 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     show("home");
   });
 
+  /* membership agreement — CRM ↔ app e-signature round-trip */
+  var csigCtx=null;
+  function initCSig(){
+    var c=$("#csigCanvas"); if(!c)return; var r=c.getBoundingClientRect(); if(!r.width)return;
+    var dpr=window.devicePixelRatio||1,w=Math.round(r.width),h=Math.round(r.height);
+    if(c.width!==w*dpr||c.height!==h*dpr){c.width=w*dpr;c.height=h*dpr;CF.memberSigDrawn=false;var pp=$("#csigPad");if(pp)pp.classList.remove("drawn")}
+    csigCtx=c.getContext("2d");csigCtx.setTransform(dpr,0,0,dpr,0,0);csigCtx.lineWidth=2.2;csigCtx.lineCap="round";csigCtx.lineJoin="round";csigCtx.strokeStyle=(getComputedStyle(root).getPropertyValue("--ink").trim()||"#111");
+    if(c._csb)return; c._csb=true; var dr=false,last=null;
+    function pos(e){var rr=c.getBoundingClientRect();return{x:e.clientX-rr.left,y:e.clientY-rr.top}}
+    c.addEventListener("pointerdown",function(e){dr=true;last=pos(e);CF.memberSigDrawn=true;var pp=$("#csigPad");if(pp)pp.classList.add("drawn");try{c.setPointerCapture(e.pointerId)}catch(x){}});
+    c.addEventListener("pointermove",function(e){if(!dr||!csigCtx)return;var p=pos(e);csigCtx.beginPath();csigCtx.moveTo(last.x,last.y);csigCtx.lineTo(p.x,p.y);csigCtx.stroke();last=p});
+    c.addEventListener("pointerup",function(){dr=false});c.addEventListener("pointercancel",function(){dr=false});
+  }
+  function ctRow(l,v){return '<div class="er"><span class="lbl">'+l+'</span><span class="val">'+v+'</span></div>'}
+  function renderContract(){
+    var docIc='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 3v5h5"/><path d="M6 3h9l5 5v13H6z"/><path d="M9 13h6M9 17h4"/></svg>';
+    var chk='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" style="width:16px;height:16px"><path d="M20 6L9 17l-5-5"/></svg>';
+    var hb=$("#homeContract");
+    if(hb){
+      if(CF.state==="sent_to_member"){hb.innerHTML='<div class="rentbanner"><div class="rb-ic">'+docIc+'</div><div><div class="rb-t">Action required</div><div class="rb-v" style="font-size:16px">Sign your membership agreement</div><div class="rb-d">'+CF.id+' · '+CF.plan+'</div></div><button class="rb-btn" id="homeCtBtn">Review &amp; sign</button></div>';var b=$("#homeCtBtn");if(b)b.addEventListener("click",function(){show("contract")});}
+      else if(CF.state==="member_signed"){hb.innerHTML='<div class="rentbanner"><div class="rb-ic">'+docIc+'</div><div><div class="rb-t">Agreement</div><div class="rb-v" style="font-size:16px">Signed · awaiting Nestwork</div><div class="rb-d">'+CF.id+' · countersignature pending</div></div></div>';}
+      else if(CF.state==="countersigned"){hb.innerHTML='<div class="rentbanner paid"><div class="rb-ic">'+chk+'</div><div><div class="rb-t">Agreement executed</div><div class="rb-v" style="font-size:16px">Fully signed ✓</div><div class="rb-d">'+CF.id+' · countersigned by Nestwork</div></div><button class="rb-btn" id="homeCtBtn">View</button></div>';var b2=$("#homeCtBtn");if(b2)b2.addEventListener("click",function(){show("contract")});}
+      else hb.innerHTML="";
+    }
+    var area=$("#contractArea"); if(!area)return;
+    var summary='<div class="est" style="margin-top:0">'+ctRow("Agreement",CF.id)+ctRow("Company",CF.company)+ctRow("Workspace",CF.plan)+ctRow("Location",CF.loc)+ctRow("Term",CF.term)+ctRow("Monthly fee",CF.mrr)+ctRow("Meeting-room hours",CF.ent)+ctRow("Signatory",CF.member)+ctRow("Email",CF.email)+'</div>';
+    if(CF.state==="none"){area.innerHTML='<div class="acard" style="color:var(--muted);font-size:13.5px">No agreement pending. When Nestwork sends your membership agreement, it appears here to review and sign.</div>';return}
+    if(CF.state==="sent_to_member"){
+      area.innerHTML=summary+'<div class="sec-h">Your signature</div><div class="sigpad" id="csigPad"><canvas id="csigCanvas"></canvas><div class="sig-ph">✍  Sign to accept the agreement</div></div><button class="sig-clear" id="csigClear">Clear signature</button><button class="btn btn-primary appbtn" id="ctSign" style="margin-top:6px">Sign &amp; return to Nestwork</button>';
+      var cc=$("#csigClear");if(cc)cc.addEventListener("click",function(){var c=$("#csigCanvas");if(csigCtx&&c)csigCtx.clearRect(0,0,c.width,c.height);CF.memberSigDrawn=false;$("#csigPad").classList.remove("drawn")});
+      var cs=$("#ctSign");if(cs)cs.addEventListener("click",ctSign);
+      requestAnimationFrame(initCSig);
+    } else if(CF.state==="member_signed"){
+      area.innerHTML=summary+'<div class="acard" style="border-color:var(--accent-line);margin-top:14px"><div style="display:flex;align-items:center;gap:10px;color:var(--good);font-family:var(--f-mono);font-size:12px">'+chk+' Signed by you · returned to Nestwork</div><div style="font-size:12.5px;color:var(--muted);margin-top:8px">Awaiting Nestwork’s countersignature — the executed copy will arrive here.</div></div>';
+    } else {
+      area.innerHTML=summary+'<div class="acard" style="border-color:rgba(15,122,83,.4);background:rgba(15,122,83,.05);margin-top:14px"><div style="display:flex;align-items:center;gap:10px;color:var(--good);font-family:var(--f-mono);font-size:12px">'+chk+' Fully executed · signed by both parties</div><div style="font-size:12.5px;color:var(--muted);margin-top:8px">Countersigned by Nestwork. A copy has been emailed to '+CF.email+'.</div></div><button class="btn btn-ghost appbtn" id="ctDownload" style="margin-top:12px">Download PDF</button>';
+      var dl=$("#ctDownload");if(dl)dl.addEventListener("click",function(){toast("Agreement downloaded",CF.id+" · executed copy")});
+    }
+  }
+  function ctSign(){ if(!CF.memberSigDrawn){toast("Signature required","Please sign to accept the agreement");return} CF.state="member_signed"; app.notifs.unshift({i:"reg",h:"Agreement signed — sent to Nestwork",d:CF.id+" · awaiting countersignature",t:"now"}); app.notifSeen=false; updateBell(); renderContract(); toast("Agreement signed","Returned to Nestwork for countersignature"); show("home"); }
+
   /* notifications */
   var bellBadge=$("#bellBadge"),notifSheet=$("#notifSheet");
   function updateBell(){var n=app.notifs.length;bellBadge.textContent=n;bellBadge.style.display=(app.notifSeen||n===0)?"none":"grid"}
@@ -1923,15 +2226,17 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var ic={cal:'<rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>',mega:'<path d="M3 11l14-7v16L3 13z"/><path d="M3 11v2"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',invoice:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',reg:'<path d="M14 3v5h5"/><path d="M6 3h9l5 5v11a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/>'};
     $("#notifList").innerHTML=app.notifs.map(function(n){
       var pay=(n.pay&&!app.rent.paid)?'<button class="notifpay" data-notifpay="1">Pay now</button>':'';
-      return '<div class="notif"><div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+(ic[n.i]||ic.mega)+'</svg></div><div><div class="nh">'+n.h+'</div><div class="nd">'+n.d+'</div>'+pay+'</div><div class="nt">'+n.t+'</div></div>';
+      var ct=(n.contract&&CF.state==="sent_to_member")?'<button class="notifpay" data-notifct="1">Review &amp; sign</button>':'';
+      return '<div class="notif"><div class="ni"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">'+(ic[n.i]||ic.mega)+'</svg></div><div><div class="nh">'+n.h+'</div><div class="nd">'+n.d+'</div>'+pay+ct+'</div><div class="nt">'+n.t+'</div></div>';
     }).join("");
     $$("#notifList [data-notifpay]").forEach(function(b){b.addEventListener("click",function(){notifSheet.classList.remove("open");show("pay")})});
+    $$("#notifList [data-notifct]").forEach(function(b){b.addEventListener("click",function(){notifSheet.classList.remove("open");show("contract")})});
   }
   $("#bellBtn").addEventListener("click",function(){app.notifSeen=true;updateBell();renderNotifs();notifSheet.classList.add("open")});
   notifSheet.addEventListener("click",function(e){if(e.target===notifSheet)notifSheet.classList.remove("open")});
 
   /* init app */
-  ring();renderHome();renderRooms();renderTickets();renderAnn();renderDir("");renderGuide();renderPayments();renderOnboard();updateBell();show("home");
+  ring();renderHome();renderRooms();renderTickets();renderAnn();renderDir("");renderGuide();renderPayments();renderOnboard();renderContract();updateBell();show("home");
 
   /* toast */
   var toastEl=$("#toast"),toastTO;
@@ -2011,11 +2316,11 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   /* ============================ DASHBOARD ============================ */
   var DASH={
     q:{kpis:[["MRR","QAR 1.24M","up","+8.4%"],["Occupancy","87%","up","+3.1%"],["Active contracts","312","up","+18"],["Net churn","1.9%","down","−0.4%"]],
-       line:[62,68,66,74,79,83,88,94],lineLbl:"MRR · last 8 months",bars:[["Gassar",92],["Msheireb",84],["Pearl",79],["Lusail",71]],
+       line:[62,68,66,74,79,83,88,94],lineLbl:"MRR · last 8 months",bars:[["West Bay",92],["Souq Waqif",79],["Lusail",84],["Msheireb",71]],
        donut:[["Consumed",68,"#FF5A1F"],["Available",32,"#8A8A8A"]],
        mix:[["Members (free-hours)",58,"#FF5A1F"],["Overage bookings",27,"#1f6feb"],["Walk-in / external",15,"#0f9d63"]]},
     y:{kpis:[["ARR","QAR 14.1M","up","+22%"],["Occupancy","83%","up","+6.5%"],["Active contracts","341","up","+63"],["Net churn","2.4%","down","−1.1%"]],
-       line:[40,46,52,58,63,70,82,94],lineLbl:"ARR run-rate · last 8 quarters",bars:[["Gassar",88],["Msheireb",80],["Pearl",83],["Lusail",76]],
+       line:[40,46,52,58,63,70,82,94],lineLbl:"ARR run-rate · last 8 quarters",bars:[["West Bay",88],["Souq Waqif",83],["Lusail",80],["Msheireb",76]],
        donut:[["Consumed",72,"#FF5A1F"],["Available",28,"#8A8A8A"]],
        mix:[["Members (free-hours)",61,"#FF5A1F"],["Overage bookings",24,"#1f6feb"],["Walk-in / external",15,"#0f9d63"]]}
   };
@@ -2130,7 +2435,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     {ic:"web",nm:"Enquiry",ph:"Power Pages",title:"Enquiry captured",desc:"A prospect submits an enquiry on the Nestwork website. It lands in Dynamics 365 Sales as a lead, with an auto-acknowledgement and source tracking.",prods:[["Power Pages","power"],["D365 Sales","d365"]],st:"nestwork.qa · enquiry form",screen:[["Company","Design Republic LLC"],["Interest","Private office · West Bay"],["Source","Website form","g"],["Status","New lead","o"]]},
     {ic:"sales",nm:"Qualify",ph:"D365 Sales",title:"Qualified & lease signed",desc:"The lead is scored Quality vs Non-Quality by business rules, progresses through the leasing pipeline, and the lease is negotiated and signed.",prods:[["D365 Sales","d365"],["Accelerator","custom"]],st:"dynamics · opportunity",screen:[["Quality score","Quality ✓","g"],["Plan","6 desks · 12-month"],["Location","West Bay"],["Lease","Signed","g"]]},
     {ic:"db",nm:"Account",ph:"Dataverse",title:"Account & contracts created",desc:"The signed lease creates the company account and one-or-many contracts across locations, each with its own entitlement — all on one Dataverse model.",prods:[["Dataverse","data"],["Accelerator","custom"]],st:"dataverse · account",screen:[["Account","Design Republic LLC"],["Contract NW-1042","West Bay · active","g"],["Contract NW-1043","Lusail · active","g"],["Entitlement","10 h / month","o"]]},
-    {ic:"app",nm:"Booking",ph:"Power Apps",title:"Member books a room",desc:"A member books a meeting room in the app. The entitlement engine checks the free-hours balance and deducts eligible hours in real time.",prods:[["Power Apps","power"],["Entitlement engine","custom"]],st:"member app · booking",screen:[["Room","Pearl Boardroom · 3 h"],["Free hours","10 h available","g"],["Applied","3 h from quota","g"],["Remaining","7 h","o"]]},
+    {ic:"app",nm:"Booking",ph:"Power Apps",title:"Member books a room",desc:"A member books a meeting room in the app. The entitlement engine checks the free-hours balance and deducts eligible hours in real time.",prods:[["Power Apps","power"],["Entitlement engine","custom"]],st:"member app · booking",screen:[["Room","Room A · West Bay · 3 h"],["Free hours","10 h available","g"],["Applied","3 h from quota","g"],["Remaining","7 h","o"]]},
     {ic:"flow",nm:"Invoice",ph:"Power Automate",title:"Overage rated & invoiced",desc:"When a booking exceeds the quota, a Power Automate flow rates the overage at the location price and tax and raises an invoice line automatically.",prods:[["Power Automate","flow"],["Billing","custom"]],st:"power automate · rate overage",screen:[["Booking","5 h · quota 2 h left"],["Overage","3 h × 145 QAR","o"],["Invoice line","INV-1042 · 435 QAR","o"],["Trigger","Automated flow","g"]]},
     {ic:"sync",nm:"Dynamics",ph:"Azure",title:"Synced to corporate Dynamics",desc:"Customers, invoices, payments, GL codes and tax sync two-way to the Alfardan corporate Microsoft Dynamics environment, with reconciliation logs.",prods:[["Azure Functions","azure"],["Corporate Dynamics","d365"]],st:"azure · integration log",screen:[["Customer","Synced ✓","g"],["Invoice INV-1042","Posted to GL","g"],["Tax / GL code","Mapped","g"],["Reconciliation","0 exceptions","g"]]},
     {ic:"bi",nm:"Analytics",ph:"Power BI",title:"Dashboards update",desc:"Occupancy, revenue, free-hours utilisation and overage revenue refresh in Power BI — embedded in the app, the portal and the staff interface.",prods:[["Power BI","pbi"]],st:"power bi · portfolio",screen:[["MRR","QAR 1.24M ▲","g"],["Occupancy","87%","g"],["Overage revenue","QAR 61k","o"],["Free-hours used","68%"]]},
@@ -2270,7 +2575,400 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   pageTriggers.howitworks=function(){ initHIW(); };
   pageTriggers.app=function(){ triggerMemberJourney(); };
 
+  /* ============================ DYNAMICS CRM DEMO ============================ */
+  var CI={dash:'<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>',
+    lead:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',
+    pipe:'<path d="M3 4h18l-7 8v6l-4 2v-8z"/>',
+    acct:'<path d="M3 21V8l6-4 6 4v13"/><path d="M15 21V11l6 4v6"/><path d="M7 12h0M7 16h0"/>',
+    contract:'<path d="M14 3v5h5"/><path d="M6 3h9l5 5v13H6z"/><path d="M9 13h6M9 17h4"/>',
+    inv:'<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
+    clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',check:'<path d="M20 6L9 17l-5-5"/>',
+    doc:'<path d="M14 3v5h5"/><path d="M6 3h9l5 5v13H6z"/>',user:'<circle cx="12" cy="8" r="4"/><path d="M4 21c0-4 4-6 8-6s8 2 8 6"/>',bell:'<path d="M18 8a6 6 0 1 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/>',
+    bi:'<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>',gauge:'<path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/>',sparkle:'<path d="M12 3l1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6z"/>',plug:'<path d="M9 2v6M15 2v6M6 8h12v3a6 6 0 0 1-12 0z"/><path d="M12 17v5"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>'};
+  var crmLeads=[
+    {id:"L-2054",company:"Cedar Analytics",contact:"Reem Nasser",source:"Campaign",quality:"",loc:"Msheireb",plan:"4 desks",budget:"QAR 9k/mo",rev:"QAR 108k",stage:0,status:"New"},
+    {id:"L-2055",company:"Falcon Logistics",contact:"Khalid Omar",source:"Walk-in",quality:"",loc:"Souq Waqif",plan:"Serviced office",budget:"QAR 14k/mo",rev:"QAR 168k",stage:0,status:"New"},
+    {id:"L-2051",company:"Meridian Studio",contact:"Sara Kamal",source:"Website",quality:"Quality",loc:"West Bay",plan:"Private office · 6 desks",budget:"QAR 18k/mo",rev:"QAR 216k",stage:1,status:"Working"},
+    {id:"L-2052",company:"Qanat Capital",contact:"Yousef Al-Ali",source:"Referral",quality:"Quality",loc:"Lusail",plan:"Suite",budget:"QAR 32k/mo",rev:"QAR 384k",stage:2,status:"Working"},
+    {id:"L-2053",company:"Bloom Promotions",contact:"Web form",source:"Website",quality:"Non-Quality",loc:"—",plan:"—",budget:"—",rev:"—",stage:0,status:"Retained"}
+  ];
+  var BPF=["Enquiry","Qualify","Lease","Account","Contract"];
+  var crmPipe=[
+    {c:"Meridian Studio",v:"QAR 216k",loc:"West Bay",stage:0},
+    {c:"Qanat Capital",v:"QAR 384k",loc:"Lusail",stage:1},
+    {c:"Najma Health",v:"QAR 180k",loc:"Msheireb",stage:2},
+    {c:"Doha Legal Partners",v:"QAR 240k",loc:"Lusail",stage:1},
+    {c:"Orbit Ventures",v:"QAR 96k",loc:"Souq Waqif",stage:0},
+    {c:"Delta Consulting",v:"QAR 300k",loc:"West Bay",stage:3}
+  ];
+  var KAN=["Develop","Propose","Lease signed","Won"];
+  var crmAccts=[
+    {company:"Design Republic LLC",sector:"Design & branding",loc:"West Bay",contracts:[
+      {id:"NW-1042",plan:"Private office · 6 desks",loc:"West Bay",mrr:"QAR 18,000",ent:"10 h/mo"},
+      {id:"NW-1043",plan:"2 desks",loc:"Lusail",mrr:"QAR 6,000",ent:"4 h/mo"}]},
+    {company:"Qanat Capital",sector:"Venture capital",loc:"Lusail",contracts:[
+      {id:"NW-1055",plan:"Suite",loc:"Lusail",mrr:"QAR 32,000",ent:"16 h/mo"}]},
+    {company:"Najma Health",sector:"Healthtech",loc:"Msheireb",contracts:[
+      {id:"NW-1061",plan:"Private office",loc:"Msheireb",mrr:"QAR 15,000",ent:"8 h/mo"}]}
+  ];
+  var crmInv=[
+    {id:"INV-1042",acct:"Design Republic LLC",amt:"QAR 18,000",status:"Paid",due:"01 Jul"},
+    {id:"INV-1043",acct:"Design Republic LLC",amt:"QAR 6,000",status:"Open",due:"15 Jul"},
+    {id:"INV-1055",acct:"Qanat Capital",amt:"QAR 32,000",status:"Open",due:"15 Jul"},
+    {id:"INV-1061",acct:"Najma Health",amt:"QAR 15,000",status:"Overdue",due:"05 Jul"}
+  ];
+  var CRMNAV=[
+    {grp:"My work",items:[["dashboard","Dashboard","dash",null],["analytics","Sales analytics","bi",null],["forecast","Forecast","gauge",null]]},
+    {grp:"Customers",items:[["leads","Enquiries","lead",crmLeads.length],["pipeline","Leasing pipeline","pipe",crmPipe.length],["accounts","Accounts","acct",crmAccts.length],["contracts","Contracts","contract",null]]},
+    {grp:"Service",items:[["cases","Cases","ticket",tickets.length]]},
+    {grp:"Billing",items:[["invoices","Invoices","inv",crmInv.length]]},
+    {grp:"Intelligence",items:[["agents","Copilot & agents","sparkle",null],["integrations","Integrations","plug",null]]}
+  ];
+  var crmView="dashboard",crmLeadId=null,crmAcct=null,crmCaseId=null,crmInit=false;
+  function svg(p){return '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">'+p+'</svg>'}
+  function renderSide(){
+    var av=({lead:"leads",newlead:"leads",account:"accounts",case:"cases"})[crmView]||crmView;
+    var CN={leads:crmLeads.length,pipeline:crmPipe.length,accounts:crmAccts.length,invoices:crmInv.length,cases:tickets.length};
+    var h=""; CRMNAV.forEach(function(g){ h+='<div class="crm-grp">'+g.grp+'</div>';
+      g.items.forEach(function(it){ var cn=(CN[it[0]]!=null)?CN[it[0]]:it[3]; h+='<div class="crm-nav'+((av===it[0])?' on':'')+'" data-cv="'+it[0]+'">'+svg(CI[it[2]])+'<span>'+it[1]+'</span>'+(cn!=null?'<span class="cnt">'+cn+'</span>':'')+'</div>'; });
+    });
+    var side=$("#crmSide"); side.innerHTML=h;
+    $$("#crmSide .crm-nav").forEach(function(n){n.addEventListener("click",function(){crmGo(n.getAttribute("data-cv"))})});
+  }
+  function crmGo(v){ crmView=v; crmLeadId=null; crmAcct=null; renderSide(); renderMain(); }
+  function cmd(title,sub,btns){ return '<div class="crm-cmd"><div class="vt">'+title+(sub?'<small>'+sub+'</small>':'')+'</div>'+(btns||'')+'</div>'; }
+  function renderMain(){
+    var m=$("#crmMain"); if(!m)return;
+    if(crmView==="dashboard")m.innerHTML=crmDash();
+    else if(crmView==="analytics")m.innerHTML=crmAnalytics();
+    else if(crmView==="forecast")m.innerHTML=crmForecast();
+    else if(crmView==="leads")m.innerHTML=crmLeadsView();
+    else if(crmView==="newlead")m.innerHTML=crmNewLead();
+    else if(crmView==="lead")m.innerHTML=crmLeadForm();
+    else if(crmView==="pipeline")m.innerHTML=crmPipeline();
+    else if(crmView==="accounts")m.innerHTML=crmAccountsView();
+    else if(crmView==="account")m.innerHTML=crmAccountForm();
+    else if(crmView==="contracts")m.innerHTML=crmContracts();
+    else if(crmView==="invoices")m.innerHTML=crmInvoices();
+    else if(crmView==="cases")m.innerHTML=crmCases();
+    else if(crmView==="case")m.innerHTML=crmCase();
+    else if(crmView==="agents")m.innerHTML=crmAgents();
+    else if(crmView==="integrations")m.innerHTML=crmIntegrations();
+    wireMain();
+    if(crmView==="dashboard"||crmView==="analytics"||crmView==="forecast")animateCrmBars();
+  }
+  function wireMain(){
+    $$("#crmMain [data-lead]").forEach(function(r){r.addEventListener("click",function(){crmLeadId=r.getAttribute("data-lead");crmView="lead";renderSide();renderMain()})});
+    $$("#crmMain [data-acct]").forEach(function(r){r.addEventListener("click",function(){crmAcct=+r.getAttribute("data-acct");crmView="account";renderSide();renderMain()})});
+    $$("#crmMain [data-back]").forEach(function(b){b.addEventListener("click",function(){crmGo(b.getAttribute("data-back"))})});
+    $$("#crmMain [data-kadv]").forEach(function(c){c.addEventListener("click",function(){var i=+c.getAttribute("data-kadv");if(crmPipe[i].stage<3){crmPipe[i].stage++;renderMain();if(crmPipe[i].stage===3)toast("Opportunity won","“"+crmPipe[i].c+"” — lease signed, account created")}})});
+    var q=$("#crmQualify");if(q)q.addEventListener("click",crmQualify);
+    var n=$("#crmNext");if(n)n.addEventListener("click",crmNext);
+    var d=$("#crmDisq");if(d)d.addEventListener("click",crmDisq);
+    $$("#crmMain [data-agent]").forEach(function(sw){sw.addEventListener("click",function(){var on=sw.classList.toggle("off")===false;toast(on?"Agent enabled":"Agent paused",sw.getAttribute("data-agent"))})});
+    var nb=$("#crmNewLead");if(nb)nb.addEventListener("click",function(){crmGo("newlead")});
+    var sv=$("#crmSaveLead");if(sv)sv.addEventListener("click",crmSaveLead);
+    var cl=$("#crmCancelLead");if(cl)cl.addEventListener("click",function(){crmGo("leads")});
+    var sc2=$("#crmSendContract");if(sc2)sc2.addEventListener("click",function(){CF.state="sent_to_member";app.notifs.unshift({i:"reg",h:"Membership agreement to sign",d:CF.id+" · "+CF.plan+" · tap to review & sign",t:"now",contract:true});app.notifSeen=false;updateBell();renderMain();toast("Sent to member app","“"+CF.company+"” can now sign in the app")});
+    var cs2=$("#crmCountersign");if(cs2)cs2.addEventListener("click",function(){CF.state="countersigned";app.notifs.unshift({i:"reg",h:"Agreement fully executed",d:CF.id+" · countersigned by Nestwork",t:"now"});app.notifSeen=false;updateBell();renderMain();toast("Countersigned","Executed copy delivered to the member app")});
+    $$("#crmMain [data-caseid]").forEach(function(r){r.addEventListener("click",function(){crmCaseId=parseInt(r.getAttribute("data-caseid"),10);crmView="case";renderSide();renderMain()})});
+    var cr=$("#caseResolve");if(cr)cr.addEventListener("click",function(){caseSet("resolved")});
+    var cp=$("#caseProgress");if(cp)cp.addEventListener("click",function(){caseSet("progress")});
+  }
+  function caseSet(st){
+    var t=null;tickets.forEach(function(x){if(x.id===crmCaseId)t=x});if(!t)return;
+    t.st=st; if(st==="resolved"){t.due="Resolved";t.sla=1}
+    app.notifs.unshift({i:"ticket",h:"Ticket "+(st==="resolved"?"resolved":"in progress")+" — CASE-"+t.id,d:t.n,t:"now"});app.notifSeen=false;updateBell();
+    if(typeof renderTickets==="function")renderTickets();
+    renderSide();renderMain();
+    toast(st==="resolved"?"Case resolved":"Case updated","Member notified in the app");
+  }
+  /* dashboard */
+  function crmDash(){
+    var open=crmLeads.filter(function(l){return l.status!=="Retained"&&l.status!=="Disqualified"}).length;
+    var qual=crmLeads.filter(function(l){return l.quality==="Quality"}).length;
+    var scored=crmLeads.filter(function(l){return l.quality}).length||1;
+    var counts=[0,0,0,0];crmPipe.forEach(function(p){counts[p.stage]++});
+    var mx=Math.max.apply(null,counts)||1;
+    var bars=KAN.map(function(k,i){return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:flex-end"><div style="font-family:var(--f-mono);font-size:11px;color:var(--ink)">'+counts[i]+'</div><div class="crmbar" data-h="'+(counts[i]/mx*100)+'" style="width:100%;max-width:52px;background:linear-gradient(var(--accent),#ff8a5c);border-radius:6px 6px 0 0;height:0;transition:height .9s var(--ease)"></div><div style="font-family:var(--f-mono);font-size:10px;color:var(--muted);text-transform:uppercase;text-align:center">'+k+'</div></div>'}).join("");
+    var acts=[["Lead qualified — Meridian Studio","Sara Kamal · 12 min ago","check"],["Contract NW-1055 activated — Qanat Capital","Lusail · 1 h ago","contract"],["Invoice INV-1061 overdue — Najma Health","QAR 15,000 · 2 h ago","inv"],["New enquiry — Cedar Analytics","Campaign · Msheireb · 3 h ago","lead"]];
+    return cmd("Sales dashboard","Nestwork Coworking CRM · Qatar Central")+
+      '<div class="crm-view">'+
+      '<div class="crm-kpis">'+
+        '<div class="crm-kpi"><div class="kl">Open enquiries</div><div class="kv">'+open+'</div><div class="kc">▲ 2 this week</div></div>'+
+        '<div class="crm-kpi"><div class="kl">Quality rate</div><div class="kv">'+Math.round(qual/scored*100)+'%</div><div class="kc">▲ CRM-02 scoring</div></div>'+
+        '<div class="crm-kpi"><div class="kl">Pipeline value</div><div class="kv">1.4M</div><div class="kc">QAR · 6 open</div></div>'+
+        '<div class="crm-kpi"><div class="kl">Active MRR</div><div class="kv">1.24M</div><div class="kc">▲ 8.4% QAR</div></div>'+
+      '</div>'+
+      '<div class="crm-dash2">'+
+        '<div class="crm-card"><h4>Leasing pipeline by stage</h4><div style="display:flex;align-items:flex-end;gap:14px;height:190px">'+bars+'</div></div>'+
+        '<div class="crm-card"><h4>Recent activity</h4><div class="crm-timeline">'+acts.map(function(a){return '<div class="titem"><div class="ti">'+svg(CI[a[2]])+'</div><div><div class="th">'+a[0]+'</div><div class="td">'+a[1]+'</div></div></div>'}).join("")+'</div></div>'+
+      '</div></div>';
+  }
+  function animateCrmBars(){ var run=function(){$$("#crmMain [data-h]").forEach(function(b){b.style.height=b.getAttribute("data-h")+"%"});$$("#crmMain [data-w]").forEach(function(b){b.style.width=b.getAttribute("data-w")+"%"})}; if(reduce){run();return} setTimeout(run,80); }
+  /* leads list */
+  function qpill(q){ if(q==="Quality")return '<span class="pill q">Quality</span>'; if(q==="Non-Quality")return '<span class="pill nq">Non-Quality</span>'; return '<span class="pill new">Unscored</span>'; }
+  function crmLeadsView(){
+    var rows=crmLeads.map(function(l){return '<tr data-lead="'+l.id+'"><td><span class="lk">'+l.company+'</span><br><span style="font-family:var(--f-mono);font-size:11px;color:var(--muted)">'+l.id+'</span></td><td>'+l.contact+'</td><td>'+l.source+'</td><td>'+qpill(l.quality)+'</td><td>'+l.loc+'</td><td><b>'+BPF[l.stage]+'</b></td></tr>'}).join("");
+    return cmd("Enquiries","Active enquiries · all locations",'<button class="crm-btn pri" id="crmNewLead"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12h14"/></svg> New</button>')+
+      '<div class="crm-view"><table class="crm-grid"><thead><tr><th>Enquiry</th><th>Contact</th><th>Source</th><th>Quality</th><th>Location</th><th>Stage</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  /* lead form */
+  function crmLeadForm(){
+    var l=null;crmLeads.forEach(function(x){if(x.id===crmLeadId)l=x});if(!l)return crmLeadsView();
+    var bpf=BPF.map(function(s,i){var cls=i<l.stage?"done":(i===l.stage?"active":"");return '<div class="bpf-stage '+cls+'"><div class="bs-n">Stage '+(i+1)+'</div><div class="bs-t">'+s+'</div></div>'}).join("");
+    var btns='<button class="crm-btn pri" id="crmQualify">'+svg(CI.check)+' Qualify</button><button class="crm-btn" id="crmNext">Next stage '+svg('<path d="M9 6l6 6-6 6"/>')+'</button><button class="crm-btn" id="crmDisq">Disqualify</button>';
+    var qexpl = l.quality==="Quality" ? "Scored <b>Quality</b> — active in the leasing pipeline." : l.quality==="Non-Quality" ? "Scored <b>Non-Quality</b> — retained for analytics, excluded from the pipeline (CRM-02)." : "Not yet scored. Qualifying applies rule-based Quality classification and creates an account & opportunity.";
+    var sc=LSCORE[l.id]||60, gr=sc>=80?"A":sc>=65?"B":sc>=50?"C":"D";
+    var aiSum = l.quality==="Non-Quality"
+      ? '<span class="lbl">Copilot summary:</span> '+l.company+' submitted a web enquiry with insufficient qualifying detail. Scored <b>Non-Quality</b> — retained for analytics but excluded from the active pipeline.'
+      : '<span class="lbl">Copilot summary:</span> '+l.company+' is a '+(l.quality==="Quality"?"qualified":"new")+' enquiry for '+l.plan+' at '+l.loc+', budget '+l.budget+' (source: '+l.source+'). '+(l.stage>=2?'Currently at the <b>'+BPF[l.stage]+'</b> stage — suggested next step: issue the lease agreement.':'Suggested next step: qualify and identify the decision maker.');
+    var spark='<path d="M12 3l1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6z"/>';
+    return cmd('<span class="lk" style="cursor:pointer" data-back="leads">Enquiries</span> › '+l.company, l.id+' · '+l.status, btns)+
+      '<div class="crm-view"><div class="ai-banner"><div class="aib-i">'+svg(spark)+'</div><div class="aib-t">'+aiSum+' &nbsp;<span class="sf">See full summary</span></div></div>'+
+      '<div class="bpf">'+bpf+'</div>'+
+      '<div class="crm-form"><div class="crm-card"><h4>General</h4>'+
+        frow("Company",l.company)+frow("Primary contact",l.contact)+frow("Source",l.source)+frow("Location",l.loc)+frow("Requirement",l.plan)+frow("Budget",l.budget)+frow("Est. revenue",l.rev)+
+      '</div><div><div class="crm-card" style="margin-bottom:16px"><h4>Predictive lead score · AI</h4>'+
+        '<div class="leadscore"><div class="ls-n">'+sc+'</div><div class="ls-g">Grade '+gr+'</div><div class="ls-bar"><i style="width:'+sc+'%"></i></div></div>'+
+        '<div style="margin-bottom:12px">'+qpill(l.quality)+'</div><p style="font-size:13px;color:var(--body);line-height:1.5">'+qexpl+'</p></div>'+
+      '<div class="crm-card"><h4>Business process</h4><p style="font-size:13px;color:var(--body);line-height:1.5">Lead-to-lease flow: <b>'+BPF.join(" › ")+'</b>. Use <b>Next stage</b> to advance; the flow gates on qualification.</p></div></div></div></div>';
+  }
+  function frow(l,v){return '<div class="frow"><span class="fl">'+l+'</span><span class="fv">'+v+'</span></div>'}
+  function crmQualify(){var l=null;crmLeads.forEach(function(x){if(x.id===crmLeadId)l=x});if(!l)return;
+    l.quality="Quality";l.status="Working";if(l.stage<1)l.stage=1;renderSide();renderMain();
+    toast("Lead qualified","Quality · account & opportunity created (CRM-03)");
+  }
+  function crmNext(){var l=null;crmLeads.forEach(function(x){if(x.id===crmLeadId)l=x});if(!l)return;
+    if(l.quality!=="Quality"){toast("Qualify first","Qualify the lead to advance the business process flow");return}
+    if(l.stage>=BPF.length-1){toast("Process complete","Contract created — see Accounts & Contracts");return}
+    l.stage++;renderMain();
+    var msg={2:"Lease stage — proposal issued",3:"Account created for "+l.company,4:"Contract created — added to Accounts"};
+    toast("Advanced to "+BPF[l.stage],msg[l.stage]||"");
+  }
+  function crmDisq(){var l=null;crmLeads.forEach(function(x){if(x.id===crmLeadId)l=x});if(!l)return;
+    l.quality="Non-Quality";l.status="Retained";l.stage=0;renderSide();renderMain();
+    toast("Marked Non-Quality","Retained for analytics · excluded from pipeline");
+  }
+  /* pipeline kanban */
+  function crmPipeline(){
+    var cols=KAN.map(function(k,ki){
+      var cards=crmPipe.map(function(p,i){return p.stage===ki?'<div class="kcard" data-kadv="'+i+'"><div class="kc-c">'+p.c+'</div><div class="kc-m">'+p.loc+'</div><div class="kc-v"><span>'+p.v+'</span><span class="adv">'+(ki<3?'advance ›':'won ✓')+'</span></div></div>':''}).join("");
+      var n=crmPipe.filter(function(p){return p.stage===ki}).length;
+      return '<div class="kcol"><h5>'+k+' <span>'+n+'</span></h5>'+cards+'</div>';
+    }).join("");
+    return cmd("Leasing pipeline","Opportunities · click a card to advance the stage")+
+      '<div class="crm-view"><div class="kanban">'+cols+'</div></div>';
+  }
+  /* accounts */
+  function crmAccountsView(){
+    var rows=crmAccts.map(function(a,i){var mrr=a.contracts.reduce(function(s,c){return s+parseInt(c.mrr.replace(/[^0-9]/g,""),10)},0);return '<tr data-acct="'+i+'"><td><span class="lk">'+a.company+'</span></td><td>'+a.sector+'</td><td>'+a.loc+'</td><td><b>'+a.contracts.length+'</b></td><td>QAR '+mrr.toLocaleString("en-US")+'</td></tr>'}).join("");
+    return cmd("Accounts","Active member companies")+
+      '<div class="crm-view"><table class="crm-grid"><thead><tr><th>Account</th><th>Sector</th><th>Primary location</th><th>Contracts</th><th>MRR</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  function crmAccountForm(){
+    var a=crmAccts[crmAcct];if(!a)return crmAccountsView();
+    var crows=a.contracts.map(function(c){return '<tr><td><b>'+c.id+'</b></td><td>'+c.plan+'</td><td>'+c.loc+'</td><td>'+c.mrr+'</td><td>'+c.ent+'</td></tr>'}).join("");
+    return cmd('<span class="lk" style="cursor:pointer" data-back="accounts">Accounts</span> › '+a.company, a.sector+' · '+a.loc)+
+      '<div class="crm-view"><div class="crm-form"><div class="crm-card"><h4>Account</h4>'+frow("Company",a.company)+frow("Sector",a.sector)+frow("Primary location",a.loc)+frow("Active contracts",a.contracts.length)+frow("Relationship","Customer")+'</div>'+
+      '<div class="crm-card"><h4>Multi-contract · CRM-03</h4><p style="font-size:13px;color:var(--body);line-height:1.5">This account holds '+a.contracts.length+' active contract'+(a.contracts.length>1?"s":"")+' across Nestwork locations, each with its own entitlement.</p></div></div>'+
+      '<div class="crm-card" style="margin-top:18px"><h4>Contracts &amp; entitlements</h4><table class="crm-grid"><thead><tr><th>Contract</th><th>Plan</th><th>Location</th><th>MRR</th><th>Free hours</th></tr></thead><tbody>'+crows+'</tbody></table></div></div>';
+  }
+  function caseLbl(s){return s==="progress"?"In progress":s==="resolved"?"Resolved":"Open"}
+  function caseCls(s){return s==="resolved"?"won":s==="progress"?"open":"new"}
+  function crmCases(){
+    var rows=tickets.map(function(t){return '<tr data-caseid="'+t.id+'"><td><span class="lk">CASE-'+t.id+'</span></td><td><b>'+t.n+'</b></td><td>'+(t.co||"—")+'</td><td>'+t.cat+'</td><td>'+t.prio+'</td><td>'+(t.src||"—")+'</td><td><span class="pill '+caseCls(t.st)+'">'+caseLbl(t.st)+'</span></td></tr>'}).join("");
+    return cmd("Cases","Member support · Dynamics 365 Customer Service",'<span class="pill open" style="align-self:center"><span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--good);margin-right:6px"></span>Live sync with member app</span>')+
+      '<div class="crm-view"><div class="crm-note" style="margin-top:0;margin-bottom:14px">Cases raised in the member app are created here in real time (APP-01 / COL-01). Resolving a case notifies the member in their app.</div>'+
+      '<table class="crm-grid"><thead><tr><th>Case</th><th>Subject</th><th>Account</th><th>Category</th><th>Priority</th><th>Channel</th><th>Status</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  function crmCase(){
+    var t=null;tickets.forEach(function(x){if(x.id===crmCaseId)t=x});if(!t)return crmCases();
+    var btns=(t.st!=="resolved")?'<button class="crm-btn" id="caseProgress">Set in progress</button><button class="crm-btn pri" id="caseResolve">'+svg(CI.check)+' Resolve</button>':'<span style="font-family:var(--f-mono);font-size:12px;color:var(--good)">Resolved · member notified</span>';
+    return cmd('<span class="lk" style="cursor:pointer" data-back="cases">Cases</span> › CASE-'+t.id, t.cat+' · '+t.prio+' priority', btns)+
+      '<div class="crm-view"><div class="crm-form"><div class="crm-card"><h4>Case</h4>'+
+        frow("Case number","CASE-"+t.id)+frow("Subject",t.n)+frow("Account",t.co||"—")+frow("Category",t.cat)+frow("Priority",t.prio)+frow("Status",caseLbl(t.st))+frow("Channel",t.src||"—")+
+      '</div><div><div class="crm-card" style="margin-bottom:16px"><h4>SLA</h4><div class="leadscore"><div class="ls-bar" style="flex:1"><i style="width:'+Math.round((t.sla||1)*100)+'%"></i></div></div><div style="font-size:12.5px;color:var(--muted);margin-top:9px">'+(t.st==="resolved"?"Resolved within SLA.":"Response due in "+t.due)+'</div></div>'+
+      '<div class="crm-card"><h4>Sync</h4><p style="font-size:13px;color:var(--body);line-height:1.6">Synced with the member app — raised via <b>'+(t.src||"app")+'</b>. Status changes flow back to the member in real time.</p></div></div></div></div>';
+  }
+  function crmAgreementCard(){
+    var s=CF.state,status,btn;
+    if(s==="none"){status='<span class="pill new">Draft</span>';btn='<button class="crm-btn pri" id="crmSendContract">'+svg('<path d="M5 12h14M13 6l6 6-6 6"/>')+' Send to member app</button>';}
+    else if(s==="sent_to_member"){status='<span class="pill open">Sent to app · awaiting member signature</span>';btn='<button class="crm-btn" disabled style="opacity:.6;cursor:default">Awaiting member…</button>';}
+    else if(s==="member_signed"){status='<span class="pill open">Signed by member · awaiting your signature</span>';btn='<button class="crm-btn pri" id="crmCountersign">'+svg(CI.check)+' Countersign &amp; issue</button>';}
+    else {status='<span class="pill won">Fully executed ✓</span>';btn='<span style="font-family:var(--f-mono);font-size:12px;color:var(--good)">Countersigned &amp; delivered to member app</span>';}
+    return '<div class="crm-card" style="border-color:var(--accent-line);margin-bottom:16px"><h4>Membership agreement · '+CF.id+'</h4>'+
+      '<div style="font-size:13px;color:var(--body);margin-bottom:12px">'+CF.company+' · '+CF.plan+' · '+CF.loc+' · '+CF.term+' · '+CF.mrr+' / mo · signatory '+CF.member+' ('+CF.email+')</div>'+
+      '<div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">'+status+btn+'</div>'+
+      '<div class="crm-note">Send the agreement to the member app for e-signature. The member signs and returns it, you countersign, and the executed copy is delivered back to their app.</div></div>';
+  }
+  function crmContracts(){
+    var rows="";crmAccts.forEach(function(a){a.contracts.forEach(function(c){rows+='<tr><td><b>'+c.id+'</b></td><td>'+a.company+'</td><td>'+c.plan+'</td><td>'+c.loc+'</td><td>'+c.mrr+'</td><td>'+c.ent+'</td></tr>'})});
+    return cmd("Contracts &amp; agreements","Agreements and active contracts")+
+      '<div class="crm-view">'+crmAgreementCard()+'<table class="crm-grid"><thead><tr><th>Contract</th><th>Account</th><th>Plan</th><th>Location</th><th>MRR</th><th>Entitlement</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  function crmInvoices(){
+    var rows=crmInv.map(function(v){var cls=v.status==="Paid"?"paid":v.status==="Overdue"?"over":"open";return '<tr><td><b>'+v.id+'</b></td><td>'+v.acct+'</td><td>'+v.amt+'</td><td><span class="pill '+cls+'">'+v.status+'</span></td><td>'+v.due+'</td></tr>'}).join("");
+    return cmd("Invoices","Billing · synced to corporate Dynamics")+
+      '<div class="crm-view"><table class="crm-grid"><thead><tr><th>Invoice</th><th>Account</th><th>Amount</th><th>Status</th><th>Due</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  var LSCORE={"L-2051":84,"L-2052":91,"L-2053":22,"L-2054":63,"L-2055":58};
+  /* Copilot AI pane */
+  var COP={
+    summary:"<b>Qanat Capital</b> — Quality opportunity worth <b>QAR 384k</b>, a Suite at Lusail, currently at <b>Propose</b>. Contact: Yousef Al-Ali (Referral); budget QAR 32k/mo. Suggested next step: issue the lease agreement. The contract will carry <b>16 free meeting-room hours/month</b>.",
+    pipeline:"You have <b>6 open opportunities</b> worth ~<b>QAR 1.4M</b>. Stage split: 2 Develop · 2 Propose · 1 Lease signed · 1 Won. Largest open deal: <b>Qanat Capital</b> (QAR 384k, Lusail).",
+    recent:"In the last 24 hours: <b>Meridian Studio</b> was qualified (Quality); contract <b>NW-1055</b> was activated for Qanat Capital; invoice <b>INV-1061</b> became overdue (QAR 15,000 · Najma Health).",
+    email:"Draft to Yousef Al-Ali:<br><br>“Dear Yousef, thank you for your interest in a Suite at Nestwork Lusail. I've attached the proposal covering the private suite, 16 monthly meeting-room hours and dedicated support. I'd be glad to arrange a tour this week — would Wednesday at 11:00 suit you?”",
+    meeting:"Meeting prep — <b>Qanat Capital</b>: last contact 3 days ago (proposal sent). Open items: confirm start date and headcount (est. 10). They compared two locations; Lusail is preferred. Bring the entitlement &amp; overage summary and the multi-contract option."
+  };
+  var COPQ=[["summary","Summarize opportunity"],["pipeline","Show my pipeline"],["recent","Recent changes"],["email","Draft a follow-up email"],["meeting","Prepare for a meeting"]];
+  var SPK='<path d="M12 3l1.6 5.4L19 10l-5.4 1.6L12 17l-1.6-5.4L5 10l5.4-1.6z"/>';
+  function copAsk(key,label){
+    var body=$("#copBody"); if(!body)return;
+    var u=document.createElement("div");u.className="cop-msg user";u.innerHTML='<div class="bub">'+label+'</div>';body.appendChild(u);
+    var a=document.createElement("div");a.className="cop-msg ai";a.innerHTML='<div class="bub"><div class="cop-think"><i></i><i></i><i></i></div></div>';body.appendChild(a);
+    body.scrollTop=body.scrollHeight;
+    setTimeout(function(){a.querySelector(".bub").innerHTML=COP[key]||"Here's what I found in your CRM data.";body.scrollTop=body.scrollHeight;},reduce?150:900);
+  }
+  (function(){
+    var pr=$("#copPrompts");
+    if(pr){ pr.innerHTML=COPQ.map(function(q){return '<button class="cop-chip" data-cp="'+q[0]+'">'+svg(SPK)+q[1]+'</button>'}).join("");
+      $$("#copPrompts .cop-chip").forEach(function(c){c.addEventListener("click",function(){copAsk(c.getAttribute("data-cp"),c.textContent.trim())})}); }
+    var t=$("#copToggle"),x=$("#copClose"),pane=$("#copilotPane");
+    if(t)t.addEventListener("click",function(){pane.classList.toggle("open")});
+    if(x)x.addEventListener("click",function(){pane.classList.remove("open")});
+  })();
+  /* Platform capability + AI tiles */
+  var OI={sparkle:SPK,robot:'<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 4v4M9 13h.01M15 13h.01M8.5 17h7"/>',gauge:'<path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/>',flow:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5V15a3 3 0 0 0 3 3h6.5"/>',chart:'<path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',people:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17.5" cy="8.5" r="2.5"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',bi:'<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>',teams:'<rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 9h5v7a3 3 0 0 1-3 3"/>',shield:'<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',auto:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>'};
+  var OOTB=[
+    ["Copilot AI assistant","Summarizes leads &amp; opportunities, drafts emails, answers questions and preps meetings — grounded in your CRM data.","AI","sparkle"],
+    ["Sales Qualification Agent","Autonomously researches and prioritizes new enquiries so the team works the best leads first.","AI","robot"],
+    ["Predictive lead &amp; opportunity scoring","AI grades every enquiry (A–D) so leasing effort goes where it converts.","AI","gauge"],
+    ["Business process flows","Guided Enquiry → Lease → Account → Contract stages, with stage-gating.","OOTB","flow"],
+    ["Pipeline &amp; forecasting","Real-time pipeline, weighted forecast and goals across all four locations.","OOTB","chart"],
+    ["Email engagement &amp; sequences","Templates, open/click tracking and automated follow-up cadences.","OOTB","mail"],
+    ["Customer Insights – Journeys","Segmented campaigns across email &amp; WhatsApp with delivery analytics.","OOTB","people"],
+    ["Customer Service + Copilot","Cases, SLAs, knowledge base and AI-drafted responses for member support.","OOTB","ticket"],
+    ["Power BI dashboards","Occupancy, revenue, churn and free-hours analytics, embedded in the app.","OOTB","bi"],
+    ["Outlook &amp; Teams","Work leads and log emails &amp; meetings without leaving Microsoft 365.","OOTB","teams"],
+    ["Security, audit &amp; duplicate detection","Role-based access, full audit trail and duplicate prevention.","OOTB","shield"],
+    ["Power Automate","Event-driven automation across billing, onboarding and communications.","OOTB","auto"]
+  ];
+  (function(){var g=$("#crmOOTB");if(!g)return;
+    g.innerHTML=OOTB.map(function(o){var tc=o[2]==="AI"?"tag-custom":"tag-native";
+      return '<div class="card"><div class="ico">'+svg(OI[o[3]]||OI.flow)+'</div><span class="tag-pill '+tc+'">'+(o[2]==="AI"?"Copilot AI":"Native capability")+'</span><h3 style="margin-top:12px;font-size:17px">'+o[0]+'</h3><p>'+o[1]+'</p></div>';
+    }).join("");
+  })();
+  /* sales analytics */
+  function crmAnalytics(){
+    var funnel=[["Develop",480],["Propose",624],["Lease signed",180],["Won",300]],fmax=624;
+    var fbars=funnel.map(function(f){return '<div class="hbar"><span class="hl">'+f[0]+'</span><span class="ht"><i data-w="'+(f[1]/fmax*100)+'"></i></span><span class="hv">'+f[1]+'k</span></div>'}).join("");
+    var rev=[["West Bay",92],["Souq Waqif",64],["Lusail",88],["Msheireb",71]],rmax=92;
+    var rbars='<div style="display:flex;align-items:flex-end;gap:14px;height:170px">'+rev.map(function(r){return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:flex-end"><div style="font-family:var(--f-mono);font-size:11px;color:var(--ink)">'+r[1]+'k</div><div data-h="'+(r[1]/rmax*100)+'" style="width:100%;max-width:46px;height:0;border-radius:5px 5px 0 0;background:linear-gradient(#0f6cbd,#5aa0e0);transition:height .9s var(--ease)"></div><div style="font-family:var(--f-mono);font-size:10px;color:var(--muted);text-align:center">'+r[0]+'</div></div>'}).join("")+'</div>';
+    var src=[["Website",42,"#0f6cbd"],["Referral",26,"#8a55c9"],["Campaign",20,"#1aa39a"],["Walk-in",12,"#8a8886"]];
+    var off=25,dh="";src.forEach(function(s){dh+='<circle cx="21" cy="21" r="15.9155" fill="transparent" stroke="'+s[2]+'" stroke-width="5" stroke-dasharray="'+s[1]+' '+(100-s[1])+'" stroke-dashoffset="'+off+'"/>';off=(off-s[1]+100)%100});
+    var donut='<div class="crm-donut"><svg viewBox="0 0 42 42">'+dh+'</svg><div class="crm-lgd">'+src.map(function(s){return '<div class="li"><i style="background:'+s[2]+'"></i>'+s[0]+'<b>'+s[1]+'%</b></div>'}).join("")+'</div></div>';
+    return cmd("Sales analytics","Power BI · embedded in Dynamics 365")+
+      '<div class="crm-view"><div class="crm-kpis">'+
+      '<div class="crm-kpi"><div class="kl">Win rate</div><div class="kv">34%</div><div class="kc">▲ 5 pts</div></div>'+
+      '<div class="crm-kpi"><div class="kl">Avg. deal value</div><div class="kv">230k</div><div class="kc">QAR · annual</div></div>'+
+      '<div class="crm-kpi"><div class="kl">Sales cycle</div><div class="kv">21<small style="font-size:14px;color:var(--muted)"> days</small></div><div class="kc">▼ 3 days</div></div>'+
+      '<div class="crm-kpi"><div class="kl">Quality → lease</div><div class="kv">48%</div><div class="kc">conversion</div></div>'+
+      '</div><div class="crm-charts">'+
+      '<div class="crm-card"><h4>Pipeline value by stage (QAR ’000)</h4>'+fbars+'</div>'+
+      '<div class="crm-card"><h4>Revenue by location (QAR ’000 / mo)</h4>'+rbars+'</div>'+
+      '</div><div class="crm-charts">'+
+      '<div class="crm-card"><h4>Enquiries by source</h4>'+donut+'</div>'+
+      '<div class="crm-card"><h4>Occupancy &amp; utilisation</h4>'+
+        '<div class="hbar"><span class="hl">Desk occupancy</span><span class="ht"><i data-w="87"></i></span><span class="hv">87%</span></div>'+
+        '<div class="hbar"><span class="hl">Room utilisation</span><span class="ht"><i data-w="72"></i></span><span class="hv">72%</span></div>'+
+        '<div class="hbar"><span class="hl">Free-hours used</span><span class="ht"><i data-w="68"></i></span><span class="hv">68%</span></div>'+
+        '<div class="hbar"><span class="hl">Overage billed</span><span class="ht"><i data-w="41"></i></span><span class="hv">41%</span></div>'+
+        '<div class="crm-note">Occupancy, revenue, churn and free-hours utilisation refresh in Power BI, embedded across the app, portal and staff interface (ANL-01→05).</div>'+
+      '</div></div></div>';
+  }
+  /* forecast */
+  function crmForecast(){
+    var rows=[["West Bay","QAR 220k","QAR 480k","QAR 156k","QAR 376k","94%"],["Souq Waqif","QAR 150k","QAR 168k","QAR 62k","QAR 212k","106%"],["Lusail","QAR 260k","QAR 624k","QAR 214k","QAR 474k","82%"],["Msheireb","QAR 140k","QAR 180k","QAR 58k","QAR 198k","89%"]];
+    var body=rows.map(function(r){return '<tr><td><b>'+r[0]+'</b></td><td>'+r[1]+'</td><td>'+r[2]+'</td><td>'+r[3]+'</td><td>'+r[4]+'</td><td><span class="pill '+(parseInt(r[5],10)>=100?'won':'open')+'">'+r[5]+'</span></td></tr>'}).join("");
+    return cmd("Forecast","Rolling quarter · by location")+
+      '<div class="crm-view"><div class="crm-kpis">'+
+      '<div class="crm-kpi"><div class="kl">Quota</div><div class="kv">770k</div><div class="kc">QAR</div></div>'+
+      '<div class="crm-kpi"><div class="kl">Weighted pipeline</div><div class="kv">490k</div><div class="kc">QAR</div></div>'+
+      '<div class="crm-kpi"><div class="kl">Projected</div><div class="kv">1.26M</div><div class="kc">▲ QAR</div></div>'+
+      '<div class="crm-kpi"><div class="kl">Attainment</div><div class="kv">91%</div><div class="kc">to quota</div></div>'+
+      '</div><div class="crm-card"><h4>Forecast by location</h4><table class="crm-grid"><thead><tr><th>Location</th><th>Quota</th><th>Pipeline</th><th>Weighted</th><th>Projected</th><th>Attainment</th></tr></thead><tbody>'+body+'</tbody></table></div>'+
+      '<div class="crm-note">Weighted forecast applies stage probability; projected value includes committed contracts. Native forecasting in Dynamics 365 Sales.</div></div>';
+  }
+  /* copilot & agents */
+  function crmAgents(){
+    var ags=[
+      ["Copilot for Sales","Summarizes leads, opportunities and accounts, drafts emails, answers questions and prepares you for meetings — grounded in Dataverse.","Active",true],
+      ["Sales Qualification Agent","Autonomously researches and prioritizes new enquiries so the team engages the highest-intent leads first.","Active",true],
+      ["Predictive lead scoring","Grades every enquiry A–D from historical conversion signals, shown on each lead.","Active",true],
+      ["Predictive opportunity scoring","Scores open opportunities by likelihood to close, sharpening the forecast.","Active",true],
+      ["Copilot email assist","Drafts and summarizes customer emails inside Outlook, enriched with CRM context.","Active",true],
+      ["Sales Research Agent","Delivers decision-ready account and market insights in real time.","Preview",false]
+    ];
+    var rows=ags.map(function(a){return '<div class="agent"><div class="ag-ic">'+svg(SPK)+'</div><div><div class="ag-n">'+a[0]+'</div><div class="ag-d">'+a[1]+'</div></div><div class="ag-r"><span class="pill '+(a[2]==="Active"?"won":"new")+'">'+a[2]+'</span><button class="sw'+(a[3]?"":" off")+'" data-agent="'+a[0]+'" aria-label="Toggle agent"></button></div></div>'}).join("");
+    return cmd("Copilot & agents","Generative AI and autonomous agents")+
+      '<div class="crm-view"><div class="crm-note" style="margin-top:0;margin-bottom:16px">These AI capabilities are enabled for the Nestwork environment. Open <b>Copilot</b> from the top bar to interact with it live.</div>'+rows+'</div>';
+  }
+  /* integrations */
+  function crmIntegrations(){
+    var II={db:'<ellipse cx="12" cy="5" rx="8" ry="3"/><path d="M4 5v14c0 1.7 3.6 3 8 3s8-1.3 8-3V5"/>',doc:CI.doc,msg:'<path d="M21 11.5a8.4 8.4 0 0 1-9 8.4L3 21l1.1-3.3A8.4 8.4 0 1 1 21 11.5z"/>',bi:CI.bi,teams:'<rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 9h5v7a3 3 0 0 1-3 3"/>',auto:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>',inv:CI.inv,shield:'<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>'};
+    var ig=[
+      ["Corporate Microsoft Dynamics","db","d365","Two-way sync of customers, invoices, payments, GL codes and tax with reconciliation logs.","Connected · synced 4 min ago"],
+      ["SharePoint Online","doc","m365","Contracts, policies and knowledge documents with retention and DR.","Connected"],
+      ["WhatsApp · Azure Communication Services","msg","azure","Member announcements and service notifications.","Connected"],
+      ["Power BI","bi","pbi","Embedded occupancy, revenue and utilisation dashboards.","Connected · embedded"],
+      ["Outlook & Teams","teams","m365","Email, meetings and collaboration inside Microsoft 365.","Connected"],
+      ["Power Automate","auto","flow","Event-driven flows across billing, onboarding and communications.","6 active flows"],
+      ["Payment gateway","inv","azure","Online payments, settlement and reconciliation (PCI).","Connected"],
+      ["Microsoft Entra ID","shield","azure","Single sign-on (SAML / OAuth) and role-based access control.","Connected"]
+    ];
+    var rows=ig.map(function(x){return '<div class="intg"><div class="ig-ic" style="background:'+(P[x[2]]||"#0f6cbd")+'">'+svg(II[x[1]]||II.db)+'</div><div><div class="ig-n">'+x[0]+'</div><div class="ig-d">'+x[3]+'</div><div class="ig-s"><i></i> '+x[4]+'</div></div></div>'}).join("");
+    return cmd("Integrations","Connected Microsoft &amp; partner services")+
+      '<div class="crm-view"><div class="crm-note" style="margin-top:0;margin-bottom:16px">The CRM runs on one Dataverse model, connected to the wider Microsoft ecosystem.</div><div class="crm-grid-2">'+rows+'</div></div>';
+  }
+  /* create new lead (quick create) */
+  function nlField(label,id,type,extra){
+    if(type==="select")return '<div class="nl-f"><label class="nl-l">'+label+'</label><select id="'+id+'" class="nlinput">'+extra+'</select></div>';
+    return '<div class="nl-f"><label class="nl-l">'+label+'</label><input id="'+id+'" class="nlinput" placeholder="'+extra+'"></div>';
+  }
+  function crmNewLead(){
+    var srcOpts=["Website","Referral","Campaign","Walk-in","Event"].map(function(s){return '<option>'+s+'</option>'}).join("");
+    var locOpts=LOCS.map(function(l){return '<option>'+l.short+'</option>'}).join("");
+    return cmd('<span class="lk" style="cursor:pointer" data-back="leads">Enquiries</span> › New enquiry','Quick create · Lead')+
+      '<div class="crm-view"><div class="crm-form"><div class="crm-card"><h4>New enquiry</h4>'+
+        nlField("Company name *","nlCompany","input","e.g. Aurora Ventures")+
+        nlField("Primary contact","nlContact","input","Full name")+
+        nlField("Source","nlSource","select",srcOpts)+
+        nlField("Location","nlLoc","select",locOpts)+
+        nlField("Workspace requirement","nlPlan","select",SPACES.map(function(s){return '<option>'+s+'</option>'}).join(""))+
+        nlField("Budget","nlBudget","input","e.g. QAR 12k / mo")+
+        '<div style="display:flex;gap:8px;margin-top:6px"><button class="crm-btn pri" id="crmSaveLead">'+svg(CI.check)+' Create &amp; open</button><button class="crm-btn" id="crmCancelLead">Cancel</button></div>'+
+      '</div><div><div class="crm-card"><h4>What happens next</h4><p style="font-size:13px;color:var(--body);line-height:1.6">On save, the lead is created in Dataverse and opens with its business process flow. Push it through <b>'+BPF.join(" › ")+'</b> using <b>Qualify</b> and <b>Next stage</b> — qualifying creates the account &amp; opportunity (CRM-03).</p></div></div></div></div>';
+  }
+  function crmSaveLead(){
+    var comp=(($("#nlCompany")||{}).value||"").trim();
+    if(!comp){toast("Company required","Enter a company name to create the lead");return}
+    var n=2056; crmLeads.forEach(function(l){var m=parseInt((l.id||"").replace("L-",""),10);if(!isNaN(m)&&m>=n)n=m+1});
+    var id="L-"+n;
+    crmLeads.unshift({id:id,company:comp,contact:(($("#nlContact")||{}).value||"").trim()||"—",source:($("#nlSource")||{}).value||"Website",quality:"",loc:($("#nlLoc")||{}).value||"West Bay",plan:(($("#nlPlan")||{}).value||"").trim()||"—",budget:(($("#nlBudget")||{}).value||"").trim()||"—",rev:"—",stage:0,status:"New"});
+    LSCORE[id]=72;
+    crmLeadId=id; crmView="lead"; renderSide(); renderMain();
+    toast("Lead created","“"+comp+"” — push it through the process with Qualify → Next stage");
+  }
+  function initCRM(){ if(crmInit)return; crmInit=true; crmGo("dashboard"); }
+  pageTriggers.crm=function(){ initCRM(); };
+
   /* ============================ BOOT ============================ */
+  /* reliable count-up: animate every [data-count] when it scrolls into view */
+  (function(){ if(!("IntersectionObserver" in window))return;
+    var co=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){countUp(en.target);co.unobserve(en.target)}})},{threshold:.6});
+    $$("[data-count]").forEach(function(n){co.observe(n)});
+  })();
   bindTilt();
   var initial=location.hash.replace("#","")||"home";
   go(initial,true);
