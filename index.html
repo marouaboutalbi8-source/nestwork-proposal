@@ -292,6 +292,13 @@ h1.hero-h{color:var(--inv-ink);font-size:clamp(38px,8vw,108px);font-weight:800;l
 .aseg{display:flex;gap:7px;flex-wrap:wrap}
 .aseg button{flex:1;min-width:44px;background:var(--panel);border:1px solid var(--border);color:var(--body);border-radius:10px;padding:10px 4px;font-family:var(--f-mono);font-size:14px;cursor:pointer;transition:.2s}
 .aseg button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.aseg button.dis{opacity:.32;cursor:not-allowed;text-decoration:line-through}
+.bkavail{font-size:12.5px;line-height:1.5;margin:12px 0 2px;padding:10px 12px;border-radius:11px}
+.bkavail.ok{color:var(--good);background:rgba(15,122,83,.08);border:1px solid rgba(15,122,83,.25)}
+.bkavail.no{color:var(--accent);background:var(--accent-soft);border:1px solid var(--accent-line)}
+.bkavail b{color:var(--ink)}
+.room.rbusy{opacity:.55}
+.room.rbusy:hover{border-color:var(--border);transform:none;box-shadow:none}
 .chips{display:flex;gap:7px;flex-wrap:wrap}
 .chip{padding:9px 13px;border:1px solid var(--border);border-radius:30px;font-size:13px;color:var(--body);cursor:pointer;background:var(--panel);transition:.2s}
 .chip.on{background:var(--ink);color:var(--ground);border-color:var(--ink)}
@@ -893,6 +900,8 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
 .crmwin .crm-appbar .appttl,.crmwin .crm-appbar .appttl b{color:#fff}
 .crmwin .crm-appbar .waffle i{background:#fff}
 .crmwin .crm-appbar .crm-search{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.3);color:#fff;opacity:.92}
+.crm-appbar .crm-search input{flex:1;background:none;border:none;outline:none;color:#fff;font-family:inherit;font-size:12px;min-width:0}
+.crm-appbar .crm-search input::placeholder{color:rgba(255,255,255,.7)}
 .crmwin .crm-appbar .env{border-color:rgba(255,255,255,.35);color:#fff;opacity:.85}
 .crmwin .crm-appbar .crm-user{background:#fff;color:#0f6cbd}
 .crmwin .crm-nav.on{background:rgba(15,108,189,.09)}
@@ -1272,7 +1281,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
           <div class="crm-appbar">
             <div class="waffle"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
             <div class="appttl">Nestwork <b>Coworking CRM</b></div>
-            <div class="crm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg> Search</div>
+            <div class="crm-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4-4"/></svg><input id="crmSearch" placeholder="Search records…" autocomplete="off"></div>
             <div class="env">Prod · Qatar Central</div>
             <button class="cop-btn" id="copToggle"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l1.6 5.9L19.5 9.5l-5.9 1.6L12 17l-1.6-5.9L4.5 9.5l5.9-1.6z"/><path d="M18 14l.8 2.7 2.7.8-2.7.8L18 21l-.8-2.7-2.7-.8 2.7-.8z"/></svg> Copilot</button>
             <div class="crm-user">VS</div>
@@ -1396,6 +1405,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
                     <button data-h="1">1</button><button data-h="2" class="on">2</button><button data-h="3">3</button><button data-h="4">4</button><button data-h="6">6</button>
                   </div>
                 </div>
+                <div id="bkAvail" class="bkavail"></div>
                 <div class="est">
                   <div class="er"><span class="lbl">Free hours remaining</span><span class="val free" id="bkRemain">—</span></div>
                   <div class="er"><span class="lbl">Applied from entitlement</span><span class="val free" id="bkApplied">—</span></div>
@@ -1938,16 +1948,25 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     g.appendChild(c)})})();
 
   /* ============================ MEMBER APP ============================ */
+  /* busy = occupied [startHour,endHour] windows for TODAY (other dates are free) */
   var LOCS=[
     {id:"westbay",name:"West Bay · Burj Al Gassar",short:"West Bay",rate:145,rooms:[
-      {n:"Room A",cap:12,x:1,avail:true},{n:"Room B",cap:6,x:.7,avail:true}]},
+      {n:"Room A",cap:12,x:1,busy:[[13,16]]},{n:"Room B",cap:6,x:.7,busy:[[9,11],[17,19]]}]},
     {id:"souq",name:"Souq Waqif · Alfardan Centre",short:"Souq Waqif",rate:130,rooms:[
-      {n:"Room A",cap:10,x:1,avail:true},{n:"Room B",cap:6,x:.7,avail:true}]},
+      {n:"Room A",cap:10,x:1,busy:[[8,22]]},{n:"Room B",cap:6,x:.7,busy:[[11,12]]}]},
     {id:"lusail",name:"Lusail · Burj Alfardan",short:"Lusail",rate:150,rooms:[
-      {n:"Room A",cap:14,x:1,avail:true},{n:"Room B",cap:8,x:.7,avail:true}]},
+      {n:"Room A",cap:14,x:1,busy:[[14,17]]},{n:"Room B",cap:8,x:.7,busy:[]}]},
     {id:"msheireb",name:"Msheireb · M7",short:"Msheireb",rate:135,rooms:[
-      {n:"Room A",cap:12,x:1,avail:true},{n:"Room B",cap:6,x:.7,avail:true}]}
+      {n:"Room A",cap:12,x:1,busy:[[10,12]]},{n:"Room B",cap:6,x:.7,busy:[[18,20]]}]}
   ];
+  var HRS=[8,9,10,11,13,14,15,16,17,18], CLOSE=22;
+  function fmtH(h){return (h<10?"0":"")+h+":00"}
+  function roomBusyOf(loc,room,dateIdx){var r=LOCS[loc].rooms[room];return (dateIdx===0)?(r.busy||[]):[]}
+  function inBusy(busy,h){for(var i=0;i<busy.length;i++){if(h>=busy[i][0]&&h<busy[i][1])return busy[i]}return null}
+  function nextFree(busy,h){var w=inBusy(busy,h);return w?w[1]:h}
+  function maxDurFrom(busy,start){if(inBusy(busy,start))return 0;var cap=CLOSE-start;busy.forEach(function(w){if(w[0]>=start)cap=Math.min(cap,w[0]-start)});return Math.max(0,cap)}
+  function fullyBusyToday(loc,room){var b=roomBusyOf(loc,room,0),free=false;HRS.forEach(function(h){if(maxDurFrom(b,h)>0)free=true});return !free}
+  function memberConflict(dateIdx,start,dur){for(var i=0;i<app.bookings.length;i++){var b=app.bookings[i];if(b.dateIdx===dateIdx&&start<(b.startH+b.dur)&&b.startH<(start+dur))return b}return null}
   var VAT=0.00; // Qatar: no standard VAT; engine supports any rate per FIN spec
   var ENT=10;
   var app={remain:ENT,used:0,billed:0,loc:0,room:0,dur:2,date:0,start:2,bookings:[],notifs:[],notifSeen:false,seq:1042,tseq:5051,
@@ -2041,37 +2060,54 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
   function renderRooms(){
     var l=LOCS[app.loc]; $("#roomsSub").textContent=l.name;
     $("#roomList").innerHTML=l.rooms.map(function(r,i){
-      var rate=Math.round(l.rate*r.x);
-      return '<div class="room" data-room="'+i+'"><div class="rthumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>'+
-        '<div><div class="rn">'+r.n+'</div><div class="rmeta">'+r.cap+' pax · projector · whiteboard</div></div>'+
-        '<div class="rstat"><div class="avail '+(r.avail?"":"busy")+'">'+(r.avail?"Available":"Busy till 2pm")+'</div><div class="rrate">'+rate+' QAR/h overage</div></div></div>';
+      var rate=Math.round(l.rate*r.x), busyNow=fullyBusyToday(app.loc,i), b=roomBusyOf(app.loc,i,0);
+      var firstBusy=b.length?b[0]:null;
+      var stat=busyNow?'<div class="avail busy">Busy today</div>':'<div class="avail">Available</div>';
+      var hint=busyNow?'<div class="rrate">Free tomorrow</div>':(firstBusy?'<div class="rrate">Booked '+fmtH(firstBusy[0])+'–'+fmtH(firstBusy[1])+'</div>':'<div class="rrate">Free all day</div>');
+      return '<div class="room'+(busyNow?' rbusy':'')+'" data-room="'+i+'"><div class="rthumb"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div>'+
+        '<div><div class="rn">'+r.n+'</div><div class="rmeta">'+r.cap+' pax · '+rate+' QAR/h overage</div></div>'+
+        '<div class="rstat">'+stat+hint+'</div></div>';
     }).join("");
-    $$("#roomList .room").forEach(function(el){el.addEventListener("click",function(){openBook(+el.getAttribute("data-room"))})});
+    $$("#roomList .room").forEach(function(el){el.addEventListener("click",function(){var i=+el.getAttribute("data-room");if(fullyBusyToday(app.loc,i)){toast("Room unavailable","This room is fully booked today — try another room or tomorrow");return}openBook(i)})});
   }
   /* booking */
   var bkDur=$("#bkDur"),bkDate=$("#bkDate"),bkStart=$("#bkStart");
   ["Today","Tomorrow","Wed 15 Jul","Thu 16 Jul"].forEach(function(d,i){var o=document.createElement("option");o.value=i;o.textContent=d;bkDate.appendChild(o)});
-  ["08:00","09:00","10:00","11:00","13:00","14:00","15:00","16:00"].forEach(function(t,i){var o=document.createElement("option");o.value=i;o.textContent=t;bkStart.appendChild(o)});
-  $$("#bkDur button").forEach(function(b){b.addEventListener("click",function(){$$("#bkDur button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");app.dur=+b.getAttribute("data-h");bkPreview()})});
-  bkDate.addEventListener("change",function(){app.date=+bkDate.value});
-  bkStart.addEventListener("change",function(){app.start=+bkStart.value});
+  HRS.forEach(function(h,i){var o=document.createElement("option");o.value=i;o.textContent=fmtH(h);bkStart.appendChild(o)});
+  $$("#bkDur button").forEach(function(b){b.addEventListener("click",function(){if(b.classList.contains("dis"))return;$$("#bkDur button").forEach(function(x){x.classList.remove("on")});b.classList.add("on");app.dur=+b.getAttribute("data-h");bkPreview()})});
+  bkDate.addEventListener("change",function(){app.date=+bkDate.value;bkPreview()});
+  bkStart.addEventListener("change",function(){app.start=+bkStart.value;bkPreview()});
   function curRate(){var l=LOCS[app.loc],r=l.rooms[app.room];return Math.round(l.rate*r.x)}
   function bkCalc(){var rate=curRate(),applied=Math.min(app.remain,app.dur),over=Math.max(0,app.dur-app.remain),net=over*rate,total=net*(1+VAT);return{rate:rate,applied:applied,over:over,total:total}}
   function openBook(ri){app.room=ri;var l=LOCS[app.loc],r=l.rooms[ri];$("#bkRoomName").textContent=r.n;$("#bkRoomMeta").textContent=r.cap+" pax · "+l.short;bkPreview();show("book")}
-  function bkPreview(){var c=bkCalc();
+  function bkPreview(){
+    var c=bkCalc(), busy=roomBusyOf(app.loc,app.room,app.date), start=HRS[app.start], md=maxDurFrom(busy,start), conflict=memberConflict(app.date,start,app.dur);
+    // enable/disable duration options by availability
+    $$("#bkDur button").forEach(function(b){var h=+b.getAttribute("data-h");b.classList.toggle("dis",h>md)});
+    var ok=true, msg="";
+    if(md===0){ ok=false; var nf=nextFree(busy,start); msg='✕ Not available at '+fmtH(start)+' — room is booked. Next free at <b>'+fmtH(nf)+'</b>.'; }
+    else if(conflict){ ok=false; msg='✕ You already have '+conflict.room+' at '+conflict.start+'. You can’t hold two rooms at the same time.'; }
+    else if(app.dur>md){ ok=false; msg='✕ Only <b>'+md+' h</b> free from '+fmtH(start)+' (room booked at '+fmtH(start+md)+'). Pick a shorter slot or a later start.'; }
+    else { msg='✓ Available — up to <b>'+md+' h</b> from '+fmtH(start)+'.'; }
+    var av=$("#bkAvail"); if(av){av.className="bkavail "+(ok?"ok":"no");av.innerHTML=msg}
     $("#bkRemain").textContent=app.remain.toFixed(1)+" h";
     $("#bkApplied").textContent=c.applied.toFixed(1)+" h";
     $("#bkOver").textContent=c.over>0?("+"+c.over.toFixed(1)+" h"):"0 h";
     $("#bkRate").textContent=fmt(c.rate)+" QAR · "+(VAT*100).toFixed(0)+"%";
     $("#bkTotal").textContent=c.total>0?fmt(c.total)+" QAR":"No charge";
     $("#bkTotal").className="val "+(c.total>0?"over":"free");
+    var cb=$("#bkConfirm"); if(cb){cb.disabled=!ok;cb.style.opacity=ok?"1":".5";cb.style.cursor=ok?"pointer":"not-allowed"}
   }
   $("#bkCancel").addEventListener("click",function(){show("rooms")});
   $("#bkConfirm").addEventListener("click",function(){
+    var busy=roomBusyOf(app.loc,app.room,app.date), start=HRS[app.start], md=maxDurFrom(busy,start), conflict=memberConflict(app.date,start,app.dur);
+    if(md===0){toast("Not available","That room is booked at "+fmtH(start));return}
+    if(conflict){toast("Double booking blocked","You already have "+conflict.room+" at "+conflict.start);return}
+    if(app.dur>md){toast("Slot too long","Only "+md+" h free from "+fmtH(start));return}
     var c=bkCalc(),l=LOCS[app.loc],r=l.rooms[app.room];
-    app.bookings.unshift({room:r.n,loc:l.short,date:bkDate.options[app.date].text,start:bkStart.options[app.start].text,dur:app.dur,applied:c.applied,over:c.over,total:c.total,inv:app.seq++});
+    app.bookings.unshift({room:r.n,loc:l.short,date:bkDate.options[app.date].text,dateIdx:app.date,startH:start,start:fmtH(start),dur:app.dur,applied:c.applied,over:c.over,total:c.total,inv:app.seq++});
     app.remain=Math.max(0,app.remain-c.applied);app.used+=app.dur;app.billed+=c.total;
-    app.notifs.unshift({i:"cal",h:"Booking confirmed — "+r.n,d:bkDate.options[app.date].text+" "+bkStart.options[app.start].text+", "+app.dur+"h"+(c.over>0?" · "+fmt(c.total)+" QAR overage":" · free hours applied"),t:"now"});
+    app.notifs.unshift({i:"cal",h:"Booking confirmed — "+r.n,d:bkDate.options[app.date].text+" "+fmtH(start)+", "+app.dur+"h"+(c.over>0?" · "+fmt(c.total)+" QAR overage":" · free hours applied"),t:"now"});
     app.notifSeen=false; updateBell();
     ring();renderHome();
     toast(c.over>0?"Booking confirmed · overage invoiced":"Booking confirmed · free hours applied", c.over>0?fmt(c.total)+" QAR queued · ICS invite sent":"No charge · ICS invite sent");
@@ -2709,6 +2745,14 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     else if(crmView==="integrations")m.innerHTML=crmIntegrations();
     wireMain();
     if(crmView==="dashboard"||crmView==="analytics"||crmView==="forecast")animateCrmBars();
+    applyCrmSearch();
+  }
+  function applyCrmSearch(){
+    var el=$("#crmSearch"); if(!el)return; var q=(el.value||"").toLowerCase().trim();
+    var rows=$$("#crmMain .crm-grid tbody tr"), shown=0;
+    rows.forEach(function(r){var m=!q||r.textContent.toLowerCase().indexOf(q)>-1;r.style.display=m?"":"none";if(m)shown++});
+    var old=$("#crmSearchEmpty"); if(old)old.parentNode.removeChild(old);
+    if(q&&rows.length&&shown===0){var v=$("#crmMain .crm-view");if(v){var d=document.createElement("div");d.id="crmSearchEmpty";d.className="crm-note";d.textContent='No records match “'+el.value+'”.';v.appendChild(d)}}
   }
   function wireMain(){
     $$("#crmMain [data-lead]").forEach(function(r){r.addEventListener("click",function(){crmLeadId=r.getAttribute("data-lead");crmView="lead";renderSide();renderMain()})});
@@ -2750,7 +2794,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var scored=crmLeads.filter(function(l){return l.quality}).length||1;
     var counts=[0,0,0,0];crmPipe.forEach(function(p){counts[p.stage]++});
     var mx=Math.max.apply(null,counts)||1;
-    var bars=KAN.map(function(k,i){return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:flex-end"><div style="font-family:var(--f-mono);font-size:11px;color:var(--ink)">'+counts[i]+'</div><div class="crmbar" data-h="'+(counts[i]/mx*100)+'" style="width:100%;max-width:52px;background:linear-gradient(var(--accent),#ff8a5c);border-radius:6px 6px 0 0;height:0;transition:height .9s var(--ease)"></div><div style="font-family:var(--f-mono);font-size:10px;color:var(--muted);text-transform:uppercase;text-align:center">'+k+'</div></div>'}).join("");
+    var bars=KAN.map(function(k,i){return '<div style="flex:1;height:100%;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:flex-end"><div style="font-family:var(--f-mono);font-size:11px;color:var(--ink)">'+counts[i]+'</div><div class="crmbar" data-h="'+(counts[i]/mx*100)+'" style="width:100%;max-width:52px;min-height:4px;background:linear-gradient(var(--accent),#ff8a5c);border-radius:6px 6px 0 0;height:0;transition:height .9s var(--ease)"></div><div style="font-family:var(--f-mono);font-size:10px;color:var(--muted);text-transform:uppercase;text-align:center">'+k+'</div></div>'}).join("");
     var acts=[["Lead qualified — Meridian Studio","Sara Kamal · 12 min ago","check"],["Contract NW-1055 activated — Qanat Capital","Lusail · 1 h ago","contract"],["Invoice INV-1061 overdue — Najma Health","QAR 15,000 · 2 h ago","inv"],["New enquiry — Cedar Analytics","Campaign · Msheireb · 3 h ago","lead"]];
     return cmd("Sales dashboard","Nestwork Coworking CRM · Qatar Central")+
       '<div class="crm-view">'+
@@ -2934,6 +2978,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var t=$("#copToggle"),x=$("#copClose"),pane=$("#copilotPane");
     if(t)t.addEventListener("click",function(){pane.classList.toggle("open")});
     if(x)x.addEventListener("click",function(){pane.classList.remove("open")});
+    var cse=$("#crmSearch");if(cse)cse.addEventListener("input",applyCrmSearch);
   })();
   /* Platform capability + AI tiles */
   var OI={sparkle:SPK,robot:'<rect x="4" y="8" width="16" height="12" rx="2"/><path d="M12 4v4M9 13h.01M15 13h.01M8.5 17h7"/>',gauge:'<path d="M4 18a8 8 0 1 1 16 0"/><path d="M12 14l4-4"/>',flow:'<circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="18" r="2.5"/><path d="M6 8.5V15a3 3 0 0 0 3 3h6.5"/>',chart:'<path d="M3 3v18h18"/><path d="M7 14l3-4 3 3 4-6"/>',mail:'<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/>',people:'<circle cx="9" cy="8" r="3.5"/><path d="M3 20c0-3 3-5 6-5s6 2 6 5"/><circle cx="17.5" cy="8.5" r="2.5"/>',ticket:'<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',bi:'<path d="M3 3v18h18"/><rect x="7" y="11" width="3" height="6"/><rect x="12" y="7" width="3" height="10"/><rect x="17" y="13" width="3" height="4"/>',teams:'<rect x="3" y="6" width="12" height="12" rx="2"/><path d="M15 9h5v7a3 3 0 0 1-3 3"/>',shield:'<path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',auto:'<path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>'};
@@ -2961,7 +3006,7 @@ footer .conf{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.1em;text
     var funnel=[["Develop",480],["Propose",624],["Lease signed",180],["Won",300]],fmax=624;
     var fbars=funnel.map(function(f){return '<div class="hbar"><span class="hl">'+f[0]+'</span><span class="ht"><i data-w="'+(f[1]/fmax*100)+'"></i></span><span class="hv">'+f[1]+'k</span></div>'}).join("");
     var rev=[["West Bay",92],["Souq Waqif",64],["Lusail",88],["Msheireb",71]],rmax=92;
-    var rbars='<div style="display:flex;align-items:flex-end;gap:14px;height:170px">'+rev.map(function(r){return '<div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:flex-end"><div style="font-family:var(--f-mono);font-size:11px;color:var(--ink)">'+r[1]+'k</div><div data-h="'+(r[1]/rmax*100)+'" style="width:100%;max-width:46px;height:0;border-radius:5px 5px 0 0;background:linear-gradient(#0f6cbd,#5aa0e0);transition:height .9s var(--ease)"></div><div style="font-family:var(--f-mono);font-size:10px;color:var(--muted);text-align:center">'+r[0]+'</div></div>'}).join("")+'</div>';
+    var rbars='<div style="display:flex;align-items:flex-end;gap:14px;height:170px">'+rev.map(function(r){return '<div style="flex:1;height:100%;display:flex;flex-direction:column;align-items:center;gap:8px;justify-content:flex-end"><div style="font-family:var(--f-mono);font-size:11px;color:var(--ink)">'+r[1]+'k</div><div data-h="'+(r[1]/rmax*100)+'" style="width:100%;max-width:46px;min-height:4px;height:0;border-radius:5px 5px 0 0;background:linear-gradient(#0f6cbd,#5aa0e0);transition:height .9s var(--ease)"></div><div style="font-family:var(--f-mono);font-size:10px;color:var(--muted);text-align:center">'+r[0]+'</div></div>'}).join("")+'</div>';
     var src=[["Website",42,"#0f6cbd"],["Referral",26,"#8a55c9"],["Campaign",20,"#1aa39a"],["Walk-in",12,"#8a8886"]];
     var off=25,dh="";src.forEach(function(s){dh+='<circle cx="21" cy="21" r="15.9155" fill="transparent" stroke="'+s[2]+'" stroke-width="5" stroke-dasharray="'+s[1]+' '+(100-s[1])+'" stroke-dashoffset="'+off+'"/>';off=(off-s[1]+100)%100});
     var donut='<div class="crm-donut"><svg viewBox="0 0 42 42">'+dh+'</svg><div class="crm-lgd">'+src.map(function(s){return '<div class="li"><i style="background:'+s[2]+'"></i>'+s[0]+'<b>'+s[1]+'%</b></div>'}).join("")+'</div></div>';
